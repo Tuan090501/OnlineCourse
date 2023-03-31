@@ -4,135 +4,153 @@ import "./Manage.scss"
 import { DataGrid } from "@mui/x-data-grid"
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined"
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import UserDetail from "../../components/UserDetail/UserDetail"
 
 
 
-const rows = [
-  {
-    id: 1,
-    avatar:
-      "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-    firstName: "Filippo",
-    lastName: "Inzaghi",
-    fullName: "Filippo Inzaghi",
-    email: "inzaghi@gmail.com",
-    type: "user",
-    status: "active",
-  },
-  {
-    id: 1,
-    avatar:
-      "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-    firstName: "Filippo",
-    lastName: "Inzaghi",
-    fullName: "Filippo Inzaghi",
-    email: "inzaghi@gmail.com",
-    type: "user",
-    status: "active",
-  },
-  {
-    id: 1,
-    avatar:
-      "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-    firstName: "Filippo",
-    lastName: "Inzaghi",
-    fullName: "Filippo Inzaghi",
-    email: "inzaghi@gmail.com",
-    type: "user",
-    status: "active",
-  },
-  {
-    id: 1,
-    avatar:
-      "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-    firstName: "Filippo",
-    lastName: "Inzaghi",
-    fullName: "Filippo Inzaghi",
-    email: "inzaghi@gmail.com",
-    type: "user",
-    status: "active",
-  },
-  {
-    id: 1,
-    avatar:
-      "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-    firstName: "Filippo",
-    lastName: "Inzaghi",
-    fullName: "Filippo Inzaghi",
-    email: "inzaghi@gmail.com",
-    type: "user",
-    status: "active",
-  },
-  {
-    id: 1,
-    avatar:
-      "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-    firstName: "Filippo",
-    lastName: "Inzaghi",
-    fullName: "Filippo Inzaghi",
-    email: "inzaghi@gmail.com",
-    type: "user",
-    status: "active",
-  },
-  {
-    id: 1,
-    avatar:
-      "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-    firstName: "Filippo",
-    lastName: "Inzaghi",
-    fullName: "Filippo Inzaghi",
-    email: "inzaghi@gmail.com",
-    type: "user",
-    status: "active",
-  },
-  {
-    id: 1,
-    avatar:
-      "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-    firstName: "Filippo",
-    lastName: "Inzaghi",
-    fullName: "Filippo Inzaghi",
-    email: "inzaghi@gmail.com",
-    type: "user",
-    status: "active",
-  },
-  {
-    id: 1,
-    avatar:
-      "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-    firstName: "Filippo",
-    lastName: "Inzaghi",
-    fullName: "Filippo Inzaghi",
-    email: "inzaghi@gmail.com",
-    type: "user",
-    status: "active",
-  },
-  {
-    id: 1,
-    avatar:
-      "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-    firstName: "Filippo",
-    lastName: "Inzaghi",
-    fullName: "Filippo Inzaghi",
-    email: "inzaghi@gmail.com",
-    type: "user",
-    status: "active",
-  },
-]
-
 function ManageUser() {
   const [open, setOpen] = useState(false)
+  const [users, setUsers] = useState([]);
+  const [searchApiData, setSearchApiData] = useState([]);
+  
+  useEffect(() => {
+    const fetchUsers = async ()=>{
+      const rows = [
+        {
+          id: 1,
+          avatar:
+            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
+          firstName: "Tuan",
+          lastName: "Nguyen",
+          fullName: "Filippo Inzaghi",
+          email: "tuannguyen@gmail.com",
+          type: "user",
+          status: "active",
+        },
+        {
+          id: 1,
+          avatar:
+            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
+          firstName: "Filippo",
+          lastName: "Inzaghi",
+          fullName: "Filippo Inzaghi",
+          email: "inzaghi@gmail.com",
+          type: "user",
+          status: "active",
+        },
+        {
+          id: 1,
+          avatar:
+            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
+          firstName: "Filippo",
+          lastName: "Inzaghi",
+          fullName: "Filippo Inzaghi",
+          email: "inzaghi@gmail.com",
+          type: "user",
+          status: "active",
+        },
+        {
+          id: 1,
+          avatar:
+            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
+          firstName: "Filippo",
+          lastName: "Inzaghi",
+          fullName: "Filippo Inzaghi",
+          email: "inzaghi@gmail.com",
+          type: "user",
+          status: "active",
+        },
+        {
+          id: 1,
+          avatar:
+            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
+          firstName: "Filippo",
+          lastName: "Inzaghi",
+          fullName: "Filippo Inzaghi",
+          email: "inzaghi@gmail.com",
+          type: "user",
+          status: "active",
+        },
+        {
+          id: 1,
+          avatar:
+            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
+          firstName: "Filippo",
+          lastName: "Inzaghi",
+          fullName: "Filippo Inzaghi",
+          email: "inzaghi@gmail.com",
+          type: "user",
+          status: "active",
+        },
+        {
+          id: 1,
+          avatar:
+            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
+          firstName: "Filippo",
+          lastName: "Inzaghi",
+          fullName: "Filippo Inzaghi",
+          email: "inzaghi@gmail.com",
+          type: "user",
+          status: "active",
+        },
+        {
+          id: 1,
+          avatar:
+            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
+          firstName: "Filippo",
+          lastName: "Inzaghi",
+          fullName: "Filippo Inzaghi",
+          email: "inzaghi@gmail.com",
+          type: "user",
+          status: "active",
+        },
+        {
+          id: 1,
+          avatar:
+            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
+          firstName: "Filippo",
+          lastName: "Inzaghi",
+          fullName: "Filippo Inzaghi",
+          email: "inzaghi@gmail.com",
+          type: "user",
+          status: "active",
+        },
+        {
+          id: 1,
+          avatar:
+            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
+          firstName: "Filippo",
+          lastName: "Inzaghi",
+          fullName: "Filippo Inzaghi",
+          email: "inzaghi@gmail.com",
+          type: "user",
+          status: "active",
+        },
+      ]
+      setUsers(rows);
+      setSearchApiData(rows);
+    }
+    fetchUsers();
+   
+  }, []);
+  const handleSearch = (e)=>{
+    if(e.target.value ===''){
+        setUsers(searchApiData)
+     } else  {
+      const filterResult = searchApiData.filter(item =>item.email.toLowerCase().includes(e.target.value.toLowerCase()) );
+      setUsers(filterResult);
 
+     }
+     
+  }
+  console.log(searchApiData)
   const handleOpen = () => {
     setOpen(true)
   }
-
   const handleClose = () => {
     setOpen(false)
   }
-
   const columns = [
     {
       field: "avatar",
@@ -201,7 +219,6 @@ function ManageUser() {
       ),
     },
   ]
-
   return (
     <Box className='manage-page'>
       <Box className='create-container'>
@@ -209,14 +226,15 @@ function ManageUser() {
       </Box>
 
       <Box className='searchBar-wrapper'>
-        <SearchBar placeholder='Search user by name or email' />
+        <SearchBar handleSearch={handleSearch}   placeholder='Search user by name or email'  />
       </Box>
 
       <Box className='manage-wrapper'>
         <DataGrid
+        
           rowHeight={60}
           className='manage-table'
-          rows={rows}
+          rows={users}
           columns={columns}
           initialState={{
             pagination: {
