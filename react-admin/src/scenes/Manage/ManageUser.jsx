@@ -245,6 +245,7 @@ function ManageUser() {
           }}
           pageSizeOptions={[5]}
           disableRowSelectionOnClick
+          checkboxSelection
         />
       </Box>
 

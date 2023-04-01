@@ -300,6 +300,7 @@ function ManageLecturer() {
                   }}
                   pageSizeOptions={[5]}
                   disableRowSelectionOnClick
+                  checkboxSelection
                 />
               </Box>
             }
@@ -324,6 +325,7 @@ function ManageLecturer() {
                 }}
                 pageSizeOptions={[5]}
                 disableRowSelectionOnClick
+                checkboxSelection
               />
             </Box>
           }

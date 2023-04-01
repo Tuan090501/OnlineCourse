@@ -206,6 +206,7 @@ function ManageCourse() {
                   }}
                   pageSizeOptions={[5]}
                   disableRowSelectionOnClick
+                  checkboxSelection
                 />
               </Box>
             }
@@ -230,6 +231,7 @@ function ManageCourse() {
                 }}
                 pageSizeOptions={[5]}
                 disableRowSelectionOnClick
+                checkboxSelection
               />
             </Box>
           }
