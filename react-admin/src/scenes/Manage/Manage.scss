@@ -6,23 +6,8 @@
   margin: 20px;
   min-height: calc(100vh - 108px);
 
-  // Create user button - managePage
-  .create-container {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-
-    .create-example {
-      max-height: 100%;
-      margin-right: 10px;
-      width: 400px;
-      border: 1px solid #a7a7a7;
-      border-radius: 4px;
-      padding: 13px 18px;
-      color: #a7a7a7;
-    }
-
-    .create-btn {
+  .create-container{
+    .create-btn{
       font-size: 16px;
       height: 100%;
       padding: 14px 18px;
@@ -41,16 +26,6 @@
       }
     }
   }
-  // end
-
-  .category-note{
-    position: relative;
-    top: 16px;
-    font-style: italic;
-    color: #f94412;
-  }
-
-  //   Manage lecturer: Course list + pending list button
 
   .option-list {
     display: flex;
@@ -77,10 +52,6 @@
 
   // end
 
-
-  .category-note{
-
-  }
 
   .manage-wrapper,
   .searchBar-wrapper {
@@ -197,8 +168,8 @@
   }
 }
 
-.manage-page-category{
-  .manage-wrapper{
+.manage-page-category {
+  .manage-wrapper {
     display: flex;
     flex-direction: column;
     height: 500px;
@@ -211,4 +182,3 @@
     margin: 15px;
   }
 }
-
