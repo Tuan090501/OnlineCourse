@@ -13,7 +13,7 @@ function ManageUser() {
   const [open, setOpen] = useState(false)
   const [users, setUsers] = useState([]);
   const [searchApiData, setSearchApiData] = useState([]);
-  
+
   useEffect(() => {
     const fetchUsers = async ()=>{
       const rows = [
@@ -138,7 +138,7 @@ function ManageUser() {
     if(e.target.value ===''){
         setUsers(searchApiData)
      } else  {
-      const filterResult = searchApiData.filter(item =>item.email.toLowerCase().includes(e.target.value.toLowerCase()) );
+      const filterResult = searchApiData.filter(item =>item.email.toLowerCase().includes(e.target.value.toLowerCase()) || item.firstName.toLowerCase().includes(e.target.value.toLowerCase()));
       setUsers(filterResult);
 
      }
