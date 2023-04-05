@@ -1,0 +1,221 @@
+::-webkit-scrollbar { 
+    border-radius: 0;
+    height: 8px;
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,.2);
+    border-radius: 4px;
+}
+
+.App_withSidebar {
+    display: flex;
+    min-height: 100vh;
+}
+
+.Home_wrapper {
+    margin-top: 70px;
+    overflow: hidden;
+    padding: 0 44px 74px;  
+    flex: 1 1;
+}
+
+.ScrollList_vertical {
+    margin-bottom: 8px;
+}
+
+.ScrollList_heading-wrap {
+    align-items: baseline;
+    display: flex;
+}
+
+.ScrollList_heading {
+    color: #242424;
+    font-size: 2.4rem;
+    font-weight: 900;
+    margin-right: auto;
+    margin-top: 16px;
+}
+
+.ScrollList_heading {
+    color: #242424;
+    font-size: 2.4rem;
+    font-weight: 900;
+    margin-right: auto;
+    margin-top: 16px;
+}
+
+.ScrollList_title {
+    font-weight: 800;
+}
+
+.ScrollList_label {
+    background-color: #1473e6;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 3px 6px;
+    position: relative;
+    right: -8px;
+    text-transform: uppercase;
+    top: -6px;
+}
+
+.ScrollList_body {
+    min-height: 200px;
+    padding-bottom: 0;
+}
+
+.index-module_row {
+    margin-left: -12px;
+    margin-right: -12px;
+}
+
+.index-module_row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -4px;
+    margin-right: -4px;
+}
+
+.index-module_l-3 {
+    width: calc((100% - 120px)/4);
+    // width: 25%;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.Home_courseItem {
+    overflow: unset;
+    position: relative;
+}
+
+.CommonItem_wrapper {
+    flex-shrink: 0;
+    margin-bottom: 32px;
+    overflow: hidden;
+}
+
+a:focus, a:hover, a:visited {
+    outline: none;
+    text-decoration: none;
+}
+
+.CommonItem_thumb {
+    background-color: rgba(0,0,0,.1);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 16px;
+    display: block;
+    object-fit: cover;
+    overflow: hidden;
+    padding-top: 56.25%;
+    position: relative;
+    width: 100%;
+}
+
+.CommonItem_cta-btn {
+    background-color: #fff;
+    border-color: #fff;
+    color: #000;
+    left: 50%;
+    opacity: 0;
+    position: absolute;
+    top: 60%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    transition: all .3s ease 0s;
+    visibility: hidden;
+    z-index: 1;
+}
+
+.Button_btn:hover {
+    cursor: pointer;
+    opacity: .9;
+}
+
+.Button_btn {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    border: 1px solid #fff;
+    border-radius: 999px !important;
+    color: #000;
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    outline: none;
+    padding: 9px 16px;
+    text-align: center;
+    transition: .3s ease;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.CommonItem_thumb.CommonItem_has-link:after {
+    background-color: rgba(0,0,0,.5);
+    border-radius: 16px;
+    content: "";
+    inset: 0;
+    opacity: 0;
+    position: absolute;
+    transition: all .3s ease 0s;
+    visibility: hidden;
+}
+
+.CommonItem_thumb.CommonItem_has-link:hover .CommonItem_cta-btn {
+    top: 50%;
+}
+
+.CommonItem_thumb.CommonItem_has-link:hover .CommonItem_cta-btn, .CommonItem_thumb.CommonItem_has-link:hover:after {
+    opacity: 1;
+    visibility: visible;
+}
+
+h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: 600;
+}
+
+.CommonItem_title a, .CommonItem_title span {
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    color: #292929;
+    display: -webkit-box;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    overflow: hidden;
+}
+
+.CourseItem_pro-icon {
+    background-color: rgba(0,0,0,.3);
+    border-radius: 8px;
+    left: 12px;
+    padding: 5px;
+    pointer-events: none;
+    position: absolute;
+    top: 12px;
+    width: 18px;
+    height: 20px;
+}
+
+.CourseItem_old-price {
+    font-size: 1rem;
+    margin-right: 8px;
+    text-decoration: line-through;
+}
+
+.CourseItem_main-price {
+    color: #f05123;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
