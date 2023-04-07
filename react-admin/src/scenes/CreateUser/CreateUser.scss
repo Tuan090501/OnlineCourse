@@ -4,15 +4,12 @@
   position: relative;
 
   &__body {
-    padding: 20px 20px 47px 20px;
+    padding: 20px;
 
     .create-user__form-container {
       width: 100%;
 
       button[type="submit"] {
-        position: absolute;
-        bottom: 20px;
-        right: 44px;
         padding: 12px 20px;
         border: none;
         border-radius: 4px;
@@ -42,7 +39,6 @@
           transition: all 0.12s ease-out;
           border-radius: 4px;
           border: 1px solid #999;
-
           &:focus {
             border-color: red;
           }
@@ -51,6 +47,10 @@
             outline: none;
           }
         }
+      }
+      .create-user__form-item-btn{
+        display: flex;
+        justify-content: flex-end;
       }
     }
   }

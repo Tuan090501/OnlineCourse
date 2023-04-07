@@ -68,11 +68,14 @@ function CreateUser() {
     <Box className='create-user'>
       <Divider />
       <Box className='create-user__body'>
-        <form className='create-user__form'>
+        <form
+          className='create-user__form'
+          autoComplete='false'
+        >
           <Grid
             container
             className='create-user__form-container'
-            spacing={3}
+            spacing={2}
           >
             <Grid
               item
@@ -84,7 +87,8 @@ function CreateUser() {
 
             <Grid
               item
-              xs={6}
+              xs={12}
+              sm={6}
               className='create-user__form-item'
             >
               <label for='email'>Email</label>
@@ -93,12 +97,14 @@ function CreateUser() {
                 type='email'
                 id='email'
                 placeholder='Enter your email'
+                autoComplete='off'
               ></input>
             </Grid>
 
             <Grid
               item
-              xs={6}
+              xs={12}
+              sm={6}
               className='create-user__form-item'
             >
               <label for='password'>Password</label>
@@ -107,6 +113,7 @@ function CreateUser() {
                 type='password'
                 id='password'
                 placeholder='Enter your password'
+                autocomplete='new-password'
               ></input>
             </Grid>
 
@@ -120,7 +127,8 @@ function CreateUser() {
 
             <Grid
               item
-              xs={6}
+              xs={12}
+              sm={6}
               className='create-user__form-item'
             >
               <label for='user-name'>User Name</label>
@@ -134,7 +142,8 @@ function CreateUser() {
 
             <Grid
               item
-              xs={6}
+              xs={12}
+              sm={6}
               className='create-user__form-item'
             >
               <label for='role'>Role</label>
@@ -150,7 +159,8 @@ function CreateUser() {
 
             <Grid
               item
-              xs={6}
+              xs={12}
+              sm={6}
               className='create-user__form-item'
             >
               <label for='gender'>Gender</label>
@@ -166,7 +176,8 @@ function CreateUser() {
 
             <Grid
               item
-              xs={6}
+              xs={12}
+              sm={6}
               className='create-user__form-item'
             >
               <label for='phone'>Phone number</label>
@@ -177,12 +188,14 @@ function CreateUser() {
                 pattern='[0-9]{10}'
                 title='Ten digits code'
                 placeholder='(+84)'
+                autoComplete='off'
               ></input>
             </Grid>
 
             <Grid
               item
-              xs={6}
+              xs={12}
+              sm={6}
               className='create-user__form-item'
             >
               <label for='phone'>Avatar</label>
@@ -205,7 +218,8 @@ function CreateUser() {
 
             <Grid
               item
-              xs={4}
+              xs={12}
+              sm={6}
               className='create-user__form-item'
             >
               <label for='address-province'>Province</label>
@@ -222,7 +236,9 @@ function CreateUser() {
 
             <Grid
               item
-              xs={4}
+              sm={6}
+              xs={12}
+
               className='create-user__form-item'
             >
               <label for='address-district'>District</label>
@@ -239,7 +255,8 @@ function CreateUser() {
 
             <Grid
               item
-              xs={4}
+              sm={6}
+              xs={12}
               className='create-user__form-item'
             >
               <label for='address-ward'>Ward</label>
@@ -255,7 +272,8 @@ function CreateUser() {
 
             <Grid
               item
-              xs={4}
+              xs={12}
+              sm={6}
               className='create-user__form-item'
             >
               <label for='address-street-house'>
@@ -266,10 +284,17 @@ function CreateUser() {
                 name='addressStreetHouse'
                 id='address-street-house'
                 placeholder='Enter your street name, house number'
+                autoComplete='off'
               ></input>
             </Grid>
 
-            <button type="submit">Create</button>
+            <Grid
+              item
+              xs={12}
+              className='create-user__form-item-btn'
+            >
+              <button type='submit'>Create</button>
+            </Grid>
           </Grid>
         </form>
       </Box>
