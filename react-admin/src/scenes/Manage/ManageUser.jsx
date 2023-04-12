@@ -3,131 +3,86 @@ import SearchBar from "../../components/SearchBar/SearchBar"
 import "./Manage.scss"
 import { DataGrid } from "@mui/x-data-grid"
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined"
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined"
+import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined"
 import { useState, useEffect } from "react"
 import UserDetail from "../../components/UserDetail/UserDetail"
+import { Link, Route, Routes, useNavigate } from "react-router-dom"
 
-
+const optionListBtns = [
+  {
+    text: "User",
+    path: "/manage-user/user-list",
+  },
+  {
+    text: "Pending",
+    path: "/manage-user/pending-list",
+  },
+]
 
 function ManageUser() {
+<<<<<<< HEAD
   const [open, setOpen] = useState(false)
   const [users, setUsers] = useState([]);
   const [searchApiData, setSearchApiData] = useState([]);
+=======
+  const [active, setActive] = useState(optionListBtns[0])
+  const [openUserDetailModal, setOpenUserDetailModal] = useState(false)
+
+  const [selectedRowData, setSelectedRowData] = useState(null)
+
+  const [users, setUsers] = useState([])
+  const [searchApiData, setSearchApiData] = useState([])
+
+  const navigate = useNavigate()
+
+  const getActiveUsers = () => {
+    return users.filter((item) => item.status === "active")
+  }
+
+  const getUnactiveUsers = () => {
+    return users.filter((item) => item.status === "unactive")
+  }
+>>>>>>> 27e7c05964179d7b89a3d9b78938f78bdf11b74a
 
   useEffect(() => {
-    const fetchUsers = async ()=>{
+    const fetchUsers = async () => {
       const rows = [
         {
           id: 1,
           avatar:
             "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-          firstName: "Tuan",
-          lastName: "Nguyen",
-          fullName: "Filippo Inzaghi",
+          userName: "Tuan Nguyen",
           email: "tuannguyen@gmail.com",
-          type: "user",
+          fullName: "tuan",
+          role: "Lecturer",
           status: "active",
+          gender: "female",
+          phone: "0766620266",
         },
         {
-          id: 1,
+          id: 2,
           avatar:
             "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-          firstName: "Filippo",
-          lastName: "Inzaghi",
-          fullName: "Filippo Inzaghi",
+          userName: "Filippo Inzaghi",
+          fullName: "what the fuck",
           email: "inzaghi@gmail.com",
-          type: "user",
+          role: "User",
           status: "active",
+          gender: "male",
         },
         {
-          id: 1,
+          id: 3,
           avatar:
             "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-          firstName: "Filippo",
-          lastName: "Inzaghi",
-          fullName: "Filippo Inzaghi",
+          userName: "Noob",
+          fullName: "NOooooob",
+          gender: "other",
           email: "inzaghi@gmail.com",
-          type: "user",
-          status: "active",
-        },
-        {
-          id: 1,
-          avatar:
-            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-          firstName: "Filippo",
-          lastName: "Inzaghi",
-          fullName: "Filippo Inzaghi",
-          email: "inzaghi@gmail.com",
-          type: "user",
-          status: "active",
-        },
-        {
-          id: 1,
-          avatar:
-            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-          firstName: "Filippo",
-          lastName: "Inzaghi",
-          fullName: "Filippo Inzaghi",
-          email: "inzaghi@gmail.com",
-          type: "user",
-          status: "active",
-        },
-        {
-          id: 1,
-          avatar:
-            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-          firstName: "Filippo",
-          lastName: "Inzaghi",
-          fullName: "Filippo Inzaghi",
-          email: "inzaghi@gmail.com",
-          type: "user",
-          status: "active",
-        },
-        {
-          id: 1,
-          avatar:
-            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-          firstName: "Filippo",
-          lastName: "Inzaghi",
-          fullName: "Filippo Inzaghi",
-          email: "inzaghi@gmail.com",
-          type: "user",
-          status: "active",
-        },
-        {
-          id: 1,
-          avatar:
-            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-          firstName: "Filippo",
-          lastName: "Inzaghi",
-          fullName: "Filippo Inzaghi",
-          email: "inzaghi@gmail.com",
-          type: "user",
-          status: "active",
-        },
-        {
-          id: 1,
-          avatar:
-            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-          firstName: "Filippo",
-          lastName: "Inzaghi",
-          fullName: "Filippo Inzaghi",
-          email: "inzaghi@gmail.com",
-          type: "user",
-          status: "active",
-        },
-        {
-          id: 1,
-          avatar:
-            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-          firstName: "Filippo",
-          lastName: "Inzaghi",
-          fullName: "Filippo Inzaghi",
-          email: "inzaghi@gmail.com",
-          type: "user",
-          status: "active",
+          role: "User",
+          status: "unactive",
         },
       ]
+<<<<<<< HEAD
       setUsers(rows);
       setSearchApiData(rows);
     }
@@ -140,17 +95,51 @@ function ManageUser() {
      } else  {
       const filterResult = searchApiData.filter(item =>item.email.toLowerCase().includes(e.target.value.toLowerCase()) || item.firstName.toLowerCase().includes(e.target.value.toLowerCase()));
       setUsers(filterResult);
+=======
+>>>>>>> 27e7c05964179d7b89a3d9b78938f78bdf11b74a
 
-     }
-     
+      setUsers(rows)
+      setSearchApiData(rows)
+    }
+    fetchUsers()
+  }, [])
+
+  const handleSearch = (e) => {
+    if (e.target.value === "") {
+      setUsers(searchApiData)
+    } else {
+      const filterResult = searchApiData.filter((item) =>
+        item.email.toLowerCase().includes(e.target.value.toLowerCase())
+      )
+      setUsers(filterResult)
+    }
   }
-  console.log(searchApiData)
+
   const handleOpen = () => {
-    setOpen(true)
+    setOpenUserDetailModal(true)
   }
   const handleClose = () => {
-    setOpen(false)
+    setOpenUserDetailModal(false)
   }
+
+  const onRowsSelectionHandler = async (ids) => {
+    const selectedRowsData = await ids.map((id) =>
+      users.find((row) => row.id === id)
+    )
+    setSelectedRowData(selectedRowsData)
+  }
+
+  const handleClickToEdit = () => {
+    console.log(selectedRowData)
+    if (selectedRowData !== null && selectedRowData.length === 1) {
+      navigate("/manage-user/admin-edit-user", {
+        state: {
+          selectedRowData,
+        },
+      })
+    }
+  }
+
   const columns = [
     {
       field: "avatar",
@@ -164,19 +153,9 @@ function ManageUser() {
       ),
     },
     {
-      field: "firstName",
-      headerName: "First name",
-      width: 150,
-    },
-    {
-      field: "lastName",
-      headerName: "Last name",
-      width: 150,
-    },
-    {
-      field: "fullName",
-      headerName: "Full name",
-      width: 250,
+      field: "userName",
+      headerName: "User name",
+      width: 200,
     },
     {
       field: "email",
@@ -187,11 +166,23 @@ function ManageUser() {
       ),
     },
     {
-      field: "type",
-      headerName: "Type",
+      field: "fullName",
+      headerName: "Full name",
+      width: 200,
+    },
+    {
+      field: "gender",
+      headerName: "Gender",
+      width: 100,
+    },
+    {
+      field: "role",
+      headerName: "Role",
       width: 150,
       headerAlign: "center",
       align: "center",
+
+      renderCell: (params) => <Typography>{`${params.value}`} </Typography>,
     },
     {
       field: "status",
@@ -199,21 +190,38 @@ function ManageUser() {
       width: 150,
       headerAlign: "center",
       align: "center",
-      renderCell: () => <Typography className='active-status'>Active</Typography>,
+      renderCell: (params) => (
+        <Typography
+          sx={{
+            cursor: "pointer",
+          }}
+          className={`${
+            params.value.toLowerCase() === "active" ? "active" : ""
+          }-status`}
+        >
+          {params.value}
+        </Typography>
+      ),
     },
     {
       field: "action",
       headerName: "Action",
-      width: 150,
+      width: 170,
       headerAlign: "center",
       align: "center",
-      renderCell: () => (
+      renderCell: (params) => (
         <Box>
-          <IconButton className='edit-user__btn' onClick={handleOpen}>
+          <IconButton
+            className='edit-user__btn'
+            onClick={handleClickToEdit}
+          >
             <CreateOutlinedIcon />
           </IconButton>
-          <IconButton className='remove-user__btn'>
-            <DeleteOutlineOutlinedIcon />
+          <IconButton
+            className='detail-user__btn'
+            onClick={handleOpen}
+          >
+            <AccountBoxOutlinedIcon />
           </IconButton>
         </Box>
       ),
@@ -221,45 +229,119 @@ function ManageUser() {
   ]
   return (
     <Box className='manage-page'>
-      <Box className='create-container'>
-        <button className='create-btn'>Create User</button>
+      <Box className='option-list'>
+        {optionListBtns.map((item) => (
+          <Link
+            className={`option-list__btn  ${active === item && "active"} `}
+            onClick={() => {
+              setActive(item)
+            }}
+            to={item.path}
+          >
+            {item.text} List
+          </Link>
+        ))}
       </Box>
 
       <Box className='searchBar-wrapper'>
-        <SearchBar handleSearch={handleSearch}   placeholder='Search user by name or email'  />
+        <SearchBar
+          handleSearch={handleSearch}
+          placeholder='Search user by name or email'
+        />
+        <Box className='create-container'>
+          <Link
+            style={{
+              marginRight: "20px",
+              textDecoration: "none",
+              boxShadow: "none",
+              fontSize: "18px",
+            }}
+            className='create-btn'
+            type='button'
+            to='/manage-user/admin-create-user'
+          >
+            Create User
+          </Link>
+        </Box>
       </Box>
 
-      <Box className='manage-wrapper'>
-        <DataGrid
-        
-          rowHeight={60}
-          className='manage-table'
-          rows={users}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
-              },
-            },
-          }}
-          pageSizeOptions={[5]}
-          disableRowSelectionOnClick
-        />
-      </Box>
+      <Routes>
+        {["/", "user-list"].map((path, index) => (
+          <Route
+            path={path}
+            element={
+              <Box
+                className='manage-wrapper'
+                id='1'
+              >
+                <DataGrid
+                  onRowSelectionModelChange={(ids) =>
+                    onRowsSelectionHandler(ids)
+                  }
+                  rowHeight={60}
+                  className='manage-table'
+                  rows={getActiveUsers()}
+                  columns={columns}
+                  initialState={{
+                    pagination: {
+                      paginationModel: {
+                        pageSize: 5,
+                      },
+                    },
+                  }}
+                  pageSizeOptions={[5]}
+                  disableRowSelectionOnClick
+                  checkboxSelection
+                />
+              </Box>
+            }
+          />
+        ))}
+
+        <Route
+          path='/pending-list'
+          element={
+            <Box
+              className='manage-wrapper pending-list'
+              id='2'
+            >
+              <DataGrid
+                rowHeight={60}
+                className='manage-table'
+                rows={getUnactiveUsers()}
+                columns={columns}
+                initialState={{
+                  pagination: {
+                    paginationModel: {
+                      pageSize: 5,
+                    },
+                  },
+                }}
+                pageSizeOptions={[5]}
+                disableRowSelectionOnClick
+                checkboxSelection
+              />
+            </Box>
+          }
+        ></Route>
+      </Routes>
 
       <Modal
-        open={open}
+        open={openUserDetailModal}
         onClose={handleClose}
         className='modal'
       >
-        <UserDetail handleClose={handleClose} data={{
-          type:'Lecturer',
-          avatar:"https://i.pinimg.com/564x/1e/9f/f2/1e9ff2696ac4bc4baba1657264d692a7.jpg",
+        <UserDetail
+          handleClose={handleClose}
+          data={{
+            role: "User",
+            avatar:
+              "https://i.pinimg.com/564x/1e/9f/f2/1e9ff2696ac4bc4baba1657264d692a7.jpg",
 
-          fullName:'What the fuck is this?',
-          email:'whatthefuckisthis@gmail.com'
-        }}/>
+            fullName: "What the fuck is this?",
+            email: "whatthefuckisthis@gmail.com",
+          }}
+        />
       </Modal>
     </Box>
   )

@@ -45,11 +45,16 @@
         width: 26px;
         height: 26px;
       }
-      .search__input input {
-        height: 100%;
-        padding: 0px;
-        font-size: 18px;
+
+      .search__input{
+        flex:1;
+        .search__input input {
+          height: 100%;
+          padding: 0px;
+          font-size: 18px;
+        }
       }
+      
       &:has(> .search__input input:focus) {
         border-color: rgb(0, 0, 0, 0.4);
       }
@@ -59,7 +64,7 @@
     .end {
       flex: 1;
       display: flex;
-      justify-content: end;
+      justify-content: flex-end;
       .avatar {
         cursor: pointer;
         margin: 0px 8px;

@@ -7,6 +7,8 @@ import ManageLecturer from "./Manage/ManageLecturer"
 import ManageCourse from "./Manage/ManageCourse"
 import ManageCategory from "./Manage/ManageCategory"
 import { Box } from "@mui/material"
+import CreateUser from "./CreateUser/CreateUser"
+import EditUser from "./EditUser/EditUser"
 
 const homePage = {
   marginTop: "68px",
@@ -37,8 +39,18 @@ function HomePage() {
         />
 
         <Route
-          path='/manage-user'
+          path='/manage-user/*'
           element={<ManageUser />}
+        ></Route>
+
+        <Route
+          path='/manage-user/admin-edit-user'
+          element={<EditUser></EditUser>}
+        ></Route>
+
+        <Route
+          path='/manage-user/admin-create-user'
+          element={<CreateUser></CreateUser>}
         ></Route>
 
         <Route

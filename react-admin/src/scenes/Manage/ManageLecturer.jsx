@@ -23,7 +23,7 @@ import UserDetail from "../../components/UserDetail/UserDetail"
 const optionListBtns = [
   {
     text: "Course",
-    path: "/manage-lecturer/course-list",
+    path: "/manage-lecturer/lecturer-list",
   },
   {
     text: "Pending",
@@ -281,7 +281,7 @@ function ManageLecturer() {
       </Box>
 
       <Routes>
-        {["/", "course-list"].map((path) => (
+        {["/", "lecturer-list"].map((path) => (
           <Route
             path={path}
             element={
@@ -300,6 +300,7 @@ function ManageLecturer() {
                   }}
                   pageSizeOptions={[5]}
                   disableRowSelectionOnClick
+                  checkboxSelection
                 />
               </Box>
             }
@@ -324,6 +325,7 @@ function ManageLecturer() {
                 }}
                 pageSizeOptions={[5]}
                 disableRowSelectionOnClick
+                checkboxSelection
               />
             </Box>
           }

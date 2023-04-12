@@ -21,7 +21,7 @@ function UserDetail({ data, handleClose }) {
           variant='h6'
           className='user-detail__title'
         >
-          {data.type} Detail
+          {data.role} Detail
         </Typography>
         <button
           className='close-btn'
@@ -37,7 +37,7 @@ function UserDetail({ data, handleClose }) {
         <Box width='100%'>
           <Avatar
             onClick={handleOpenImageModal}
-            alt={`${data.type} avatar`}
+            alt={`${data.role} avatar`}
             src={`${data.avatar}`}
             className='user-detail__avatar'
           />
@@ -48,7 +48,7 @@ function UserDetail({ data, handleClose }) {
             className='modal'
           >
             <Avatar
-              alt={`${data.type} avatar`}
+              alt={`${data.role} avatar`}
               src={`${data.avatar}`}
               className='user-detail__avatar'
             />
@@ -58,7 +58,7 @@ function UserDetail({ data, handleClose }) {
         <Box className='user-detail__info-wrapper'>
           <Typography className='user-detail__info-title'>user type</Typography>
           <Typography className='user-detail__info-content'>
-            {data.type}
+            {data.role}
           </Typography>
         </Box>
 

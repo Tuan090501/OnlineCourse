@@ -6,25 +6,12 @@
   margin: 20px;
   min-height: calc(100vh - 108px);
 
-  // Create user button - managePage
   .create-container {
     display: flex;
-    justify-content: end;
     align-items: center;
-
-    .create-example {
-      max-height: 100%;
-      margin-right: 10px;
-      width: 400px;
-      border: 1px solid #a7a7a7;
-      border-radius: 4px;
-      padding: 13px 18px;
-      color: #a7a7a7;
-    }
-
     .create-btn {
       font-size: 16px;
-      height: 100%;
+      height: fit-content;
       padding: 14px 18px;
       cursor: pointer;
       background-color: #ff6c03;
@@ -41,16 +28,6 @@
       }
     }
   }
-  // end
-
-  .category-note{
-    position: relative;
-    top: 16px;
-    font-style: italic;
-    color: #f94412;
-  }
-
-  //   Manage lecturer: Course list + pending list button
 
   .option-list {
     display: flex;
@@ -77,13 +54,9 @@
 
   // end
 
-
-  .category-note{
-
-  }
-
   .manage-wrapper,
   .searchBar-wrapper {
+    justify-content: space-between;
     display: flex;
     border: 1px solid rgba($color: #000000, $alpha: 0.1);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -98,7 +71,7 @@
     width: 100%;
     height: 369px;
 
-    @media screen and (max-width: $large) {
+    @media screen and (max-width: $extra-large) {
       overflow-x: scroll;
     }
 
@@ -197,8 +170,8 @@
   }
 }
 
-.manage-page-category{
-  .manage-wrapper{
+.manage-page-category {
+  .manage-wrapper {
     display: flex;
     flex-direction: column;
     height: 500px;
@@ -211,4 +184,3 @@
     margin: 15px;
   }
 }
-
