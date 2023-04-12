@@ -1,4 +1,4 @@
-import { Box, Divider, Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
 import "./CreateUser.scss"
 import axios from "axios"
@@ -60,17 +60,52 @@ function CreateUser() {
     )
     setWards(wardList)
   }
+
+  const handleCreateUser = (event) => {
+    event.preventDefault()
+    let address
+    if (
+      event.target.addressProvince.value === "Hà Nội" &&
+      event.target.addressDistrict.value === "" &&
+      event.target.addressWard.value === "" &&
+      event.target.addressStreetHouse.value === ""
+    ) {
+      address = ""
+    } else {
+      address =
+        event.target.addressStreetHouse.value +
+        ", " +
+        event.target.addressWard.value +
+        ", " +
+        event.target.addressDistrict.value +
+        ", " +
+        event.target.addressProvince.value
+    }
+    const data = {
+      email: event.target.email.value,
+      password: event.target.password.value,
+      userName: event.target.username.value,
+      role: event.target.role.value,
+      gender: event.target.gender.value,
+      phone: event.target.phone.value,
+      avatar: event.target.avatar.value,
+      status: "active",
+      address: address,
+    }
+    console.log(data)
+  }
+
   useEffect(() => {
     getProvinces()
   }, [])
 
   return (
     <Box className='create-user'>
-      <Divider />
       <Box className='create-user__body'>
         <form
           className='create-user__form'
           autoComplete='false'
+          onSubmit={handleCreateUser}
         >
           <Grid
             container
@@ -93,6 +128,7 @@ function CreateUser() {
             >
               <label for='email'>Email</label>
               <input
+                required
                 name='email'
                 type='email'
                 id='email'
@@ -109,6 +145,7 @@ function CreateUser() {
             >
               <label for='password'>Password</label>
               <input
+                required
                 name='password'
                 type='password'
                 id='password'
@@ -133,6 +170,7 @@ function CreateUser() {
             >
               <label for='user-name'>User Name</label>
               <input
+                required
                 name='username'
                 id='user-name'
                 type='text'
@@ -151,9 +189,9 @@ function CreateUser() {
                 id='role'
                 name='role'
               >
-                <option value='Male'>User</option>
-                <option value='Female'>Lecturer</option>
-                <option value='Other'>Admin</option>
+                <option value='user'>User</option>
+                <option value='lecturer'>Lecturer</option>
+                <option value='admin'>Admin</option>
               </select>
             </Grid>
 
@@ -168,9 +206,9 @@ function CreateUser() {
                 id='gender'
                 name='gender'
               >
-                <option value='Male'>Male</option>
-                <option value='Female'>Female</option>
-                <option value='Other'>Other</option>
+                <option value='male'>Male</option>
+                <option value='female'>Female</option>
+                <option value='other'>Other</option>
               </select>
             </Grid>
 
@@ -238,7 +276,6 @@ function CreateUser() {
               item
               sm={6}
               xs={12}
-
               className='create-user__form-item'
             >
               <label for='address-district'>District</label>
