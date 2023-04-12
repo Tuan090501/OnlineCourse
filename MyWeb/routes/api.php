@@ -2,6 +2,13 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UsersController;
+use App\Http\Controllers\Api\JWTAuthController;
+use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\CategoriesController;
+
+
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +25,35 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('test', function(){
-     return response()->json([
-        'message' => "My web with laravel restful api",
-        'status' => 200
-     ]);
+//User controller
+Route::prefix('users')->group(function () {
+    Route::get('/',[ UsersController::class,'index']);
+    Route::post('/',[UsersController::class,'insert']);
+    Route::get('/{id}',[UsersController::class,'show']);
+    Route::put('/{id}',[UsersController::class,'update']);
+    Route::delete('/{id}', [UsersController::class, 'delete']);
+    Route::put('/reset-password/{id}', [UsersController::class, 'resetpassword']);
+
 });
+
+//Authentication user
+Route::controller(JWTAuthController::class)->group(function(){
+    Route::post('register','register');
+    Route::post('login','login');
+
+});
+Route::post('/logout', [JWTAuthController::class,'logout']
+    );
+
+
+//Route course
+Route::prefix('course')->group(function (){
+    Route::get('/',[CourseController::class,'index']);
+});
+
+
+Route::prefix('categories')->group(function () {
+    Route::get('/',[CategoriesController::class,'index']);
+    Route::post('/',[CategoriesController::class,'insert']);
+});
+
