@@ -14,9 +14,8 @@ import {
 } from "@mui/material"
 import SearchBar from "../../components/SearchBar/SearchBar"
 import { DataGrid } from "@mui/x-data-grid"
-import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined"
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined"
 import ErrorOutlineOutlinedIcon from "@mui/icons-material/ErrorOutlineOutlined"
+import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined"
 import { Link, Route, Routes } from "react-router-dom"
 import { useState } from "react"
 
@@ -101,10 +100,8 @@ function ManageCourse() {
           className={`${
             params.value.toLowerCase() === "active" ? "active" : ""
           }-status`}
-
-
-          onClick={()=>{
-            if(params.value.toLowerCase()!== 'active'){
+          onClick={() => {
+            if (params.value.toLowerCase() !== "active") {
               handleOpenUnactiveDialog()
             }
           }}
@@ -122,13 +119,10 @@ function ManageCourse() {
       renderCell: () => (
         <Box>
           <IconButton
-            className='edit-user__btn'
+            className='detail-user__btn'
             onClick={handleOpenCourseDetailModal}
           >
-            <CreateOutlinedIcon />
-          </IconButton>
-          <IconButton className='remove-user__btn'>
-            <DeleteOutlineOutlinedIcon />
+            <AccountBoxOutlinedIcon />
           </IconButton>
         </Box>
       ),

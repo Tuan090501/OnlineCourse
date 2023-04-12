@@ -6,10 +6,12 @@
   margin: 20px;
   min-height: calc(100vh - 108px);
 
-  .create-container{
-    .create-btn{
+  .create-container {
+    display: flex;
+    align-items: center;
+    .create-btn {
       font-size: 16px;
-      height: 100%;
+      height: fit-content;
       padding: 14px 18px;
       cursor: pointer;
       background-color: #ff6c03;
@@ -52,9 +54,9 @@
 
   // end
 
-
   .manage-wrapper,
   .searchBar-wrapper {
+    justify-content: space-between;
     display: flex;
     border: 1px solid rgba($color: #000000, $alpha: 0.1);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
