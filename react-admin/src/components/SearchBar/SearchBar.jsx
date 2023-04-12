@@ -1,20 +1,17 @@
-import { Box, IconButton, InputBase } from "@mui/material"
+import { Box, InputBase } from "@mui/material"
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined"
-import { useState, useEffect } from "react";
 import "./SearchBar.scss"
 
-function SearchBar({placeholder='Find courses', handleSearch}) {
- 
+function SearchBar({ placeholder = "Find courses", handleSearch }) {
   return (
-    <Box className='searchBar'  >
+    <Box className='searchBar'>
       <InputBase
-        onChange ={handleSearch}
+        onChange={handleSearch}
         placeholder={placeholder}
         className='searchBar__input'
-        
       ></InputBase>
       <button className='searchBar__btn'>
-        <SearchOutlinedIcon x />
+        <SearchOutlinedIcon />
       </button>
     </Box>
   )
