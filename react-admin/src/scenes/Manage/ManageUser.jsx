@@ -20,6 +20,11 @@ const optionListBtns = [
 ]
 
 function ManageUser() {
+<<<<<<< HEAD
+  const [open, setOpen] = useState(false)
+  const [users, setUsers] = useState([]);
+  const [searchApiData, setSearchApiData] = useState([]);
+=======
   const [active, setActive] = useState(optionListBtns[0])
   const [openUserDetailModal, setOpenUserDetailModal] = useState(false)
 
@@ -37,6 +42,7 @@ function ManageUser() {
   const getUnactiveUsers = () => {
     return users.filter((item) => item.status === "unactive")
   }
+>>>>>>> 27e7c05964179d7b89a3d9b78938f78bdf11b74a
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -76,6 +82,21 @@ function ManageUser() {
           status: "unactive",
         },
       ]
+<<<<<<< HEAD
+      setUsers(rows);
+      setSearchApiData(rows);
+    }
+    fetchUsers();
+   
+  }, []);
+  const handleSearch = (e)=>{
+    if(e.target.value ===''){
+        setUsers(searchApiData)
+     } else  {
+      const filterResult = searchApiData.filter(item =>item.email.toLowerCase().includes(e.target.value.toLowerCase()) || item.firstName.toLowerCase().includes(e.target.value.toLowerCase()));
+      setUsers(filterResult);
+=======
+>>>>>>> 27e7c05964179d7b89a3d9b78938f78bdf11b74a
 
       setUsers(rows)
       setSearchApiData(rows)
