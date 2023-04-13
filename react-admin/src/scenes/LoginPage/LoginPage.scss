@@ -81,21 +81,27 @@
           background-color: #e12c72;
         }
       }
+      .login__register-forgot-password {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        .forgot-password,
+        .register {
+          flex: 1;
+          margin-left: 20px;
+          margin-bottom: 3px;
+          font-size: 19px;
+          font-weight: 800;
+          color: #5624d0;
+          align-self: end;
+          text-align: end;
+          text-underline-offset: 0.4rem;
+          transition: 0.15s all ease-out;
 
-      .forgot-password {
-        flex: 1;
-        margin-left: 20px;
-        margin-bottom: 3px;
-        font-size: 19px;
-        font-weight: 800;
-        color: #5624d0;
-        align-self: end;
-        text-align: end;
-        text-underline-offset: 0.4rem;
-        transition: 0.15s all ease-out;
-
-        &:hover {
-          color: #4019bc;
+          &:hover {
+            color: #4019bc;
+          }
         }
       }
     }
@@ -118,7 +124,7 @@
     }
   }
 
-  @media screen and (max-width:$small) {
+  @media screen and (max-width: $small) {
     .form-container {
       .form {
         transform: scale(0.8);

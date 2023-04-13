@@ -8,10 +8,10 @@ function LoginPage() {
       <Box
         className='login-img__container'
         sx={{
-          display:{
-            xs:'none',
-            lg:'block'
-          }
+          display: {
+            xs: "none",
+            lg: "block",
+          },
         }}
       >
         <img
@@ -88,12 +88,21 @@ function LoginPage() {
             >
               Log In
             </button>
-            <Link
-              className='forgot-password'
-              to='/forgot-password'
-            >
-              Forgot Password
-            </Link>
+
+            <Box className='login__register-forgot-password'>
+              <Link
+                className='register'
+                to='/register'
+              >
+                Register
+              </Link>
+              <Link
+                className='forgot-password'
+                to='/forgot-password'
+              >
+                Forgot Password
+              </Link>
+            </Box>
           </Box>
         </Box>
       </Box>

@@ -3,9 +3,8 @@ import "./Category.scss"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { useState } from "react"
-import { useEffect } from "react"
 
-function Category({ categories,handleDeleteCourse }) {
+function Category({ categories, handleDeleteCourse }) {
   const copyCategories = [...categories]
   const isShowSubcategories = copyCategories.map(() => false)
 
@@ -85,17 +84,6 @@ function Category({ categories,handleDeleteCourse }) {
       console.log(mainCategories)
     }
 
-    const handleDelete =(id)=>{
-      console.log(mainCategories)
-  setMainCategories(prev =>{
-    // const newData = mainCategories.splice(id,1)
-    const data = prev.filter((x) => x.id !== id)
-    return data
-  })
-      console.log(id)
-      // handleDeleteCourse(id)
-    }
-
   return (
     <form
       className={`categories`}
@@ -137,7 +125,7 @@ function Category({ categories,handleDeleteCourse }) {
             ></TextField>
 
             <Box className='action-btns'>
-              <IconButton className='remove-user__btn' onClick={()=>handleDelete(item.id)}>
+              <IconButton className='remove-user__btn'>
                 <DeleteIcon />
               </IconButton>
             </Box>

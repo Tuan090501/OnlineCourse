@@ -1,8 +1,6 @@
 import { Box, Rating, Typography } from "@mui/material"
 import "./CourseBox.scss"
 
-// responsive courseBox when display in small device (<600px)
-
 function CourseBox({
   image = "https://prod-discovery.edx-cdn.org/media/course/image/0e575a39-da1e-4e33-bb3b-e96cc6ffc58e-8372a9a276c1.small.png",
   title = "Learn Web development",
