@@ -67,23 +67,24 @@ function EditUser() {
 
   const handleEditUser = (event) => {
     event.preventDefault()
-    let address
-    if (
-      event.target.addressProvince.value === "Hà Nội" &&
-      event.target.addressDistrict.value === "" &&
-      event.target.addressWard.value === "" &&
-      event.target.addressStreetHouse.value === ""
-    ) {
-      address = ""
-    } else {
-      address =
-        event.target.addressStreetHouse.value +
-        ", " +
-        event.target.addressWard.value +
-        ", " +
-        event.target.addressDistrict.value +
-        ", " +
-        event.target.addressProvince.value
+    const province =
+      event.target.addressProvince.value === undefined
+        ? ""
+        : event.target.addressProvince.value
+    const district = event.target.addressDistrict.value
+      ? event.target.addressDistrict.value
+      : ""
+    const ward = event.target.addressWard.value
+      ? event.target.addressWard.value
+      : ""
+    const streetHouse = event.target.addressStreetHouse.value
+      ? event.target.addressStreetHouse.value
+      : ""
+    const address = {
+      province: province,
+      district: district,
+      ward: ward,
+      streetHouse: streetHouse,
     }
     const data = {
       email: event.target.email.value,
@@ -92,6 +93,7 @@ function EditUser() {
       gender: event.target.gender.value,
       phone: event.target.phone.value,
       avatar: event.target.avatar.value,
+      birthday: event.target.birthday.value,
       status: event.target.status.value,
       address: address,
     }
@@ -253,6 +255,20 @@ function EditUser() {
                 <option value='unactive'>Unactive</option>
               </select>
             </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              className='edit-user__form-item'
+            >
+              <label for='birthday'>Birthday</label>
+              <input
+              defaultValue={defaultValueUser.birthday}
+                name='birthday'
+                type='date'
+                id='birthday'
+              ></input>
+            </Grid>
 
             <Grid
               item
@@ -270,6 +286,7 @@ function EditUser() {
             >
               <label for='address-province'>Province</label>
               <select
+                defaultValue={defaultValueUser.address.province}
                 id='address-province'
                 name='addressProvince'
                 onChange={getDistricts}
@@ -288,6 +305,7 @@ function EditUser() {
             >
               <label for='address-district'>District</label>
               <select
+                defaultValue={defaultValueUser.address.district}
                 id='address-district'
                 name='addressDistrict'
                 onChange={getWards}
@@ -306,6 +324,7 @@ function EditUser() {
             >
               <label for='address-ward'>Ward</label>
               <select
+                defaultValue={defaultValueUser.address.ward}
                 id='address-ward'
                 name='addressWard'
               >
@@ -325,6 +344,7 @@ function EditUser() {
                 Street name - House number
               </label>
               <input
+                defaultValue={defaultValueUser.streetHouse}
                 type='text'
                 name='addressStreetHouse'
                 id='address-street-house'
