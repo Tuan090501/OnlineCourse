@@ -1,8 +1,16 @@
 import "./LoginPage.scss"
-import { Box, Typography, Divider, TextField } from "@mui/material"
+import { Box, Typography, TextField } from "@mui/material"
 import { Link } from "react-router-dom"
 
 function LoginPage() {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const data = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+    }
+    console.log(data)
+  }
   return (
     <Box className='loginPage'>
       <Box
@@ -22,9 +30,9 @@ function LoginPage() {
       </Box>
 
       <Box className='form-container'>
-        <Box
+        <form
           className='form'
-          component='form'
+          onSubmit={handleSubmit}
         >
           <Typography
             className='login__header'
@@ -60,8 +68,6 @@ function LoginPage() {
               Continue with Facebook
             </Typography>
           </button>
-
-          <Divider sx={{ borderColor: "#000", m: "20px 0px" }} />
 
           <TextField
             className='form__input'
@@ -104,7 +110,7 @@ function LoginPage() {
               </Link>
             </Box>
           </Box>
-        </Box>
+        </form>
       </Box>
     </Box>
   )
