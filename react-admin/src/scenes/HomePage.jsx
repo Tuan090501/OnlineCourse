@@ -31,6 +31,8 @@ function HomePage() {
     >
       <Header />
       <Sidebar />
+
+      {/* Define list routes for admin page */}
       <Routes>
         <Route
           exact

@@ -1,13 +1,13 @@
 @import "../../_variables.scss";
-.loginPage {
+.registerPage {
   display: flex;
   min-width: 100vw;
 
-  .login-img__container {
+  .register-img__container {
     height: 100vh;
     overflow: hidden;
 
-    .login__img {
+    .register__img {
       height: 100%;
     }
   }
@@ -24,49 +24,47 @@
     .form {
       background-color: rgba(255, 255, 255);
       padding: 30px;
-      width: 400px;
+      width: 550px;
+
       box-shadow: rgba(0, 0, 0, 0.4) 0px 10px 10px;
 
-      .login__header {
+      .register__header {
         font-weight: 600;
         text-align: center;
-        margin-bottom: 40px;
-      }
-
-      .login__btn--otherPlatform {
-        display: flex;
-        align-items: center;
-        background-color: #fff;
-        margin: 12px 0px;
-        padding: 8px;
-        border: 1px solid rgba(0, 0, 0, 0.3);
-        border-radius: 4px;
-        cursor: pointer;
-        width: 100%;
-        transition: 0.15s all ease-out;
-        &:hover {
-          background-color: #eee;
-          border: 1px solid rgba(0, 0, 0, 0.6);
-        }
-        .otherPlatform-logo {
-          width: 24px;
-          height: 24px;
-          margin: 2px 8px;
-          border-radius: 8px;
-        }
-
-        .otherPlatform-text {
-          text-transform: capitalize;
-          font-size: 18px;
-        }
       }
 
       .form__input {
         margin: 8px 0px;
         width: 100%;
       }
+      .form__select{
+        margin: 8px 0px;
+        width: 100%;
+        padding: 12px;
+        transition: all 0.12s ease-out;
+        border-radius: 4px;
+        border: 1px solid #999;
+        &:focus {
+          border-color: red;
+        }
 
-      .login__btn {
+        &:focus-visible {
+          outline: none;
+        }
+      }
+
+      .form__radio{
+        border-radius: 4px;
+        border: 1px solid #999;
+        padding: 12px;
+        display: flex;
+        justify-content: space-between;
+        label{
+          flex:1  
+        }
+      }
+
+      .register__btn {
         border: none;
         cursor: pointer;
         font-size: 18px;
@@ -81,13 +79,13 @@
           background-color: #e12c72;
         }
       }
-      .login__register-forgot-password {
+      .register__login-forgot-password {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         width: 100%;
         .forgot-password,
-        .register {
+        .login {
           flex: 1;
           margin-left: 20px;
           margin-bottom: 3px;

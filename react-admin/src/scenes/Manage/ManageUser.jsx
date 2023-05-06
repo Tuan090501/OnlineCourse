@@ -21,9 +21,12 @@ const optionListBtns = [
 ]
 
 function ManageUser() {
+<<<<<<< HEAD
 
   const [open, setOpen] = useState(false)
 
+=======
+>>>>>>> 177a41bc08ddcc0513ead9a63231240c2c940467
   const [active, setActive] = useState(optionListBtns[0])
   const [openUserDetailModal, setOpenUserDetailModal] = useState(false)
 
@@ -41,7 +44,10 @@ function ManageUser() {
   const getUnactiveUsers = () => {   
     return users.filter((item) => item.status === "unactive")
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 177a41bc08ddcc0513ead9a63231240c2c940467
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -57,6 +63,7 @@ function ManageUser() {
           fullName: data.data[i].first_name,
           role: data.data[i].role,
           status: "active",
+<<<<<<< HEAD
           gender:data.data[i].gender,
           phone: data.data[i].phone_number,
     
@@ -71,6 +78,61 @@ function ManageUser() {
    
   }, []);
   console.log(users)
+=======
+          gender: "female",
+          phone: "0766620266",
+          birthday:'2000-08-18',
+          address: {
+            province: "",
+            district: "",
+            ward: "",
+            streetHouse: "",
+          },
+        },
+        {
+          id: 2,
+          avatar:
+            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
+          userName: "Filippo Inzaghi",
+          fullName: "what the fuck",
+          email: "inzaghi@gmail.com",
+          role: "User",
+          status: "active",
+          gender: "male",
+          birthday:'',
+          address: {
+            province: "",
+            district: "",
+            ward: "",
+            streetHouse: "",
+          },
+        },
+        {
+          id: 3,
+          avatar:
+            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
+          userName: "Noob",
+          fullName: "NOooooob",
+          gender: "other",
+          email: "inzaghi@gmail.com",
+          role: "User",
+          status: "unactive",
+          birthday:'',
+          address: {
+            province: "",
+            district: "",
+            ward: "",
+            streetHouse: "",
+          },
+        },
+      ]
+      setUsers(rows)
+      setSearchApiData(rows)
+    }
+    fetchUsers()
+  }, [])
+
+>>>>>>> 177a41bc08ddcc0513ead9a63231240c2c940467
   const handleSearch = (e) => {
     if (e.target.value === "") {
       setUsers(searchApiData)

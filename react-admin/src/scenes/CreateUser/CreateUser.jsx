@@ -4,16 +4,21 @@ import "./CreateUser.scss"
 import axios from "axios"
 import { useEffect, useState } from "react"
 function CreateUser() {
+  // State to storage data about provinces, cities
   const [provinces, setProvinces] = useState([])
+  // State to storage data about districts of province
   const [districts, setDistricts] = useState([])
+  // State to storage data about wards of district
   const [wards, setWards] = useState([])
 
+  // get list of provinces of VietNam
   const getProvinces = async () => {
     const response = await axios({
       method: "get",
       url: "https://provinces.open-api.vn/api/",
     })
 
+    // remove word "Tỉnh" and "Thành phố"
     const provinceNames = await response.data.map((item) => {
       let name = item.name
       if (name.includes("Thành phố")) {
@@ -27,12 +32,14 @@ function CreateUser() {
     setProvinces(provinceNames)
   }
 
+  // get list of districts of province
   const getDistricts = async (e) => {
     let provinceCode
+    // get provinceCode
     provinces.forEach((item) => {
       if (item.name === e.target.value) provinceCode = item.code
     })
-
+    // get dictricts have exact provinceCode
     const response = await axios({
       method: "get",
       url: `https://provinces.open-api.vn/api/d/`,
@@ -44,12 +51,14 @@ function CreateUser() {
     console.log(response.data)
   }
 
+  // after having districtCode and provinceCode, get list of wards
   const getWards = async (e) => {
     let districtCode
+    // get exact districtCode
     districts.forEach((item) => {
       if (item.name === e.target.value) districtCode = item.code
     })
-
+    // get list of wards
     const response = await axios({
       method: "get",
       url: `https://provinces.open-api.vn/api/w/`,
@@ -61,26 +70,9 @@ function CreateUser() {
     setWards(wardList)
   }
 
+  // After onClick "Create" button, storage data to array, then update data to database
   const handleCreateUser = (event) => {
     event.preventDefault()
-    let address
-    if (
-      event.target.addressProvince.value === "Hà Nội" &&
-      event.target.addressDistrict.value === "" &&
-      event.target.addressWard.value === "" &&
-      event.target.addressStreetHouse.value === ""
-    ) {
-      address = ""
-    } else {
-      address =
-        event.target.addressStreetHouse.value +
-        ", " +
-        event.target.addressWard.value +
-        ", " +
-        event.target.addressDistrict.value +
-        ", " +
-        event.target.addressProvince.value
-    }
     const data = {
       email: event.target.email.value,
       password: event.target.password.value,
@@ -89,8 +81,14 @@ function CreateUser() {
       gender: event.target.gender.value,
       phone: event.target.phone.value,
       avatar: event.target.avatar.value,
+      birthday:event.target.birthday.value,
       status: "active",
-      address: address,
+      address: {
+        province:event.target.addressProvince.value,
+        district:event.target.addressDistrict.value,
+        ward:event.target.addressWard.value,
+        streetHouse:event.target.addressStreetHouse.value
+      },
     }
     console.log(data)
   }
@@ -100,8 +98,10 @@ function CreateUser() {
   }, [])
 
   return (
+    // Inputs are username, email, password is required
     <Box className='create-user'>
       <Box className='create-user__body'>
+        {/* Create user form */}
         <form
           className='create-user__form'
           autoComplete='false'
@@ -120,6 +120,7 @@ function CreateUser() {
               <Typography variant='h5'>Account Information</Typography>
             </Grid>
 
+            {/* Email Input */}
             <Grid
               item
               xs={12}
@@ -137,6 +138,7 @@ function CreateUser() {
               ></input>
             </Grid>
 
+            {/* Password Input */}
             <Grid
               item
               xs={12}
@@ -162,6 +164,7 @@ function CreateUser() {
               <Typography variant='h5'>General Information</Typography>
             </Grid>
 
+            {/* userName Input */}
             <Grid
               item
               xs={12}
@@ -178,6 +181,7 @@ function CreateUser() {
               ></input>
             </Grid>
 
+            {/* Role select */}
             <Grid
               item
               xs={12}
@@ -195,6 +199,7 @@ function CreateUser() {
               </select>
             </Grid>
 
+            {/* Gender Select */}
             <Grid
               item
               xs={12}
@@ -243,6 +248,20 @@ function CreateUser() {
                 id='avatar'
                 alt='avatar'
                 accept='image/*'
+              ></input>
+            </Grid>
+
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              className='create-user__form-item'
+            >
+              <label for='birthday'>Birthday</label>
+              <input
+                name='birthday'
+                type='date'
+                id='birthday'
               ></input>
             </Grid>
 

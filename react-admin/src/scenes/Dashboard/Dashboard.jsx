@@ -11,6 +11,7 @@ import UsersStatBox from "../../components/UsersStatBox/UsersStatBox"
 import CourseBox from "../../components/CourseBox/CourseBox"
 import { Box, Divider, Typography } from "@mui/material"
 
+// array data of statsBox
 const statsBox = [
   {
     title: "User",
@@ -38,6 +39,7 @@ const statsBox = [
   },
 ]
 
+// Array data of usersStatBox
 const usersStatBox = [
   {
     percentage: "0.8",
@@ -56,6 +58,7 @@ const usersStatBox = [
   },
 ]
 
+// Array data course example, in reality, we have to call API from server
 const courses = [
   {
     image:
@@ -146,7 +149,7 @@ function Dashboard() {
 
         {/* Row 3: User stats box */}
         {
-         
+        // Display all usersStatBox
         usersStatBox.map(({ percentage, userType, userQuantity }) => (
           <Grid
             item
@@ -163,6 +166,8 @@ function Dashboard() {
         ))}
 
         {/* Row 4 */}
+        {/* Left column: Best seller courses
+            Right column: Highly rated courses */}
         <Grid
           className='mtb_10'
           item

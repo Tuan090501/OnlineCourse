@@ -3,7 +3,11 @@ import "./Category.scss"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { useState } from "react"
+<<<<<<< HEAD
 import axios from "axios"
+=======
+
+>>>>>>> 177a41bc08ddcc0513ead9a63231240c2c940467
 function Category({ categories, handleDeleteCourse }) {
   const copyCategories = [...categories]
   const isShowSubcategories = copyCategories.map(() => false)
@@ -86,6 +90,7 @@ function Category({ categories, handleDeleteCourse }) {
   const handleOnSubmit = async e => {
     const data = mainCategories.slice(0,copyCategories.length)
 
+<<<<<<< HEAD
     const data_add =mainCategories.slice(data.length,mainCategories.length+1)
 
 
@@ -147,6 +152,8 @@ function Category({ categories, handleDeleteCourse }) {
   }
 
 
+=======
+>>>>>>> 177a41bc08ddcc0513ead9a63231240c2c940467
   return (
     <form
       className={`categories`}
@@ -188,7 +195,11 @@ function Category({ categories, handleDeleteCourse }) {
             ></TextField>
 
             <Box className='action-btns'>
+<<<<<<< HEAD
               <IconButton onClick={()=> handleDeleteCategory(item.id)} className='remove-user__btn'>
+=======
+              <IconButton className='remove-user__btn'>
+>>>>>>> 177a41bc08ddcc0513ead9a63231240c2c940467
                 <DeleteIcon />
               </IconButton>
             </Box>
