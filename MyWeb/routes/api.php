@@ -6,7 +6,8 @@ use App\Http\Controllers\Api\UsersController;
 use App\Http\Controllers\Api\JWTAuthController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\CategoriesController;
-
+use App\Http\Controllers\Api\SubCategoriesController;
+use Laravel\Socialite\Facades\Socialite;
 
 use App\Models\User;
 
@@ -55,5 +56,16 @@ Route::prefix('course')->group(function (){
 Route::prefix('categories')->group(function () {
     Route::get('/',[CategoriesController::class,'index']);
     Route::post('/',[CategoriesController::class,'insert']);
+    Route::put('/{id}',[CategoriesController::class,'update']);
+    Route::delete('/{id}',[CategoriesController::class,'delete']);
 });
+
+
+Route::prefix('sub-categories')->group(function () {
+    Route::get('/',[SubCategoriesController::class,'index']);
+    Route::post('/',[SubCategoriesController::class,'insert']);
+    Route::put('/{id}',[SubCategoriesController::class,'update']);
+    Route::delete('/{id}',[SubCategoriesController::class,'delete']);});
+
+
 

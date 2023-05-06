@@ -1,8 +1,13 @@
 import "./LoginPage.scss"
 import { Box, Typography, Divider, TextField } from "@mui/material"
 import { Link } from "react-router-dom"
+import {LoginSocialFacebook} from "reactjs-social-login"
+import {FacebookLoginButton} from "react-social-login-buttons"
+
+
 
 function LoginPage() {
+  
   return (
     <Box className='loginPage'>
       <Box
@@ -46,21 +51,17 @@ function LoginPage() {
               Continue with Google
             </Typography>
           </button>
-
-          <button
-            type='button'
-            className='login__btn--otherPlatform'
+          <LoginSocialFacebook
+            appId="961053651566853"
+            onResolve={(res)=>{
+              console.log(res)
+            }}
+            onReject={(err)=>{
+              console.log(err)
+            }}
           >
-            <img
-              src='https://cdn-icons-png.flaticon.com/512/124/124010.png'
-              alt='google login logo'
-              className='otherPlatform-logo'
-            />
-            <Typography className='otherPlatform-text'>
-              Continue with Facebook
-            </Typography>
-          </button>
-
+          <FacebookLoginButton className='login__btn--otherPlatform'/>
+          </LoginSocialFacebook>
           <Divider sx={{ borderColor: "#000", m: "20px 0px" }} />
 
           <TextField

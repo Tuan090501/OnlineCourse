@@ -7,6 +7,7 @@ import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined"
 import { useState, useEffect } from "react"
 import UserDetail from "../../components/UserDetail/UserDetail"
 import { Link, Route, Routes, useNavigate } from "react-router-dom"
+import axios from 'axios'
 
 const optionListBtns = [
   {
@@ -20,11 +21,9 @@ const optionListBtns = [
 ]
 
 function ManageUser() {
-<<<<<<< HEAD
+
   const [open, setOpen] = useState(false)
-  const [users, setUsers] = useState([]);
-  const [searchApiData, setSearchApiData] = useState([]);
-=======
+
   const [active, setActive] = useState(optionListBtns[0])
   const [openUserDetailModal, setOpenUserDetailModal] = useState(false)
 
@@ -39,71 +38,39 @@ function ManageUser() {
     return users.filter((item) => item.status === "active")
   }
 
-  const getUnactiveUsers = () => {
+  const getUnactiveUsers = () => {   
     return users.filter((item) => item.status === "unactive")
   }
->>>>>>> 27e7c05964179d7b89a3d9b78938f78bdf11b74a
+
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const rows = [
-        {
-          id: 1,
+      const data = await axios.get(`http://localhost:8000/api/users`)
+      const rows = []
+      for (let i = 0; i < 1; i++) {
+        rows.push({       
+          id: data.data[i].id_user,
           avatar:
             "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-          userName: "Tuan Nguyen",
-          email: "tuannguyen@gmail.com",
-          fullName: "tuan",
-          role: "Lecturer",
+          userName: "Tuan",
+          email: data.data[i].email,
+          fullName: data.data[i].first_name,
+          role: data.data[i].role,
           status: "active",
-          gender: "female",
-          phone: "0766620266",
-        },
-        {
-          id: 2,
-          avatar:
-            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-          userName: "Filippo Inzaghi",
-          fullName: "what the fuck",
-          email: "inzaghi@gmail.com",
-          role: "User",
-          status: "active",
-          gender: "male",
-        },
-        {
-          id: 3,
-          avatar:
-            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-          userName: "Noob",
-          fullName: "NOooooob",
-          gender: "other",
-          email: "inzaghi@gmail.com",
-          role: "User",
-          status: "unactive",
-        },
-      ]
-<<<<<<< HEAD
+          gender:data.data[i].gender,
+          phone: data.data[i].phone_number,
+    
+        })
+       
+      }
+
       setUsers(rows);
       setSearchApiData(rows);
     }
     fetchUsers();
    
   }, []);
-  const handleSearch = (e)=>{
-    if(e.target.value ===''){
-        setUsers(searchApiData)
-     } else  {
-      const filterResult = searchApiData.filter(item =>item.email.toLowerCase().includes(e.target.value.toLowerCase()) || item.firstName.toLowerCase().includes(e.target.value.toLowerCase()));
-      setUsers(filterResult);
-=======
->>>>>>> 27e7c05964179d7b89a3d9b78938f78bdf11b74a
-
-      setUsers(rows)
-      setSearchApiData(rows)
-    }
-    fetchUsers()
-  }, [])
-
+  console.log(users)
   const handleSearch = (e) => {
     if (e.target.value === "") {
       setUsers(searchApiData)

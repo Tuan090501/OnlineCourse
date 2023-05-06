@@ -21,7 +21,7 @@ class CourseController extends Controller
 
             $course = Course::create($request->all());
             if($course) {
-                return response()->json(['message' => 'User created'], 201);
+                return response()->json(['message' => 'course created'], 201);
 
             } else {
                 return response()->json(['message'=>'insert course false',404]);
