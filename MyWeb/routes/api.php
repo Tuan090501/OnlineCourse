@@ -70,4 +70,3 @@ Route::prefix('sub-categories')->group(function () {
     Route::delete('/{id}',[SubCategoriesController::class,'delete']);});
 
 
-
