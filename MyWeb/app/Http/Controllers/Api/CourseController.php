@@ -18,10 +18,13 @@ class CourseController extends Controller
 
     public function insert(Request $request)
     {
+            $request->validate([
+                "course_name" => 'required|max:255'
+            ]);
+            $course=Course::create($request->all());
 
-            $course = Course::create($request->all());
             if($course) {
-                return response()->json(['message' => 'course created'], 201);
+                return response()->json($course, 201);
 
             } else {
                 return response()->json(['message'=>'insert course false',404]);
@@ -40,10 +43,10 @@ class CourseController extends Controller
     }
 
     public function update (Request $request, $id){
-        $course = Course::find($id);
+        $course = DB::table('courses')->where('id',$id)->update($request->all());
 
         if($course){
-            $course->fill($request->all())->save();
+
             return response()->json(['message'=>'Course updated ']);
 
         } else {
@@ -51,5 +54,6 @@ class CourseController extends Controller
         }
 
     }
+
 
 }

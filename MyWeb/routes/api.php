@@ -50,6 +50,8 @@ Route::post('/logout', [JWTAuthController::class,'logout']
 //Route course
 Route::prefix('course')->group(function (){
     Route::get('/',[CourseController::class,'index']);
+    Route::post('/',[CourseController::class,'insert']);
+    Route::put('/{id}',[CourseController::class,'update']);
 });
 
 

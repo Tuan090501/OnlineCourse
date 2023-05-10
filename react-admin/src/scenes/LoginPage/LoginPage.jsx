@@ -1,5 +1,5 @@
 import "./LoginPage.scss"
-import { Box, Typography, TextField } from "@mui/material"
+import { Box, Typography, TextField, Divider } from "@mui/material"
 import { Link } from "react-router-dom"
 import {LoginSocialFacebook} from "reactjs-social-login"
 import {FacebookLoginButton} from "react-social-login-buttons"
@@ -7,18 +7,7 @@ import {FacebookLoginButton} from "react-social-login-buttons"
 
 
 function LoginPage() {
-<<<<<<< HEAD
   
-=======
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const data = {
-      email: e.target.email.value,
-      password: e.target.password.value,
-    }
-    console.log(data)
-  }
->>>>>>> 177a41bc08ddcc0513ead9a63231240c2c940467
   return (
     <Box className='loginPage'>
       <Box
@@ -40,7 +29,6 @@ function LoginPage() {
       <Box className='form-container'>
         <form
           className='form'
-          onSubmit={handleSubmit}
         >
           <Typography
             className='login__header'
@@ -71,21 +59,9 @@ function LoginPage() {
               console.log(err)
             }}
           >
-<<<<<<< HEAD
           <FacebookLoginButton className='login__btn--otherPlatform'/>
           </LoginSocialFacebook>
           <Divider sx={{ borderColor: "#000", m: "20px 0px" }} />
-=======
-            <img
-              src='https://cdn-icons-png.flaticon.com/512/124/124010.png'
-              alt='google login logo'
-              className='otherPlatform-logo'
-            />
-            <Typography className='otherPlatform-text'>
-              Continue with Facebook
-            </Typography>
-          </button>
->>>>>>> 177a41bc08ddcc0513ead9a63231240c2c940467
 
           <TextField
             className='form__input'
