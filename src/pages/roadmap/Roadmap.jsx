@@ -3,10 +3,13 @@ import './roadmap.scss'
 import Sidebar from "../../components/sidebar/Sidebar";
 import roadmapfe from '../../assets/images/roadmapFE.png'
 import groupcard from '../../assets/images/group-cards.png'
+import Footer from "../../components/footer/Footer";
+import Header from "../../components/header/Header";
 
 const Roadmap = () => {
   return (
     <>
+        <Header />
         <div className="App_withSidebar">
             <Sidebar />
             <div className="App_withSidebarContent">
@@ -75,6 +78,7 @@ const Roadmap = () => {
                 </section>
             </div>
         </div>
+        <Footer />
     </>
   )
 }
