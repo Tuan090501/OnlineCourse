@@ -54,21 +54,7 @@ const handleRegister = (e) => {
 function Register() {
   return (
     <Box className='registerPage'>
-      <Box
-        className='register-img__container'
-        sx={{
-          display: {
-            xs: "none",
-            lg: "block",
-          },
-        }}
-      >
-        <img
-          className='register__img'
-          src='https://scontent.fsgn2-6.fna.fbcdn.net/v/t1.15752-9/336492149_241576661550997_2739934217323953740_n.png?_nc_cat=111&ccb=1-7&_nc_sid=ae9488&_nc_ohc=XpLGRMoblQIAX9rRk6s&_nc_ht=scontent.fsgn2-6.fna&oh=03_AdRoWSFYadAt2wQz0QQ693POp7n0wxiOWo0h9TgmAMudSA&oe=643BB592'
-          alt='register page'
-        />
-      </Box>
+      
 
       <Box className='form-container'>
         <form

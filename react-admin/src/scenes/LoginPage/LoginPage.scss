@@ -3,16 +3,10 @@
   display: flex;
   min-width: 100vw;
 
-  .login-img__container {
-    height: 100vh;
-    overflow: hidden;
-
-    .login__img {
-      height: 100%;
-    }
-  }
+  
 
   .form-container {
+    height: 100vh;
     flex: 1;
     display: flex;
     justify-content: center;
