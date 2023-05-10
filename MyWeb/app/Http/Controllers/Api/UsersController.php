@@ -22,6 +22,9 @@ class UsersController extends Controller
 
     public function insert(Request $request)
     {
+        $request->validate([
+
+        ]);
         $username = $request->input('user_name');
         $userExists = Users::where('user_name', $username)->exists();
         if(!$userExists){

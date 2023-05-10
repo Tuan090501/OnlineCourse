@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\JWTAuthController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\SubCategoriesController;
+use  App\Http\Controllers\OtpController;
 use Laravel\Socialite\Facades\Socialite;
 
 use App\Models\User;
@@ -37,7 +38,10 @@ Route::prefix('users')->group(function () {
 
 });
 
+Route::post('send-otp',[OtpController::class, 'index']);
 //Authentication user
+
+
 Route::controller(JWTAuthController::class)->group(function(){
     Route::post('register','register');
     Route::post('login','login');
@@ -50,8 +54,6 @@ Route::post('/logout', [JWTAuthController::class,'logout']
 //Route course
 Route::prefix('course')->group(function (){
     Route::get('/',[CourseController::class,'index']);
-    Route::post('/',[CourseController::class,'insert']);
-    Route::put('/{id}',[CourseController::class,'update']);
 });
 
 
@@ -68,5 +70,6 @@ Route::prefix('sub-categories')->group(function () {
     Route::post('/',[SubCategoriesController::class,'insert']);
     Route::put('/{id}',[SubCategoriesController::class,'update']);
     Route::delete('/{id}',[SubCategoriesController::class,'delete']);});
+
 
 

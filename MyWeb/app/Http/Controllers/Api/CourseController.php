@@ -1,56 +1,55 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Categories;
-class CategoriesController extends Controller
+use App\Models\Course;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
+class CourseController extends Controller
 {
-    public function index () {
-        $category = Categories::with('subcategory')->get();
-        return response()->json($category);
+    use HasFactory;
+
+    public function index(){
+        $course = Course::all();
+        return response()->json($course);
     }
 
-    public function show($id) {
-        $category = Categories::find($id);
+    public function insert(Request $request)
+    {
 
-        if ($category) {
-            return response()->json($category);
+            $course = Course::create($request->all());
+            if($course) {
+                return response()->json(['message' => 'course created'], 201);
+
+            } else {
+                return response()->json(['message'=>'insert course false',404]);
+            }
+
+    }
+
+    public function show ($id){
+        $course = Course::find($id);
+        if($course) {
+            return response()->json($course);
         } else {
-            return response()->json(['message'=> 'Category not found']);
+            return response()->json(['message'=>'course not exist']);
         }
+
     }
 
-    public function insert (Request $request) {
-        $categoryExist = Categories::where('category_name', $request->input('category_name'))->exists();
+    public function update (Request $request, $id){
+        $course = Course::find($id);
 
-        if (!$categoryExist) {
-           $category= Categories::create($request->all());
+        if($course){
+            $course->fill($request->all())->save();
+            return response()->json(['message'=>'Course updated ']);
 
-            return response()->json(['message'=>'Category created']);
         } else {
-            return response()->json(['message'=>'Caretegory existed !']);
+            return response()->json(['message'=>'Course not exist']);
         }
+
     }
 
-    public function update (Request $request, $id) {
-        $category = Categories::find($id);
-        if ($category) {
-            $category->fill($request->all())->save();
-            return response()->json(['message'=>'Category updated success']);
-        } else {
-            return response()->json(['message'=>'category not exist']);
-        }
-    }
-
-    public function delete ($id) {
-        $category = Categories::find($id);
-        if ($category) {
-            $category->delete();
-            return response()->json(['message' => 'category deleted'], 200);
-        } else {
-            return response()->json(['message' => 'category not found']);
-        }
-    }
 }
