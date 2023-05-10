@@ -18,17 +18,15 @@ const Footer = () => {
                         <div className="footer-menu">
                             <div className="footer-menu__item">
                                 <h4 className="footer-menu__title">
-                                    Khám phá COOLMATE
+                                    Khám phá khóa học của F8
                                 </h4>
                                 <ul>
-                                    <li>Áo Polo</li>
-                                    <li>Áo T-shirt</li>
-                                    <li>Áo Sơ mi</li>
-                                    <li>Quần</li>
-                                    <li>Quần Lót</li>
-                                    <li>Tất (Vớ)</li>
-                                    <li>Tất (Vớ)</li>
-                                    <li>Phụ Kiện Khác</li>
+                                    <li>HTML & CSS</li>
+                                    <li>JavaScript cơ bản</li>
+                                    <li>JavaScript nâng cao</li>
+                                    <li>ReactJS</li>
+                                    <li>NodeJS</li>
+                                    <li>MongoDB</li>
                                 </ul>
                             </div>
                             <div className="footer-menu__item">
@@ -37,20 +35,18 @@ const Footer = () => {
                                 </h4>
                                 <ul>
                                     <li>Hỏi đáp - FAQs</li>
-                                    <li>Chính sách đổi trả 60 ngày</li>
                                     <li>Liên hệ</li>
-                                    <li>Thành viên Coolclub</li>
+                                    <li>Thành viên F8</li>
                                     <li>Khách hàng hài lòng 100%</li>
                                     <li>Chính sách khuyến mãi</li>
-                                    <li>Chính sách giao hàng</li>
                                 </ul>
                                 <h4 className="footer-menu__title">
-                                    Kiến thức mặc đẹp
+                                    Các công cụ
                                 </h4>
                                 <ul>
-                                    <li>Hướng dẫn chọn size</li>
-                                    <li>Blog</li>
-                                    <li>Group mặc đẹp sống chất</li>
+                                    <li>Tạo CV xin việc</li>
+                                    <li>Rút gọn liên kết</li>
+                                    <li>Clip-path maker</li>
                                 </ul>
                             </div>
                             <div className="footer-menu__item">
@@ -62,13 +58,13 @@ const Footer = () => {
                                     <li>Đăng ký bản quyền</li>
                                 </ul>
                                 <h4 className="footer-menu__title">
-                                    Về COOLMATE
+                                    Về F8
                                 </h4>
                                 <ul>
-                                    <li>Câu chuyện về Coolmate</li>
-                                    <li>Nhà máy</li>
-                                    <li>CoolClub</li>
-                                    <li>Care & Share</li>
+                                    <li>Giới thiệu</li>
+                                    <li>Liên hệ</li>
+                                    <li>Điều khoản</li>
+                                    <li>Bảo mật</li>
                                 </ul>
                             </div>
                             <div className="footer-menu__item">
@@ -87,7 +83,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className="site-footer__sidebar">
-                        <h4 className="site-footer__title">COOLMATE lắng nghe bạn!</h4>
+                        <h4 className="site-footer__title">F8 lắng nghe bạn!</h4>
                         <p className="site-footer__description">
                             Chúng tôi luôn trân trọng và mong đợi nhận được mọi ý kiến đóng góp từ
                             khách hàng để có thể nâng cấp trải nghiệm dịch vụ và sản phẩm tốt hơn nữa.
@@ -113,7 +109,7 @@ const Footer = () => {
                             <div className="footer-info__content">
                                 <span className="footer-info__title">Email</span>
                                 <p class="footer-info__desciption">
-                                    <a href="mailto: Cool@coolmate.me">Cool@coolmate.me</a>
+                                    <a href="mailto: Cool@coolmate.me">ChanhBao@online.course</a>
                                 </p>
                             </div>
                         </div>

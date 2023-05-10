@@ -2,10 +2,13 @@ import React from 'react'
 import './coursedetail.scss'
 import Sidebar from "../../components/sidebar/Sidebar";
 import ktnt from '../../assets/images/KTNT.png'
+import Footer from "../../components/footer/Footer";
+import Header from "../../components/header/Header";
 
 const Coursedetail = () => {
   return (
-    <>
+    <> 
+        <Header />
         <div className="App_withSidebar">
             <Sidebar />
             <div className="App_withSidebarContent">
@@ -137,7 +140,10 @@ const Coursedetail = () => {
                                     <p>Xem giới thiệu khóa học</p>
                                 </div>
                                 <h5>Miễn phí</h5>
-                                <button className="Button_btn Button_primary CourseDetail_learnNow">ĐĂNG KÝ HỌC</button>
+                                <a href="/learning-page">
+                                    <button className="Button_btn Button_primary CourseDetail_learnNow">ĐĂNG KÝ HỌC</button>
+                                </a>
+                                
                                 <ul>
                                     <li>
                                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="gauge-high" class="svg-inline--fa fa-gauge-high CourseDetail_icon"
@@ -187,6 +193,7 @@ const Coursedetail = () => {
                 </section>
             </div>
         </div>
+        <Footer />
     </>
   )
 }
