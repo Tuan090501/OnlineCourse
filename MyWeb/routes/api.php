@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\JWTAuthController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\SubCategoriesController;
+use App\Http\Controllers\Api\SessionController;
+use App\Http\Controllers\OtpController;
 use Laravel\Socialite\Facades\Socialite;
 
 use App\Models\User;
@@ -36,6 +38,9 @@ Route::prefix('users')->group(function () {
     Route::put('/reset-password/{id}', [UsersController::class, 'resetpassword']);
 
 });
+
+//Send OTP
+Route::post('send-otp',[OtpController::class, 'index']);
 
 //Authentication user
 Route::controller(JWTAuthController::class)->group(function(){
