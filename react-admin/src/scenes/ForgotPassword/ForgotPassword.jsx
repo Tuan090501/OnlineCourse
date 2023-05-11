@@ -1,12 +1,24 @@
 import { Box, TextField, Typography } from "@mui/material"
+import { useLocation } from "react-router-dom"
+import axios from "axios"
 import "./ForgotPassword.scss"
 function ForgotPassword() {
+  const location = useLocation();
+  const data = location.state;
+
+  const handleOnClick = (e) =>{
+    e.preventDefault()
+
+    axios.post('http://localhost:8000/api/send-otp',{email: data.data.email})
+    .then(respone => console.log(respone.data))
+    .catch(err => console.log(err))
+  }
   return (
     <Box className='forgotPasswordPage'>
       
 
       <Box className='form-container'>
-        <form
+        <form onSubmit={handleOnClick}
           className='form'
           //   onSubmit={handleSubmit}
         >
@@ -37,6 +49,7 @@ function ForgotPassword() {
             <button
               type='submit'
               className='forgotPassword__btn'
+              
             >
               Reset My Password
             </button>

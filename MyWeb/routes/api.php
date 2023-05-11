@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\JWTAuthController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\SubCategoriesController;
+use App\Http\Controllers\Api\SessionController;
+
 use  App\Http\Controllers\OtpController;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -38,10 +40,10 @@ Route::prefix('users')->group(function () {
 
 });
 
+//Send OTP
 Route::post('send-otp',[OtpController::class, 'index']);
+
 //Authentication user
-
-
 Route::controller(JWTAuthController::class)->group(function(){
     Route::post('register','register');
     Route::post('login','login');
@@ -56,7 +58,7 @@ Route::prefix('course')->group(function (){
     Route::get('/',[CourseController::class,'index']);
 });
 
-
+//Route category
 Route::prefix('categories')->group(function () {
     Route::get('/',[CategoriesController::class,'index']);
     Route::post('/',[CategoriesController::class,'insert']);
@@ -64,12 +66,16 @@ Route::prefix('categories')->group(function () {
     Route::delete('/{id}',[CategoriesController::class,'delete']);
 });
 
-
+//Route subCategory
 Route::prefix('sub-categories')->group(function () {
     Route::get('/',[SubCategoriesController::class,'index']);
     Route::post('/',[SubCategoriesController::class,'insert']);
     Route::put('/{id}',[SubCategoriesController::class,'update']);
-    Route::delete('/{id}',[SubCategoriesController::class,'delete']);});
+    Route::delete('/{id}',[SubCategoriesController::class,'delete']);
+});
 
 
-
+//Route session
+Route::prefix('session')->group(function () {
+    Route::get('/',[SessionController::class,'index']);
+});

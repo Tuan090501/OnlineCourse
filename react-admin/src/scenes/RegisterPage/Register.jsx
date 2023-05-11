@@ -1,7 +1,9 @@
 import { Box, TextField, Typography } from "@mui/material"
 import "./Register.scss"
-import { Link } from "react-router-dom"
+import { Link,useNavigate} from "react-router-dom"
 import Grid from "@mui/material/Unstable_Grid2"
+import { useState } from "react"
+
 
 const arrayRange = (start, stop, step) =>
   Array.from(
@@ -29,29 +31,33 @@ const monthsOfyear = [
 // Create a array years contain number from 1960 to 2023
 const years = arrayRange(1960, 2023, 1).reverse()
 
-const handleRegister = (e) => {
-  e.preventDefault()
-  const data = {
-    email: e.target.email.value,
-    password: e.target.password.value,
-    repeatPassword: e.target.repeatPassword.value,
-    userName: e.target.username.value,
-    role: "user",
-    gender: e.target.gender.value,
-    phone: "",
-    avatar: "",
-    status: "active",
-    address: {
-      province: "",
-      district: "",
-      ward: "",
-      streetHouse: "",
-    },
-  }
-  console.log(data)
-}
+
 
 function Register() {
+  const navigate = useNavigate()
+  const handleRegister = (e) => {
+  
+    e.preventDefault()
+    const data = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+      repeatPassword: e.target.repeatPassword.value,
+      user_name: e.target.username.value,
+      role: "user",
+      gender: e.target.gender.value,
+      phone: "",
+      avatar: "",
+      status: "active",
+      address: {
+        province: "",
+        district: "",
+        ward: "",
+        streetHouse: "",
+      }
+    }
+    navigate('/forgot-password',{state: {data}})
+   
+  }
   return (
     <Box className='registerPage'>
       
@@ -248,6 +254,7 @@ function Register() {
             <button
               type='submit'
               className='register__btn'
+             
             >
               Register
             </button>
