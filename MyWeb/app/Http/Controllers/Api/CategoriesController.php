@@ -8,7 +8,9 @@ use App\Models\Categories;
 class CategoriesController extends Controller
 {
     public function index () {
-        $category = Categories::with('subcategory')->get();
+        $category = Categories::select('id','category_name')->with(['subcategory' => function($query){
+            $query->select('id','sub_name','id_category');
+        }])->get();
         return response()->json($category);
     }
 
@@ -36,9 +38,14 @@ class CategoriesController extends Controller
 
     public function update (Request $request, $id) {
         $category = Categories::find($id);
+        $tempCategory = Categories::select('id','category_name')->with(['subcategory' => function($query){
+            $query->select('id','sub_name','id_category');
+        }])->get();
+        
+   
         if ($category) {
             $category->fill($request->all())->save();
-            return response()->json(['message'=>'Category updated success']);
+            return response()->json(['message'=>'Category updated success','newCategory'=>$tempCategory]);
         } else {
             return response()->json(['message'=>'category not exist']);
         }
