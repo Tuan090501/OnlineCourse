@@ -12,9 +12,10 @@ class CourseController extends Controller
     use HasFactory;
 
     public function index(){
-        $course = Course::all();
+        $course = Course::with('sessionsWithLectures')->get();
         return response()->json($course);
     }
+
 
     public function insert(Request $request)
     {
@@ -30,7 +31,7 @@ class CourseController extends Controller
     }
 
     public function show ($id){
-        $course = Course::find($id);
+        $course = Course::with('sessionsWithLectures')->find($id);
         if($course) {
             return response()->json($course);
         } else {

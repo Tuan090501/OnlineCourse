@@ -74,23 +74,23 @@ function CreateUser() {
   const handleCreateUser = (event) => {
     event.preventDefault()
     const data = {
+
       email: event.target.email.value,
       password: event.target.password.value,
-      userName: event.target.username.value,
+      user_name: event.target.username.value,
       role: event.target.role.value,
       gender: event.target.gender.value,
-      phone: event.target.phone.value,
-      avatar: event.target.avatar.value,
+      phone_number: event.target.phone.value,
+      image: event.target.avatar.value,
       birthday:event.target.birthday.value,
-      status: "active",
-      address: {
-        province:event.target.addressProvince.value,
-        district:event.target.addressDistrict.value,
-        ward:event.target.addressWard.value,
-        streetHouse:event.target.addressStreetHouse.value
-      },
+      status: 1,
+      address: event.target.addressProvince.value + "," + event.target.addressDistrict.value + "," +  event.target.addressWard.value + "," + event.target.addressStreetHouse.value
+     
     }
     console.log(data)
+    axios.post(`http://localhost:8000/api/users/`,data)
+    .then(response => console.log(response.data))
+    .catch(err => console.log(err))
   }
 
   useEffect(() => {

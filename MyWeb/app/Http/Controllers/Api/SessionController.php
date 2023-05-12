@@ -12,6 +12,13 @@ class SessionController extends Controller
         return Session::all();
     }
 
-
+    public function insert (Request $request){
+        $session = Session::create($request->all());
+        if ($session) {
+           return response()->json(['message' => 'Session create successfull']);
+        } else {
+            return response()->json(['message'=> 'Session create fail']);
+        }
+    }
 
 }

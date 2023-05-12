@@ -26,9 +26,22 @@ class UsersController extends Controller
 
         ]);
         $username = $request->input('user_name');
+
         $userExists = Users::where('user_name', $username)->exists();
         if(!$userExists){
-            $user = Users::create($request->all());
+            $user = Users::create( [
+                "address"=>$request->address,
+                "image" => $request->image,
+                "birthday" => $request->birthday,
+                "email" => $request->email,
+                "gender"=> $request->gender,
+                "password" => bcrypt($request->input("password")),
+                "phone_number" => $request->phone_number,
+                "role" => $request->role,
+                "status"=>  $request->status,
+                "user_name"=>$request->user_name
+
+            ] );
 
             return response()->json(['message' => 'User created'], 201);
         }else{

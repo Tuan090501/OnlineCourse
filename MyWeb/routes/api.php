@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\SubCategoriesController;
 use App\Http\Controllers\Api\SessionController;
+use App\Http\Controllers\Api\LectureController;
 
 use  App\Http\Controllers\OtpController;
 use Laravel\Socialite\Facades\Socialite;
@@ -56,6 +57,10 @@ Route::post('/logout', [JWTAuthController::class,'logout']
 //Route course
 Route::prefix('course')->group(function (){
     Route::get('/',[CourseController::class,'index']);
+    Route::post('/',[CourseController::class,'insert']);
+    Route::get('/{id}',[CourseController::class,'show']);
+    Route::put('/{id}',[CourseController::class,'update']);
+    Route::delete('/{id}', [CourseController::class, 'delete']);
 });
 
 //Route category
@@ -78,4 +83,13 @@ Route::prefix('sub-categories')->group(function () {
 //Route session
 Route::prefix('session')->group(function () {
     Route::get('/',[SessionController::class,'index']);
+    Route::post('/',[SessionController::class,'insert']);
 });
+
+//Route lecture
+
+Route::prefix('lecture')->group(function () {
+    Route::get('/',[LectureController::class,'index']);
+    Route::post('/',[LectureController::class,'insert']);
+});
+

@@ -46,16 +46,15 @@ function ManageUser() {
     const fetchUsers = async () => {
       const data = await axios.get(`http://localhost:8000/api/users`)
       const rows = []
-      for (let i = 0; i < 1; i++) {
+      for (let i = 0; i < data.data.length; i++) {
         rows.push({       
           id: data.data[i].id_user,
-          avatar:
-            "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-          userName: "Tuan",
+          avatar:data.data[i].image,
+          userName: data.data[i].email,
           email: data.data[i].email,
           fullName: data.data[i].first_name,
           role: data.data[i].role,
-          status: "active",
+          status: data.data[i].status === 1 ? "active" : "unactive",
           gender:data.data[i].gender,
           phone: data.data[i].phone_number,
     
@@ -69,7 +68,7 @@ function ManageUser() {
     fetchUsers();
    
   }, []);
-  console.log(users)
+
   const handleSearch = (e) => {
     if (e.target.value === "") {
       setUsers(searchApiData)
@@ -166,6 +165,7 @@ function ManageUser() {
           }-status`}
         >
           {params.value}
+          
         </Typography>
       ),
     },

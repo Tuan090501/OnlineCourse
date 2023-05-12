@@ -11,5 +11,8 @@ class Course extends Model
     protected $table = 'courses';
     protected $fillable = ['title', 'price', 'discount','status','discription','video'];
 
+    public function sessionsWithLectures(){
+        return $this->hasMany(Session::class)->with('lectures');
+    }
 
 }

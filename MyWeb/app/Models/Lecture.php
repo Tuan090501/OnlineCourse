@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Lecture extends Model
 {
     use HasFactory;
+    protected $table = 'lectures';
+    protected $fillable = ['title','id_session','video'];
+
+    const UPDATED_AT = NULL;
+    const CREATED_AT = NULL;
 }
