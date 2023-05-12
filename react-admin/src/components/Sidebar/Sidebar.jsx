@@ -18,6 +18,7 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"
 import "./Sidebar.scss"
 import { Link } from "react-router-dom"
 import { useState } from "react"
+import useAuthContext from "../../context/AuthContext"
 
 const menuItems = [
   {
@@ -56,7 +57,7 @@ const sidebar = {
 
 function Sidebar() {
   const [active, setActive] = useState(menuItems[0])
-
+  const {user,logout} = useAuthContext()
   return (
     <Box
       className='sidebar'
@@ -109,9 +110,14 @@ function Sidebar() {
 
         <Divider />
 
-        <Link
+        <button
           className='link'
-          to='/login'
+          onClick={logout}
+          style={{
+            width:"100%",
+            border:"none",
+            backgroundColor:"#fff"
+          }}
         >
           <ListItemButton className='category__item'>
             <ListItemIcon>
@@ -119,7 +125,7 @@ function Sidebar() {
             </ListItemIcon>
             <ListItemText>Log out</ListItemText>
           </ListItemButton>
-        </Link>
+        </button>
       </Box>
     </Box>
   )

@@ -10,6 +10,7 @@ import StatsBox from "../../components/StatsBox/StatsBox"
 import UsersStatBox from "../../components/UsersStatBox/UsersStatBox"
 import CourseBox from "../../components/CourseBox/CourseBox"
 import { Box, Divider, Typography } from "@mui/material"
+import { useEffect } from "react"
 
 // array data of statsBox
 const statsBox = [
@@ -103,6 +104,8 @@ const courses = [
 ]
 
 function Dashboard() {
+  useEffect(() => {}, [])
+
   return (
     <Box className='dashboard-container'>
       <Grid
@@ -149,21 +152,22 @@ function Dashboard() {
 
         {/* Row 3: User stats box */}
         {
-        // Display all usersStatBox
-        usersStatBox.map(({ percentage, userType, userQuantity }) => (
-          <Grid
-            item
-            xs={12}
-            lg={4}
-            className='mtb_10'
-          >
-            <UsersStatBox
-              percentage={percentage}
-              userType={userType}
-              userQuantity={userQuantity}
-            />
-          </Grid>
-        ))}
+          // Display all usersStatBox
+          usersStatBox.map(({ percentage, userType, userQuantity }) => (
+            <Grid
+              item
+              xs={12}
+              lg={4}
+              className='mtb_10'
+            >
+              <UsersStatBox
+                percentage={percentage}
+                userType={userType}
+                userQuantity={userQuantity}
+              />
+            </Grid>
+          ))
+        }
 
         {/* Row 4 */}
         {/* Left column: Best seller courses

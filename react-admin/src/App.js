@@ -2,7 +2,9 @@ import { Routes, Route } from "react-router-dom"
 import LoginPage from "./scenes/LoginPage/LoginPage"
 import Register from "./scenes/RegisterPage/Register"
 import HomePage from "./scenes/HomePage"
-import ForgotPassword from './scenes/ForgotPassword/ForgotPassword'
+import ForgotPassword from "./scenes/ForgotPassword/ForgotPassword"
+import ForgotPasswordEnterOTP from "./scenes/ForgotPassword/ForgotPasswordEnterOTP"
+
 function App() {
   return (
     <div className='app'>
@@ -26,6 +28,11 @@ function App() {
         <Route
           path='/forgot-password'
           element={<ForgotPassword />}
+        ></Route>
+
+        <Route
+          path='/forgot-password/enterOTP'
+          element={<ForgotPasswordEnterOTP />}
         ></Route>
       </Routes>
     </div>

@@ -136,7 +136,6 @@ function Register() {
                 required
                 type='password'
                 name='password'
-                onChange={handleChangePwd}
               ></TextField>
             </Grid>
 
@@ -152,7 +151,6 @@ function Register() {
                 required
                 type='password'
                 name='confirmPassword'
-                onChange={handleChangeConfirmPwd}
               ></TextField>
             </Grid>
 
