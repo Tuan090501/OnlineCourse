@@ -8,9 +8,13 @@ use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\SubCategoriesController;
 use App\Http\Controllers\Api\SessionController;
+<<<<<<< HEAD
 use App\Http\Controllers\Api\LectureController;
 
 use  App\Http\Controllers\OtpController;
+=======
+use App\Http\Controllers\OtpController;
+>>>>>>> 8882ad7271c1e5ed411890d9f6d6662cbeb649a8
 use Laravel\Socialite\Facades\Socialite;
 
 use App\Models\User;

@@ -10,15 +10,15 @@ class SubCategoriesController extends Controller
 {
     public function index(){
         $sub = Subcategories::all();
-        return response()->json($sub);
+        return response()->json($sub);  
     }
 
     public function insert (Request $request) {
         $sub = Subcategories::create($request->all());
         if ($sub) {
-            return response()->json(['message' => 'User created'], 201);
+            return response()->json(['message' => 'SubCategory created'], 201);
         } else {
-            return response()->json(['message' => 'User create false'], 404);
+            return response()->json(['message' => 'SubCategory create false'], 404);
         }
     }
 
@@ -26,9 +26,9 @@ class SubCategoriesController extends Controller
         $sub = Subcategories::find($id);
         if ($sub) {
             $sub->fill($request->all())->save();
-            return response()->json(['message'=>'SUbCategory updated success']);
+            return response()->json(['message'=>'SubCategory updated success']);
         } else {
-            return response()->json(['message'=>'SUbCategory not exist']);
+            return response()->json(['message'=>'SubCategory not exist']);
         }
     }
 

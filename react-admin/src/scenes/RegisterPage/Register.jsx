@@ -3,7 +3,10 @@ import "./Register.scss"
 import { Link,useNavigate} from "react-router-dom"
 import Grid from "@mui/material/Unstable_Grid2"
 import { useState } from "react"
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8882ad7271c1e5ed411890d9f6d6662cbeb649a8
 
 const arrayRange = (start, stop, step) =>
   Array.from(
@@ -31,6 +34,7 @@ const monthsOfyear = [
 // Create a array years contain number from 1960 to 2023
 const years = arrayRange(1960, 2023, 1).reverse()
 
+<<<<<<< HEAD
 
 
 function Register() {
@@ -43,6 +47,33 @@ function Register() {
       password: e.target.password.value,
       repeatPassword: e.target.repeatPassword.value,
       user_name: e.target.username.value,
+=======
+
+function Register() {
+
+  const [pwd, setPwd]= useState('')
+  const [confirmPwd, setConfirmPwd] = useState("")
+  const [error,setError] = useState('')
+
+  const handleChangePwd = (e)=>{
+    setPwd(e.target.value)
+    console.log(pwd)
+  }
+  
+  const handleChangeConfirmPwd = (e) =>{
+    setConfirmPwd(e.target.value)
+    
+  }
+  const handleRegister = (e) => {
+    e.preventDefault()
+    console.log(pwd,confirmPwd)
+    if(pwd !== confirmPwd) setError('Password and confirm password are not the same!')
+    const data = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+      confirmPassword: e.target.confirmPassword.value,
+      userName: e.target.username.value,
+>>>>>>> 8882ad7271c1e5ed411890d9f6d6662cbeb649a8
       role: "user",
       gender: e.target.gender.value,
       phone: "",
@@ -53,11 +84,20 @@ function Register() {
         district: "",
         ward: "",
         streetHouse: "",
+<<<<<<< HEAD
       }
     }
     navigate('/forgot-password',{state: {data}})
    
   }
+=======
+      },
+    }
+    console.log(data)
+}
+  
+
+>>>>>>> 8882ad7271c1e5ed411890d9f6d6662cbeb649a8
   return (
     <Box className='registerPage'>
       
@@ -126,6 +166,7 @@ function Register() {
                 required
                 type='password'
                 name='password'
+                onChange={handleChangePwd}
               ></TextField>
             </Grid>
 
@@ -136,11 +177,12 @@ function Register() {
             >
               <TextField
                 className='form__input'
-                label='Repeat password'
-                placeholder='Repeat password'
+                label='Confirm password'
+                placeholder='Confirm password'
                 required
                 type='password'
-                name='repeatPassword'
+                name='confirmPassword'
+                onChange={handleChangeConfirmPwd}
               ></TextField>
             </Grid>
 
