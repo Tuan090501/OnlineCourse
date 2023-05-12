@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-<<<<<<< HEAD
 use App\Models\Lecture;
 
 class LectureController extends Controller
@@ -21,10 +20,3 @@ class LectureController extends Controller
         }
     }
 }
-=======
-
-class LectureController extends Controller
-{
-    //
-}
->>>>>>> 8882ad7271c1e5ed411890d9f6d6662cbeb649a8
