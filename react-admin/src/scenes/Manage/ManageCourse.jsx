@@ -17,7 +17,8 @@ import { DataGrid } from "@mui/x-data-grid"
 import ErrorOutlineOutlinedIcon from "@mui/icons-material/ErrorOutlineOutlined"
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined"
 import { Link, Route, Routes } from "react-router-dom"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from "axios"
 
 const optionListBtns = [
   {
@@ -129,6 +130,33 @@ function ManageCourse() {
     },
   ]
 
+  const [course, setCourse] = useState([])
+  useEffect(() => {
+    const fetchCourse = async () => {
+      const data = await axios.get(`http://localhost:8000/api/course`)
+      console.log(data.data)
+      const rows = []
+      for (let i = 0; i < data.data.length; i++) {
+        rows.push({       
+          id: data.data[i].id,
+          thumbnail:data.data[i].image,
+          courseName: data.data[i].course_name,
+          description: data.data[i].description,
+          fullName: data.data[i].first_name,
+          role: data.data[i].role,
+          status: data.data[i].status === 1 ? "active" : "unactive",
+          gender:data.data[i].gender,
+          phone: data.data[i].phone_number,
+    
+        })
+      
+      }
+
+    
+    }
+    fetchCourse();
+  
+  }, []);
   const rows = [
     {
       id: 1,

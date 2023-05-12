@@ -41,6 +41,11 @@ function ManageUser() {
     return users.filter((item) => item.status === "unactive")
   }
 
+<<<<<<< HEAD
+ 
+  
+  
+=======
   useEffect(() => {
     const fetchUsers = async () => {
       const data = await axios.get(`http://localhost:8000/api/users`)
@@ -65,6 +70,7 @@ function ManageUser() {
     }
     fetchUsers()
   }, [])
+>>>>>>> ff2d55206fa28427d8630ef822104e4ab275af51
 
   const handleSearch = (e) => {
     if (e.target.value === "") {

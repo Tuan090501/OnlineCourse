@@ -12,7 +12,7 @@ class CourseController extends Controller
     use HasFactory;
 
     public function index(){
-        $course = Course::with('sessionsWithLectures')->get();
+        $course = Course::with('sessionsWithLectures')->where('id_user',"!=",6)->get();
         return response()->json($course);
     }
 

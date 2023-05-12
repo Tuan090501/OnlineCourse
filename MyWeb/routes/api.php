@@ -10,8 +10,12 @@ use App\Http\Controllers\Api\SubCategoriesController;
 use App\Http\Controllers\Api\SessionController;
 use App\Http\Controllers\Api\LectureController;
 
+<<<<<<< HEAD
+use  App\Http\Controllers\OtpController;
+=======
 
 use App\Http\Controllers\OtpController;
+>>>>>>> ff2d55206fa28427d8630ef822104e4ab275af51
 use Laravel\Socialite\Facades\Socialite;
 
 use App\Models\User;

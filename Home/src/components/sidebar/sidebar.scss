@@ -1,0 +1,116 @@
+* {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+div {
+    display: block;
+}
+
+.sidebarWrap {
+    flex-shrink: 0;
+}
+
+.sidebar_wrapper {
+    --width: 96px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    left: 0;
+    padding: 0 8px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 74px;
+    width: var(--width);
+    z-index: 8;
+}
+
+.CreateButton_wrapper {
+    align-items: center;
+    background-color: #1473e6;
+    border-color: #1473e6;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    height: 44px;
+    justify-content: center;
+    margin: 16px 0 2px;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 44px;
+}
+
+// svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
+//     overflow: visible;
+//     box-sizing: content-box;
+// }
+
+.CreateButton_wrapper .CreateButton_icon {
+    font-size: 1rem;
+    transition: -webkit-transform .3s ease;
+    transition: transform .3s ease;
+    transition: transform .3s ease,-webkit-transform .3s ease;
+}
+
+.svg-inline--fa {
+    display: var(--fa-display, inline-block);
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+}
+
+.Sidebar_list {
+    padding-left: 0;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.Sidebar_list {
+    padding-left: 0;
+    padding-top: 20px;
+}
+
+a:focus, a:hover, a:visited {
+    outline: none;
+    text-decoration: none;
+}
+
+.Sidebar_itemBtn.Sidebar_active {
+    background-color: #e8ebed;
+    color: #1a1a1a;
+}
+
+.Sidebar_itemBtn {
+    align-items: center;
+    background-color: #fff;
+    border-radius: 16px;
+    color: #404040;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 72px;
+    justify-content: center;
+    margin-top: 4px;
+    width: 72px;
+}
+
+.Sidebar_itemBtn svg {
+    font-size: 1.2rem;
+}
+
+.Sidebar_itemBtn span {
+    font-size: 0.6rem;
+    font-weight: 600;
+    margin-top: 6px;
+}
