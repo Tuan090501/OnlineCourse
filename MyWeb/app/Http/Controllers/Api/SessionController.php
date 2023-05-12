@@ -12,7 +12,6 @@ class SessionController extends Controller
         return Session::all();
     }
 
-<<<<<<< HEAD
     public function insert (Request $request){
         $session = Session::create($request->all());
         if ($session) {
@@ -23,8 +22,3 @@ class SessionController extends Controller
     }
 
 }
-=======
-
-
-}
->>>>>>> 8882ad7271c1e5ed411890d9f6d6662cbeb649a8
