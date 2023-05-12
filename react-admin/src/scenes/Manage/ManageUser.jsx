@@ -34,7 +34,6 @@ function ManageUser() {
   const navigate = useNavigate()
 
   const getActiveUsers = () => {
-    console.log(users)
     return users.filter((item) => item.status === "active")
   }
 
@@ -57,9 +56,10 @@ function ManageUser() {
           status: data.data[i].status === "1" ? "active" : "unactive",
           gender: data.data[i].gender,
           phone: data.data[i].phone_number,
+          address:data.data[i].address
         })
       }
-
+      console.log(data.data)
       setUsers(rows)
       setSearchApiData(rows)
     }
@@ -89,10 +89,10 @@ function ManageUser() {
       users.find((row) => row.id === id)
     )
     setSelectedRowData(selectedRowsData)
+    console.log(selectedRowData)
   }
 
   const handleClickToEdit = () => {
-    console.log(selectedRowData)
     if (selectedRowData !== null && selectedRowData.length === 1) {
       navigate("/manage-user/admin-edit-user", {
         state: {
@@ -155,7 +155,6 @@ function ManageUser() {
       renderCell: (params) => (
         <button
           style={{
-      
             cursor: "pointer",
           }}
           className={`${
@@ -269,6 +268,7 @@ function ManageUser() {
               id='2'
             >
               <DataGrid
+                onRowSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
                 rowHeight={60}
                 className='manage-table'
                 rows={getUnactiveUsers()}

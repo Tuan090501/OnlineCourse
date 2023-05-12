@@ -12,6 +12,7 @@ function EditUser() {
   const [districts, setDistricts] = useState([])
   const [wards, setWards] = useState([])
 
+  const address = defaultValueUser.address.split(",")
   const getProvinces = async () => {
     const response = await axios({
       method: "get",
@@ -102,7 +103,7 @@ function EditUser() {
 
   useEffect(() => {
     getProvinces()
-    console.log(defaultValueUser)
+    console.log(address[0])
   }, [])
 
   return (
@@ -263,7 +264,7 @@ function EditUser() {
             >
               <label for='birthday'>Birthday</label>
               <input
-              defaultValue={defaultValueUser.birthday}
+                defaultValue={defaultValueUser.birthday}
                 name='birthday'
                 type='date'
                 id='birthday'
@@ -286,14 +287,21 @@ function EditUser() {
             >
               <label for='address-province'>Province</label>
               <select
-                defaultValue={defaultValueUser.address.province}
+                defaultValue={address[0]}
                 id='address-province'
                 name='addressProvince'
                 onChange={getDistricts}
               >
-                {provinces.map((item) => (
-                  <option value={`${item.name}`}>{`${item.name}`}</option>
-                ))}
+                {provinces.map((item) =>
+                  item.name === address[0] ? (
+                    <option
+                      selected
+                      value={`${item.name}`}
+                    >{`${item.name}`}</option>
+                  ) : (
+                    <option value={`${item.name}`}>{`${item.name}`}</option>
+                  )
+                )}
               </select>
             </Grid>
 
@@ -305,7 +313,6 @@ function EditUser() {
             >
               <label for='address-district'>District</label>
               <select
-                defaultValue={defaultValueUser.address.district}
                 id='address-district'
                 name='addressDistrict'
                 onChange={getWards}
@@ -324,7 +331,6 @@ function EditUser() {
             >
               <label for='address-ward'>Ward</label>
               <select
-                defaultValue={defaultValueUser.address.ward}
                 id='address-ward'
                 name='addressWard'
               >
@@ -344,7 +350,7 @@ function EditUser() {
                 Street name - House number
               </label>
               <input
-                defaultValue={defaultValueUser.streetHouse}
+                defaultValue={address[3]}
                 type='text'
                 name='addressStreetHouse'
                 id='address-street-house'
