@@ -42,32 +42,9 @@ function ManageUser() {
     return users.filter((item) => item.status === "unactive")
   }
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const data = await axios.get(`http://localhost:8000/api/users`)
-      const rows = []
-      for (let i = 0; i < data.data.length; i++) {
-        rows.push({       
-          id: data.data[i].id_user,
-          avatar:data.data[i].image,
-          userName: data.data[i].email,
-          email: data.data[i].email,
-          fullName: data.data[i].first_name,
-          role: data.data[i].role,
-          status: data.data[i].status === 1 ? "active" : "unactive",
-          gender:data.data[i].gender,
-          phone: data.data[i].phone_number,
-    
-        })
-       
-      }
-
-      setUsers(rows);
-      setSearchApiData(rows);
-    }
-    fetchUsers();
-   
-  }, []);
+ 
+  
+  
 
   const handleSearch = (e) => {
     if (e.target.value === "") {

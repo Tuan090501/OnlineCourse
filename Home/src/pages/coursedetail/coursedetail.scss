@@ -1,0 +1,341 @@
+.App_withSidebar {
+    display: flex;
+    min-height: 100vh;
+}
+
+ul {
+    list-style: none;
+}
+
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+section {
+    display: block;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+.App_withSidebarContent {
+    flex: 1 1;
+    padding: 0 40px 0 20px;
+    max-width: 100%;
+}
+
+.index-module_fullWidth {
+    width: 100%;
+}
+
+.index-module_grid {
+    padding: 0;
+    margin: 0 auto;
+}
+
+.CourseDetail_wrapper {
+    margin-top: 24px;
+    padding: 0 44px 68px;
+    margin-left: -12px;
+    margin-right: -12px;
+}
+
+.index-module_row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -4px;
+    margin-right: -4px;
+}
+
+.index-module_l-8 {
+    width: calc(66.666667% - 8px);
+}
+
+// .index-module_c-12 {
+//     width: 100%;
+// }
+
+.index-module_col {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.CourseDetail_courseName {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-top: 16px;
+    min-height: 33px;
+}
+
+.CourseDetail_textContent {
+    color: rgba(0,0,0,.8);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.CourseDetail_topicList .CourseDetail_topicHeading {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 36px 0 4px;
+}
+
+.index-module_row {
+    margin-left: -12px;
+    margin-right: -12px;
+}
+
+.index-module_row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -4px;
+    margin-right: -4px;
+}
+
+.index-module_l-12 {
+    width: 100%;
+}
+
+.CourseDetail_topicList .CourseDetail_list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    padding-left: 0;
+    padding-top: 20px;
+}
+
+.CourseDetail_topicList .CourseDetail_list li {
+    color: #333;
+    flex-basis: 30%; //biến tạm flex 50%
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    padding: 0 24px;
+    position: relative;
+}
+
+.CourseDetail_topicList .CourseDetail_list li .CourseDetail_icon {
+    color: #f05123;
+    font-size: 1rem;
+    left: 0;
+    position: absolute;
+    top: 2px;
+}
+
+.svg-inline--fa {
+    display: var(--fa-display, inline-block);
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+}
+
+.CurriculumOfCourse_headerSticky {
+    background-color: #fff;
+    padding-bottom: 4px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 66px;
+    z-index: 2;
+}
+
+.CurriculumOfCourse_headerBlock {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.CurriculumOfCourse_curriculumOfCourse h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.CurriculumOfCourse_subHeadWrapper {
+    display: flex;
+    font-size: 1rem;
+    margin-top: 4px;
+}
+
+.CurriculumOfCourse_subHeadWrapper ul {
+    display: flex;
+    margin: 0;
+    padding-left: 0;
+}
+
+.CurriculumOfCourse_subHeadWrapper li {
+    display: inline-block;
+}
+
+.CurriculumOfCourse_subHeadWrapper .CurriculumOfCourse_dot {
+    font-size: 1rem;
+    margin-top: 1px;
+    opacity: .8;
+    padding: 0 8px;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.CurriculumOfCourse_toggleBtn {
+    color: #f05123;
+    font-weight: 600;
+    margin-left: auto;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+// CSS PHẦN TRÊN CHƯA XONG
+
+//PHẦN ẢNH
+.index-module_l-4 {
+    width: calc(33.33333% - 8px);
+}
+
+.CourseDetail_purchaseBadge {
+    align-items: center;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+    margin-left: 24px;
+    padding-bottom: 20px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 90px;
+}
+
+.CourseDetail_imgPreview {
+    border-radius: 16px;
+    margin: 2px 0 20px;
+    overflow: hidden;
+    position: relative;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: calc(100% - 2px);
+}
+
+.CourseDetail_imgPreview .CourseDetail_bg {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    padding-top: 56.25%;
+    width: 100%;
+}
+
+
+.CourseDetail_imgPreview .CourseDetail_icon {
+    color: #fff;
+    font-size: 4rem;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    transition: all .3s linear;
+    z-index: 1;
+}
+
+.CourseDetail_imgPreview p {
+    bottom: 0;
+    color: #fff;
+    font-weight: 600;
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+}
+
+.CourseDetail_purchaseBadge p {
+    font-size: 1rem;
+}
+
+.CourseDetail_imgPreview:after {
+    background-image: linear-gradient(180deg,rgba(30,30,28,0),rgba(30,30,28,.9));
+    bottom: 0;
+    content: "";
+    display: block;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: all .3s linear;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.CourseDetail_purchaseBadge h5 {
+    color: #f05123;
+    font-size: 32px;
+    font-weight: 400;
+    margin: 0 auto;
+    opacity: .8;
+}
+
+.CourseDetail_purchaseBadge .CourseDetail_learnNow {
+    font-size: 1rem;
+    margin-top: 16px;
+    min-width: 180px;
+    padding: 10px 16px;
+}
+
+.Button_btn.Button_primary{
+    background-color: #f05123;
+    color: #fff;
+}
+
+.Button_btn {
+    appearance: none;
+    background-color: #fff;
+    border: 1px solid #fff;
+    border-radius: 999px !important;
+    color: #000;
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    outline: none;
+    padding: 9px 16px;
+    text-align: center;
+    transition: .3s ease;
+    -webkit-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.CourseDetail_purchaseBadge ul {
+    display: inline-block;
+    margin: 0;
+    padding: 24px 0 10px 4px;
+    text-align: left;
+}
+
+.CourseDetail_purchaseBadge ul li {
+    color: #494949;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    padding-left: 35px;
+    position: relative;
+}
+
+.CourseDetail_purchaseBadge ul li .CourseDetail_icon {
+    left: 0;
+    position: absolute;
+    top: 4px;
+}
+
+strong {
+    font-weight: 600;
+}

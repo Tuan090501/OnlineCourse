@@ -41,8 +41,8 @@ class CategoriesController extends Controller
         $tempCategory = Categories::select('id','category_name')->with(['subcategory' => function($query){
             $query->select('id','sub_name','id_category');
         }])->get();
-        
-   
+
+
         if ($category) {
             $category->fill($request->all())->save();
             return response()->json(['message'=>'Category updated success','newCategory'=>$tempCategory]);
