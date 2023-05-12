@@ -45,6 +45,7 @@
 
       &.active,
       &.active-default {
+        padding: 16px;
         background-color: rgba(221, 221, 221, 0.7);
         color: #f94412;
         border-bottom: 3px solid #f94412;
@@ -81,9 +82,12 @@
       text-transform: capitalize;
 
       .active-status {
+        text-transform: capitalize;
+        font-size: 16px;
         border: 2px solid green;
-        padding: 8px 16px;
+        padding: 10px 22px;
         border-radius: 60px;
+        background-color: #fff;
       }
       .-status {
         cursor: pointer;

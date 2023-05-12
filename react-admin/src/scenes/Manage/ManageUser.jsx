@@ -7,7 +7,7 @@ import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined"
 import { useState, useEffect } from "react"
 import UserDetail from "../../components/UserDetail/UserDetail"
 import { Link, Route, Routes, useNavigate } from "react-router-dom"
-import axios from 'axios'
+import axios from "axios"
 
 const optionListBtns = [
   {
@@ -21,7 +21,6 @@ const optionListBtns = [
 ]
 
 function ManageUser() {
-
   const [open, setOpen] = useState(false)
 
   const [active, setActive] = useState(optionListBtns[0])
@@ -35,16 +34,43 @@ function ManageUser() {
   const navigate = useNavigate()
 
   const getActiveUsers = () => {
+    console.log(users)
     return users.filter((item) => item.status === "active")
   }
 
-  const getUnactiveUsers = () => {   
+  const getUnactiveUsers = () => {
     return users.filter((item) => item.status === "unactive")
   }
 
+<<<<<<< HEAD
  
   
   
+=======
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const data = await axios.get(`http://localhost:8000/api/users`)
+      const rows = []
+      for (let i = 0; i < data.data.length; i++) {
+        rows.push({
+          id: data.data[i].id_user,
+          avatar: data.data[i].image,
+          userName: data.data[i].email,
+          email: data.data[i].email,
+          fullName: data.data[i].first_name,
+          role: data.data[i].role,
+          status: data.data[i].status === "1" ? "active" : "unactive",
+          gender: data.data[i].gender,
+          phone: data.data[i].phone_number,
+        })
+      }
+
+      setUsers(rows)
+      setSearchApiData(rows)
+    }
+    fetchUsers()
+  }, [])
+>>>>>>> ff2d55206fa28427d8630ef822104e4ab275af51
 
   const handleSearch = (e) => {
     if (e.target.value === "") {
@@ -133,8 +159,9 @@ function ManageUser() {
       headerAlign: "center",
       align: "center",
       renderCell: (params) => (
-        <Typography
-          sx={{
+        <button
+          style={{
+      
             cursor: "pointer",
           }}
           className={`${
@@ -142,8 +169,7 @@ function ManageUser() {
           }-status`}
         >
           {params.value}
-          
-        </Typography>
+        </button>
       ),
     },
     {
