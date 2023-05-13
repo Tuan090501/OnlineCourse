@@ -15,4 +15,12 @@ class Course extends Model
         return $this->hasMany(Session::class)->with('lectures');
     }
 
+    public function lecturer () {
+        return $this->hasOne(Users::class, 'id', 'user_id');
+    }
+
+    public function category () {
+        return $this->hasOne(Categories::class, 'id', 'id_category');
+    }
+
 }

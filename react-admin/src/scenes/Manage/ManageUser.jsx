@@ -30,7 +30,6 @@ function ManageUser() {
 
   const [users, setUsers] = useState([])
   const [searchApiData, setSearchApiData] = useState([])
-
   const navigate = useNavigate()
 
   const getActiveUsers = () => {
@@ -42,24 +41,19 @@ function ManageUser() {
     return users.filter((item) => item.status === "unactive")
   }
 
-<<<<<<< HEAD
- 
-  
-  
-=======
   useEffect(() => {
     const fetchUsers = async () => {
       const data = await axios.get(`http://localhost:8000/api/users`)
       const rows = []
       for (let i = 0; i < data.data.length; i++) {
         rows.push({
-          id: data.data[i].id_user,
+          id: data.data[i].id,
           avatar: data.data[i].image,
           userName: data.data[i].email,
           email: data.data[i].email,
           fullName: data.data[i].first_name,
           role: data.data[i].role,
-          status: data.data[i].status === "1" ? "active" : "unactive",
+          status: data.data[i].status === 1 ? "active" : "unactive",
           gender: data.data[i].gender,
           phone: data.data[i].phone_number,
         })
@@ -70,7 +64,6 @@ function ManageUser() {
     }
     fetchUsers()
   }, [])
->>>>>>> ff2d55206fa28427d8630ef822104e4ab275af51
 
   const handleSearch = (e) => {
     if (e.target.value === "") {
@@ -106,6 +99,10 @@ function ManageUser() {
         },
       })
     }
+  }
+  const handleUpdateStatus = (params) =>{
+    console.log(params.value)
+      axios.put(`http://localhost:8000/api/users/${params.id}`,{status : params.value ==="active" ? 0 : 1})
   }
 
   const columns = [
@@ -160,6 +157,7 @@ function ManageUser() {
       align: "center",
       renderCell: (params) => (
         <button
+          onClick={()=>handleUpdateStatus(params)}
           style={{
       
             cursor: "pointer",

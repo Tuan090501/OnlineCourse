@@ -76,12 +76,12 @@ function ManageCourse() {
     {
       field: "price",
       headerName: "price",
-      width: 250,
+      width: 150,
     },
     {
       field: "lecturer",
       headerName: "lecturer",
-      width: 250,
+      width: 150,
     },
     {
       field: "category",
@@ -97,7 +97,7 @@ function ManageCourse() {
       headerAlign: "center",
       align: "center",
       renderCell: (params) => (
-        <Typography
+        <button
           className={`${
             params.value.toLowerCase() === "active" ? "active" : ""
           }-status`}
@@ -108,7 +108,7 @@ function ManageCourse() {
           }}
         >
           {params.value}
-        </Typography>
+        </button>
       ),
     },
     {
@@ -139,16 +139,17 @@ function ManageCourse() {
       for (let i = 0; i < data.data.length; i++) {
         rows.push({       
           id: data.data[i].id,
-          thumbnail:data.data[i].image,
+          thumbnail:data.data[i].img,
           courseName: data.data[i].course_name,
           description: data.data[i].description,
-          fullName: data.data[i].first_name,
-          role: data.data[i].role,
+          price: data.data[i].price,
+          category : data.data[i].category.category_name,
+          lecturer:data.data[i].lecturer.user_name,
           status: data.data[i].status === 1 ? "active" : "unactive",
-          gender:data.data[i].gender,
-          phone: data.data[i].phone_number,
-    
+        
+         
         })
+       setCourse(rows)
       
       }
 
@@ -217,7 +218,7 @@ function ManageCourse() {
                   }}
                   rowHeight={60}
                   className='manage-table'
-                  rows={rows}
+                  rows={course}
                   columns={columnsPending}
                   initialState={{
                     pagination: {

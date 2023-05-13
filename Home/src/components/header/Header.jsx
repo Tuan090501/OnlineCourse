@@ -1,10 +1,118 @@
 import React from 'react'
+import { useState } from "react";
 import './header.scss'
 import logo from '../../assets/images/logof8.png'
+
+
+const styleMyCourse = {
+    zIndex: 9999,
+    position: "absolute",
+    inset: "0px 0px auto auto",
+    margin: "0px",
+    transform: "translate3d(-200px, 58.4px, 0px)",
+};
+
+function MyCourse() {
+    const [isDivVisible, setIsDivVisible] = useState(false);
+  
+    function toggleDiv() {
+      setIsDivVisible((prevIsDivVisible) => !prevIsDivVisible);
+    }
+  
+    const styleMyCourse = {
+        zIndex: 9999,
+        position: "absolute",
+        inset: "0px 0px auto auto",
+        margin: "0px",
+        transform: "translate3d(-120px, 58.4px, 0px)",
+        display: isDivVisible ? "block" : "none"
+    };
+
+    return (
+        <div>
+          <button className="Navbar_myLearn" onClick={toggleDiv}>Khóa học của tôi</button>
+          <div id="tippy-37" style={styleMyCourse}>
+            <ul className="Tippy-module_wrapper MyCourses_wrapper">
+              <div className="MyCourses_header">
+                <h6 className="MyCourses_heading">Khóa học của tôi</h6>
+                <a href="" className="MyCourses_view-all-btn">Xem tất cả</a>
+              </div>
+              <div className="MyCourses_content">
+                <div className="MyCourses_course-item">
+                  <a href="">
+                    <img src="https://files.fullstack.edu.vn/f8-prod/courses/13/13.png" alt="" className="MyCourses_course-thumb" />
+                  </a>
+                  <div className="MyCourses_course-info">
+                    <h3 className="MyCourses_course-title">Xây dựng Website với ReactJS</h3>
+                    <p className="MyCourses_last-completed">Học cách đây 2 tháng trước</p>
+                  </div>
+                </div>
+                <div className="MyCourses_course-item">
+                  <a href="">
+                    <img src="https://files.fullstack.edu.vn/f8-prod/courses/13/13.png" alt="" className="MyCourses_course-thumb" />
+                  </a>
+                  <div className="MyCourses_course-info">
+                    <h3 className="MyCourses_course-title">Xây dựng Website với ReactJS</h3>
+                    <p className="MyCourses_last-completed">Học cách đây 2 tháng trước</p>
+                  </div>
+                </div>
+                <div className="MyCourses_course-item">
+                  <a href="">
+                    <img src="https://files.fullstack.edu.vn/f8-prod/courses/13/13.png" alt="" className="MyCourses_course-thumb" />
+                  </a>
+                  <div className="MyCourses_course-info">
+                    <h3 className="MyCourses_course-title">Xây dựng Website với ReactJS</h3>
+                    <p className="MyCourses_last-completed">Học cách đây 2 tháng trước</p>
+                  </div>
+                </div>
+                <div className="MyCourses_course-item">
+                  <a href="">
+                    <img src="https://files.fullstack.edu.vn/f8-prod/courses/13/13.png" alt="" className="MyCourses_course-thumb" />
+                  </a>
+                  <div className="MyCourses_course-info">
+                    <h3 className="MyCourses_course-title">Xây dựng Website với ReactJS</h3>
+                    <p className="MyCourses_last-completed">Học cách đây 2 tháng trước</p>
+                  </div>
+                </div>
+                <div className="MyCourses_course-item">
+                  <a href="">
+                    <img src="https://files.fullstack.edu.vn/f8-prod/courses/13/13.png" alt="" className="MyCourses_course-thumb" />
+                  </a>
+                  <div className="MyCourses_course-info">
+                    <h3 className="MyCourses_course-title">Xây dựng Website với ReactJS</h3>
+                    <p className="MyCourses_last-completed">Học cách đây 2 tháng trước</p>
+                  </div>
+                </div>
+                <div className="MyCourses_course-item">
+                  <a href="">
+                    <img src="https://files.fullstack.edu.vn/f8-prod/courses/13/13.png" alt="" className="MyCourses_course-thumb" />
+                  </a>
+                  <div className="MyCourses_course-info">
+                    <h3 className="MyCourses_course-title">Xây dựng Website với ReactJS</h3>
+                    <p className="MyCourses_last-completed">Học cách đây 2 tháng trước</p>
+                  </div>
+                </div>
+                <div className="MyCourses_course-item">
+                  <a href="">
+                    <img src="https://files.fullstack.edu.vn/f8-prod/courses/13/13.png" alt="" className="MyCourses_course-thumb" />
+                  </a>
+                  <div className="MyCourses_course-info">
+                    <h3 className="MyCourses_course-title">Xây dựng Website với ReactJS</h3>
+                    <p className="MyCourses_last-completed">Học cách đây 2 tháng trước</p>
+                  </div>
+                </div>
+              </div>
+            </ul> 
+          </div>
+        </div>
+      );
+}
+
 
 const Header = () => {
     return (
         <>
+        
             <div className="header">
                 <div className="header_logo">
                     <a href="/">
@@ -22,12 +130,9 @@ const Header = () => {
                 </div>
                 <div className="header_action">
                     <div className="navbar-actions-portal"></div>
-                    {/* Phần user chưa đăng nhập */}
-                    {/* <a href="/" className="header_loginBtn">Đăng nhập</a> */}
-                    
-                    {/* User khi đăng nhập */}
                     <div>
-                        <button className="Navbar_myLearn" aria-expanded="false">Khóa học của tôi</button>
+                        <MyCourse />
+                        
                     </div>
                     <div>
                         <div className="Navbar_actionBtn">
