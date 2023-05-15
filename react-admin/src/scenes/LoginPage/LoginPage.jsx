@@ -1,34 +1,23 @@
 import "./LoginPage.scss"
 import { Box, Typography, TextField, Divider } from "@mui/material"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { LoginSocialFacebook } from "reactjs-social-login"
 import { FacebookLoginButton } from "react-social-login-buttons"
 import { useState } from "react"
 import useAuthContext from "../../context/AuthContext"
 
 function LoginPage() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const { login, error } = useAuthContext()
 
+  
+
   const handleLogin = async (event) => {
     event.preventDefault()
+    console.log(email,password)
     login({email,password})
-    // const loginData = {
-    //   email: event.target.email.value,
-    //   password: event.target.password.value,
-    // }
-    // const { data } = await axios.post(
-    //   "http://localhost:8000/api/login",
-    //   loginData
-    // )
-    // const saveData = {
-    //   user_id: data.user.id_user,
-    //   role: data.user.role,
-    //   token: data.authorisation.token,
-    // }
-    // console.log(saveData)
-    // navigate("/")
   }
   return (
     <Box className='loginPage'>
