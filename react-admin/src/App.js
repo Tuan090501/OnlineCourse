@@ -4,6 +4,7 @@ import Register from "./scenes/RegisterPage/Register"
 import HomePage from "./scenes/HomePage"
 import ForgotPassword from "./scenes/ForgotPassword/ForgotPassword"
 import ForgotPasswordEnterOTP from "./scenes/ForgotPassword/ForgotPasswordEnterOTP"
+import ForgotPasswordChangePassword from "./scenes/ForgotPassword/ForgotPasswordChangePassword"
 
 function App() {
   return (
@@ -33,6 +34,11 @@ function App() {
         <Route
           path='/forgot-password/enterOTP'
           element={<ForgotPasswordEnterOTP />}
+        ></Route>
+
+        <Route
+          path='/forgot-password/changePassword'
+          element={<ForgotPasswordChangePassword />}
         ></Route>
       </Routes>
     </div>

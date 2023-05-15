@@ -2,20 +2,30 @@ import { Box, TextField, Typography } from "@mui/material"
 import { useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 import "./ForgotPassword.scss"
+import { useState } from "react"
 
-function ForgotPasswordEnterOTP() {
+function ForgotPasswordChangePassword() {
   const location = useLocation()
   const data = location.state
   const navigate = useNavigate()
+  const [error, setError] = useState("")
 
+  
   const handleBackToLogin = () => {
-    navigate("/forgot-password")
+    navigate("/forgot-password/enterOTP")
   }
 
-  const handleOnClick = (e) => {
+  const handleOnClick = async (e) => {
     e.preventDefault()
-    console.log(e.target.codeResetPassword.value)
-    navigate('/forgot-password/changePassword')
+    if (e.target.newPassword.value !== e.target.confirmPassword.value) {
+      setError(
+        "Your new password and confirm password aren't same! Please enter again!"
+      )
+    } else {
+      // change password
+      // await axios.post()
+      navigate("/login")
+    }
   }
   return (
     <Box className='forgotPasswordPage'>
@@ -32,22 +42,29 @@ function ForgotPasswordEnterOTP() {
             Reset Password Form
           </Typography>
 
-          <Typography
-            className='forgotPassword__description'
-            variant='body1'
-          >
-            We sended reset code to your email, please enter your reset code
-            below
-          </Typography>
+          <TextField
+            className='form__input'
+            label='New Password'
+            type='password'
+            name='newPassword'
+            placeholder='Enter new password'
+            required
+          ></TextField>
 
           <TextField
             className='form__input'
-            label='Code'
-            type='text'
-            name='codeResetPassword'
-            placeholder='Enter code'
+            label='Confirm Password'
+            type='password'
+            name='confirmPassword'
+            placeholder='Enter confirm password'
             required
           ></TextField>
+
+          {error ? (
+            <Typography className='forgotPassword__description-error'>{`${error}`}</Typography>
+          ) : (
+            ""
+          )}
 
           <Box
             display='flex'
@@ -64,7 +81,7 @@ function ForgotPasswordEnterOTP() {
               type='submit'
               className='forgotPassword__btn'
             >
-              Reset My Password
+              Confirm
             </button>
           </Box>
         </form>
@@ -73,4 +90,4 @@ function ForgotPasswordEnterOTP() {
   )
 }
 
-export default ForgotPasswordEnterOTP
+export default ForgotPasswordChangePassword
