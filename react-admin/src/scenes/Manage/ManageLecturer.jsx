@@ -11,23 +11,23 @@ import {
   DialogContentText,
   DialogActions,
 } from "@mui/material"
-import SearchBar from "../../components/SearchBar/SearchBar"
+import SearchBar from "../../components/admin/SearchBar/SearchBar"
 import { DataGrid } from "@mui/x-data-grid"
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined"
 import ErrorOutlineOutlinedIcon from "@mui/icons-material/ErrorOutlineOutlined"
 
 import { Link, Route, Routes } from "react-router-dom"
 import { useState } from "react"
-import UserDetail from "../../components/UserDetail/UserDetail"
+import UserDetail from "../../components/admin/UserDetail/UserDetail"
 
 const optionListBtns = [
   {
     text: "Course",
-    path: "/manage-lecturer/lecturer-list",
+    path: "/admin/manage-lecturer/lecturer-list",
   },
   {
     text: "Pending",
-    path: "/manage-lecturer/pending-list",
+    path: "/admin/manage-lecturer/pending-list",
   },
 ]
 

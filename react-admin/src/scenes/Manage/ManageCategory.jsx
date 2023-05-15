@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material"
-import Category from "../../components/Category/Category"
+import Category from "../../components/admin/Category/Category"
 import { useState, useEffect } from "react"
 import axios from "axios"
 

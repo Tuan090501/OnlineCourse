@@ -1,5 +1,5 @@
 import "./Manage.scss"
-import CourseDetail from "../../components/CourseDetail/CourseDetail"
+import CourseDetail from "../../components/admin/CourseDetail/CourseDetail"
 import {
   Box,
   Avatar,
@@ -12,7 +12,7 @@ import {
   DialogContentText,
   DialogActions,
 } from "@mui/material"
-import SearchBar from "../../components/SearchBar/SearchBar"
+import SearchBar from "../../components/admin/SearchBar/SearchBar"
 import { DataGrid } from "@mui/x-data-grid"
 import ErrorOutlineOutlinedIcon from "@mui/icons-material/ErrorOutlineOutlined"
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined"
@@ -23,11 +23,11 @@ import axios from "axios"
 const optionListBtns = [
   {
     text: "Course",
-    path: "/manage-course/course-list",
+    path: "/admin/manage-course/course-list",
   },
   {
     text: "Pending",
-    path: "/manage-course/pending-list",
+    path: "/admin/manage-course/pending-list",
   },
 ]
 
@@ -207,7 +207,7 @@ function ManageCourse() {
       </Box>
 
       <Routes>
-        {["/", "course-list"].map((path) => (
+        {["/", "/course-list"].map((path) => (
           <Route
             path={path}
             element={

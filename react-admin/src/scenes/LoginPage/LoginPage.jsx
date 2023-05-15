@@ -12,12 +12,10 @@ function LoginPage() {
   const [password, setPassword] = useState("")
   const { login, error } = useAuthContext()
 
-  
-
   const handleLogin = async (event) => {
     event.preventDefault()
-    console.log(email,password)
-    login({email,password})
+    console.log(email, password)
+    login({ email, password })
   }
   return (
     <Box className='loginPage'>
@@ -47,7 +45,7 @@ function LoginPage() {
             </Typography>
           </button>
           <LoginSocialFacebook
-            appId='913828763203603'
+            appId='961053651566853'
             onResolve={(res) => {
               console.log(res)
             }}

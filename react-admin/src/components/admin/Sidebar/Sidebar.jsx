@@ -18,31 +18,31 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"
 import "./Sidebar.scss"
 import { Link } from "react-router-dom"
 import { useState } from "react"
-import useAuthContext from "../../context/AuthContext"
+import useAuthContext from "../../../context/AuthContext"
 
 const menuItems = [
   {
-    path: "/",
+    path: "/admin",
     icon: <WidgetsOutlinedIcon />,
     text: "Dashboard",
   },
   {
-    path: "/manage-user",
+    path: "/admin/manage-user",
     icon: <GroupOutlinedIcon />,
     text: "Manage User",
   },
   {
-    path: "/manage-lecturer",
+    path: "/admin/manage-lecturer",
     icon: <CastForEducationOutlinedIcon />,
     text: "Manage Lecturer",
   },
   {
-    path: "/manage-course",
+    path: "/admin/manage-course",
     icon: <DevicesOutlinedIcon />,
     text: "Manage Course",
   },
   {
-    path: "/manage-category",
+    path: "/admin/manage-category",
     icon: <CategoryOutlinedIcon />,
     text: "Manage Category",
   },

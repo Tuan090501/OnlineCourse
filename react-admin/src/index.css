@@ -11,6 +11,6 @@ body,
 }
 
 .app{
-    display: flex;
+    /* display: flex; */
     position: relative;
 }

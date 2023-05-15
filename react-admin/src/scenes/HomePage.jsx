@@ -1,6 +1,6 @@
-import Sidebar from "../components/Sidebar/Sidebar"
+import Sidebar from "../components/admin/Sidebar/Sidebar"
 import Dashboard from "./Dashboard/Dashboard"
-import Header from "../components/Header/Header"
+import Header from "../components/admin/Header/Header"
 import { Route, Routes } from "react-router-dom"
 import ManageUser from "./Manage/ManageUser"
 import ManageLecturer from "./Manage/ManageLecturer"
@@ -29,8 +29,8 @@ function HomePage() {
   const { user, getUser } = useAuthContext()
 
   useEffect(() => {
-    if(!user){
-      getUser(localStorage.getItem('id'))
+    if (!user) {
+      getUser(localStorage.getItem("id"))
     }
   }, [])
   return (

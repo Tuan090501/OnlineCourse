@@ -1,22 +1,22 @@
 import { Box, Avatar, IconButton, Typography, Modal } from "@mui/material"
-import SearchBar from "../../components/SearchBar/SearchBar"
+import SearchBar from "../../components/admin/SearchBar/SearchBar"
 import "./Manage.scss"
 import { DataGrid } from "@mui/x-data-grid"
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined"
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined"
 import { useState, useEffect } from "react"
-import UserDetail from "../../components/UserDetail/UserDetail"
+import UserDetail from "../../components/admin/UserDetail/UserDetail"
 import { Link, Route, Routes, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 const optionListBtns = [
   {
     text: "User",
-    path: "/manage-user/user-list",
+    path: "/admin/manage-user/user-list",
   },
   {
     text: "Pending",
-    path: "/manage-user/pending-list",
+    path: "/admin/manage-user/pending-list",
   },
 ]
 
@@ -224,7 +224,7 @@ function ManageUser() {
             }}
             className='create-btn'
             type='button'
-            to='/manage-user/admin-create-user'
+            to='/admin/manage-user/admin-create-user'
           >
             Create User
           </Link>
