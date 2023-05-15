@@ -124,11 +124,9 @@ function Category({ categories, handleDeleteCourse }) {
           mainCategories[i].subCategories.length ===
           copyCategories[i].subCategories.length
         ) {
-          for (let j = 0; j < copyCategories.length; j++) {
-            if (
-              mainCategories[i].subCategories[j].sub_name !==
-              copyCategories[i].subCategories[j].sub_name
-            ) {
+          for (let j = 0; j < copyCategories[i].subCategories.length; j++) {
+            console.log(mainCategories[i].subCategories[j].sub_name)
+            if ( mainCategories[i].subCategories[j].sub_name !== copyCategories[i].subCategories[j].sub_name ) {
               await axios
                 .put(
                   `http://localhost:8000/api/sub-categories/${mainCategories[i].subCategories[j].id}`,
@@ -183,7 +181,7 @@ function Category({ categories, handleDeleteCourse }) {
       }
     }
   }
-
+console.log(mainCategories)
   const handleDeleteCategory = async (id) => {
     try {
       await axios.delete(`http://localhost:8000/api/categories/${id}`)

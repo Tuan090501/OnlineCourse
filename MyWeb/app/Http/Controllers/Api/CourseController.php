@@ -31,7 +31,7 @@ class CourseController extends Controller
     }
 
     public function show ($id){
-        $course = Course::with('sessionsWithLectures')->find($id);
+         $course = Course::with(['lecturer:id,user_name','category:id,category_name','sessionsWithLectures'])->find($id);
         if($course) {
             return response()->json($course);
         } else {

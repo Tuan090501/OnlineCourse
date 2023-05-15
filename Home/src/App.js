@@ -6,22 +6,35 @@ import Slider from "./components/slider/SlickSlider"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 const App = () => {
-    return (
-        <Router>
-        <Routes>
-          <Route index element = {<Home />} />
-          <Route path='/course-detail'  >
-              <Route path=":id" element={<Coursedetail />} />
+    return ( <
+        Router >
+        <
+        Routes >
+        <
+        Route index element = { < Home / > }
+        /> <
+        Route path = '/course-detail' >
+        <
+        Route path = ":id"
+        element = { < Coursedetail / > }
+        />
 
-          </Route>
-          <Route path='/roadmap' element={<Roadmap />} />
-          <Route path='/learning-page' element={<Learningpage />} />
-          <Route path='/slider' element={<Slider />} />
-        </Routes>
-      </Router>
-   
-   
-    
+        <
+        /Route> <
+        Route path = '/roadmap'
+        element = { < Roadmap / > }
+        /> <
+        Route path = '/learning-page'
+        element = { < Learningpage / > }
+        /> <
+        Route path = '/slider'
+        element = { < Slider / > }
+        /> <
+        /Routes> <
+        /Router>
+
+
+
     )
 }
 
