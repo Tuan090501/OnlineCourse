@@ -1,8 +1,8 @@
 import "./LoginPage.scss"
 import { Box, Typography, TextField, Divider } from "@mui/material"
 import { Link, useNavigate } from "react-router-dom"
-import { LoginSocialFacebook } from "reactjs-social-login"
-import { FacebookLoginButton } from "react-social-login-buttons"
+import { LoginSocialFacebook, LoginSocialGoogle  } from "reactjs-social-login"
+import { FacebookLoginButton,GoogleLoginButton } from "react-social-login-buttons"
 import { useState } from "react"
 import useAuthContext from "../../context/AuthContext"
 
@@ -31,19 +31,21 @@ function LoginPage() {
             Login Admin
           </Typography>
 
-          <button
-            type='button'
-            className='login__btn--otherPlatform'
-          >
-            <img
-              className='otherPlatform-logo'
-              src='https://icons-for-free.com/iconfiles/png/512/Google-1320568266385361674.png'
-              alt='google login logo'
-            />
-            <Typography className='otherPlatform-text'>
-              Continue with Google
-            </Typography>
-          </button>
+            <LoginSocialGoogle
+            client_id="505216178982-lt9omdvsn0lp1a5t6rq0da7a0dkip7n0.apps.googleusercontent.com"
+            onResolve={(res) => {
+              console.log(res)}}
+            onReject={(err) => {
+              console.log(err)
+            }}
+
+            >
+              <GoogleLoginButton    className='login__btn--otherPlatform'>
+                Continue with Google
+              </GoogleLoginButton>
+            </LoginSocialGoogle>
+         
+          
           <LoginSocialFacebook
             appId='961053651566853'
             onResolve={(res) => {
@@ -53,7 +55,9 @@ function LoginPage() {
               console.log(err)
             }}
           >
-            <FacebookLoginButton className='login__btn--otherPlatform' />
+            <FacebookLoginButton className='login__btn--otherPlatform' >
+            Continue with FaceBook
+            </FacebookLoginButton>
           </LoginSocialFacebook>
           <Divider sx={{ borderColor: "#000", m: "20px 0px" }} />
 
