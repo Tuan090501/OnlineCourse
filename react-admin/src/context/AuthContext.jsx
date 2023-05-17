@@ -15,30 +15,30 @@ export const AuthProvider = ({ children }) => {
 
   const login = async ({ email, password }) => {
     window.close()
-    // try {
-    //   const { data } = await axios.post("http://localhost:8000/api/login", {
-    //     email,
-    //     password,
-    //   })
-    //   const savedData = {
-    //     id: data.user.id,
-    //     role: data.user.role,
-    //     token: data.authorisation.token,
-    //   }
-    //   console.log(savedData)
-    //   localStorage.setItem("id", savedData.id)
-    //   localStorage.setItem("role", savedData.role)
-    //   localStorage.setItem("token", savedData.token)
-    //   await getUser(savedData.id)
-    //   if (savedData.role === "admin") {
-    //     navigate("/")
-    //   } else if (savedData.role === "user") {
-    //     window.close()
-    //     // window.open("http://localhost:3001")
-    //   }
-    // } catch (err) {
-    //   console.log(err)
-    // }
+    try {
+      const { data } = await axios.post("http://localhost:8000/api/login", {
+        email,
+        password,
+      })
+      const savedData = {
+        id: data.user.id,
+        role: data.user.role,
+        token: data.authorisation.token,
+      }
+      console.log(savedData)
+      localStorage.setItem("id", savedData.id)
+      localStorage.setItem("role", savedData.role)
+      localStorage.setItem("token", savedData.token)
+      await getUser(savedData.id)
+      if (savedData.role === "admin") {
+        navigate("/admin")
+      } else if (savedData.role === "user") {
+        window.close()
+        navigate("/")
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const logout = async () => {

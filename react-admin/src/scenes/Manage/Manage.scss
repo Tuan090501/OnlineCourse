@@ -82,6 +82,7 @@
       text-transform: capitalize;
 
       .active-status {
+        cursor: pointer;
         text-transform: capitalize;
         font-size: 16px;
         border: 2px solid green;
@@ -90,9 +91,12 @@
         background-color: #fff;
       }
       .-status {
+        text-transform: capitalize;
+        background-color: #fff;
+        font-size: 16px;
         cursor: pointer;
         border: 2px solid rgb(238, 53, 53);
-        padding: 8px 16px;
+        padding: 10px 22px;
         border-radius: 60px;
         color: rgb(238, 53, 53);
       }

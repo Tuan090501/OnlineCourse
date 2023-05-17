@@ -1,4 +1,15 @@
-import { Box, Avatar, IconButton, Typography, Modal } from "@mui/material"
+import {
+  Box,
+  Avatar,
+  IconButton,
+  Typography,
+  Modal,
+  DialogActions,
+  DialogTitle,
+  Dialog,
+  DialogContentText,
+  DialogContent,
+} from "@mui/material"
 import SearchBar from "../../components/admin/SearchBar/SearchBar"
 import "./Manage.scss"
 import { DataGrid } from "@mui/x-data-grid"
@@ -8,6 +19,7 @@ import { useState, useEffect } from "react"
 import UserDetail from "../../components/admin/UserDetail/UserDetail"
 import { Link, Route, Routes, useNavigate } from "react-router-dom"
 import axios from "axios"
+import ErrorOutlineOutlinedIcon from "@mui/icons-material/ErrorOutlineOutlined"
 
 const optionListBtns = [
   {
@@ -25,25 +37,37 @@ function ManageUser() {
 
   const [active, setActive] = useState(optionListBtns[0])
   const [openUserDetailModal, setOpenUserDetailModal] = useState(false)
-
   const [selectedRowData, setSelectedRowData] = useState(null)
-
   const [users, setUsers] = useState([])
   const [searchApiData, setSearchApiData] = useState([])
+
+  const [openUnactiveDialog, setOpenUnactiveDialog] = useState(false)
+  const [openActiveDialog, setOpenActiveDialog] = useState(false)
   const navigate = useNavigate()
 
-  const getActiveUsers = () => {
-    return users.filter((item) => item.status === "active")
+  const handleOpenUnactiveDialog = () => {
+    setOpenUnactiveDialog(true)
+  }
+  const handleCloseUnactiveDialog = () => {
+    setOpenUnactiveDialog(false)
   }
 
-  const getUnactiveUsers = () => {
-    return users.filter((item) => item.status === "unactive")
+  const handleOpenActiveDialog = () => {
+    setOpenActiveDialog(true)
   }
+  const handleCloseActiveDialog = () => {
+    setOpenActiveDialog(false)
+  }
+
+  const [activeUsers, setActiveUsers] = useState([])
+  const [unactiveUsers, setUnactivesUsers] = useState([])
 
   useEffect(() => {
     const fetchUsers = async () => {
       const data = await axios.get(`http://localhost:8000/api/users`)
       const rows = []
+      const activeUserList = []
+      const unactiveUserList = []
       for (let i = 0; i < data.data.length; i++) {
         rows.push({
           id: data.data[i].id,
@@ -55,10 +79,18 @@ function ManageUser() {
           status: data.data[i].status === 1 ? "active" : "unactive",
           gender: data.data[i].gender,
           phone: data.data[i].phone_number,
-          address:data.data[i].address
+          address: data.data[i].address,
         })
+        if (data.data[i].status === 1) activeUserList.push(rows[i])
+        else {
+          unactiveUserList.push(rows[i])
+        }
       }
-      console.log(data.data)
+      setActiveUsers(activeUserList)
+      setUnactivesUsers(unactiveUserList)
+      console.log(activeUserList)
+      console.log(unactiveUserList)
+
       setUsers(rows)
       setSearchApiData(rows)
     }
@@ -93,16 +125,24 @@ function ManageUser() {
 
   const handleClickToEdit = () => {
     if (selectedRowData !== null && selectedRowData.length === 1) {
-      navigate("/manage-user/admin-edit-user", {
+      navigate("/admin/manage-user/admin-edit-user", {
         state: {
           selectedRowData,
         },
       })
     }
   }
-  const handleUpdateStatus = (params) =>{
-    console.log(params.value)
-      axios.put(`http://localhost:8000/api/users/${params.id}`,{status : params.value ==="active" ? 0 : 1})
+  const handleUpdateStatus = async (params) => {
+    console.log(selectedRowData)
+    handleCloseActiveDialog()
+    handleCloseUnactiveDialog()
+    await axios.put(
+      `http://localhost:8000/api/users/${selectedRowData[0].id}`,
+      {
+        status: selectedRowData[0].status === "active" ? 0 : 1,
+      }
+    )
+    window.location.reload()
   }
 
   const columns = [
@@ -157,13 +197,16 @@ function ManageUser() {
       align: "center",
       renderCell: (params) => (
         <button
-          onClick={()=>handleUpdateStatus(params)}
-          style={{
-            cursor: "pointer",
-          }}
           className={`${
             params.value.toLowerCase() === "active" ? "active" : ""
           }-status`}
+          onClick={() => {
+            if (params.value.toLowerCase() !== "active") {
+              handleOpenUnactiveDialog()
+            } else {
+              handleOpenActiveDialog()
+            }
+          }}
         >
           {params.value}
         </button>
@@ -246,7 +289,7 @@ function ManageUser() {
                   }
                   rowHeight={60}
                   className='manage-table'
-                  rows={getActiveUsers()}
+                  rows={activeUsers}
                   columns={columns}
                   initialState={{
                     pagination: {
@@ -275,7 +318,7 @@ function ManageUser() {
                 onRowSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
                 rowHeight={60}
                 className='manage-table'
-                rows={getUnactiveUsers()}
+                rows={unactiveUsers}
                 columns={columns}
                 initialState={{
                   pagination: {
@@ -310,6 +353,68 @@ function ManageUser() {
           }}
         />
       </Modal>
+
+      <Dialog
+        open={openUnactiveDialog}
+        onClose={handleCloseUnactiveDialog}
+        className='dialog'
+      >
+        <DialogTitle className='dialog-title'>
+          <ErrorOutlineOutlinedIcon className='icon--warn' />
+        </DialogTitle>
+
+        <DialogContent>
+          <DialogContentText className='text'>
+            Active this user ?
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions className='dialog-actions'>
+          <button
+            className='approve-btn'
+            onClick={handleUpdateStatus}
+          >
+            OK
+          </button>
+          <button
+            className='cancel-btn'
+            onClick={handleCloseUnactiveDialog}
+          >
+            Cancel
+          </button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={openActiveDialog}
+        onClose={handleCloseActiveDialog}
+        className='dialog'
+      >
+        <DialogTitle className='dialog-title'>
+          <ErrorOutlineOutlinedIcon className='icon--warn' />
+        </DialogTitle>
+
+        <DialogContent>
+          <DialogContentText className='text'>
+            Unactive this user?
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions className='dialog-actions'>
+          <button
+            className='approve-btn'
+            onClick={handleUpdateStatus}
+          >
+            OK
+          </button>
+          <button
+            className='cancel-btn'
+            onClick={handleCloseActiveDialog}
+          >
+            Cancel
+          </button>
+        </DialogActions>
+      </Dialog>
     </Box>
   )
 }

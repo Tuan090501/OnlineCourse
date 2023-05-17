@@ -17,12 +17,13 @@ import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined"
 import ErrorOutlineOutlinedIcon from "@mui/icons-material/ErrorOutlineOutlined"
 
 import { Link, Route, Routes } from "react-router-dom"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import UserDetail from "../../components/admin/UserDetail/UserDetail"
+import axios from "axios"
 
 const optionListBtns = [
   {
-    text: "Course",
+    text: "Lecturer",
     path: "/admin/manage-lecturer/lecturer-list",
   },
   {
@@ -35,6 +36,14 @@ function ManageLecturer() {
   const [active, setActive] = useState(optionListBtns[0])
   const [openLecturerDetailModal, setOpenLecturerDetailModal] = useState(false)
   const [openUnactiveDialog, setOpenUnactiveDialog] = useState(false)
+  const [openActiveDialog, setOpenActiveDialog] = useState(false)
+  const [selectedRowData, setSelectedRowData] = useState(null)
+
+  const [users, setUsers] = useState([])
+  const [searchApiData, setSearchApiData] = useState([])
+
+  const [activeUsers, setActiveUsers] = useState([])
+  const [unactiveUsers, setUnactiveUsers] = useState([])
 
   const handleOpenCourseDetailModal = () => {
     setOpenLecturerDetailModal(true)
@@ -49,6 +58,80 @@ function ManageLecturer() {
   }
   const handleCloseUnactiveDialog = () => {
     setOpenUnactiveDialog(false)
+  }
+
+  const handleOpenActiveDialog = () => {
+    setOpenActiveDialog(true)
+  }
+  const handleCloseActiveDialog = () => {
+    setOpenActiveDialog(false)
+  }
+
+  const handleCellOnclick = (params) => {
+    console.log(params.row)
+  }
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const data = await axios.get(`http://localhost:8000/api/users`)
+      const rows = []
+      const activeUserList = []
+      const unactiveUserList = []
+      for (let i = 0; i < data.data.length; i++) {
+        if (data.data[i].role === "lecturer") {
+          console.log(data.data[i].role)
+
+          rows.push({
+            id: data.data[i].id,
+            avatar: data.data[i].image,
+            userName: data.data[i].email,
+            email: data.data[i].email,
+            fullName: data.data[i].first_name,
+            role: data.data[i].role,
+            status: data.data[i].status === 1 ? "active" : "unactive",
+            gender: data.data[i].gender,
+            phone: data.data[i].phone_number,
+            address: data.data[i].address,
+          })
+          let rowsLength = rows.length
+
+          console.log(rows[rowsLength - 1])
+          if (data.data[i].status === 1)
+            activeUserList.push(rows[rowsLength - 1])
+          else {
+            unactiveUserList.push(rows[rowsLength - 1])
+          }
+        }
+      }
+      console.log(activeUserList)
+      console.log(unactiveUserList)
+      setActiveUsers(activeUserList)
+      setUnactiveUsers(unactiveUserList)
+      setUsers(rows)
+      setSearchApiData(rows)
+    }
+    fetchUsers()
+  }, [])
+
+  const onRowsSelectionHandler = async (ids) => {
+    const selectedRowsData = await ids.map((id) =>
+      users.find((row) => row.id === id)
+    )
+    setSelectedRowData(selectedRowsData)
+    console.log(selectedRowData)
+  }
+
+  const handleUpdateStatus = async (params) => {
+    console.log(selectedRowData)
+    handleCloseActiveDialog()
+    handleCloseUnactiveDialog()
+    await axios.put(
+      `http://localhost:8000/api/users/${selectedRowData[0].id}`,
+      {
+        status: selectedRowData[0].status === "active" ? 0 : 1,
+      }
+    )
+    window.location.reload()
   }
 
   const columns = [
@@ -100,18 +183,20 @@ function ManageLecturer() {
       headerAlign: "center",
       align: "center",
       renderCell: (params) => (
-        <Typography
+        <button
           className={`${
             params.value.toLowerCase() === "active" ? "active" : ""
           }-status`}
           onClick={() => {
             if (params.value.toLowerCase() !== "active") {
               handleOpenUnactiveDialog()
+            } else {
+              handleOpenActiveDialog()
             }
           }}
         >
           {params.value}
-        </Typography>
+        </button>
       ),
     },
     {
@@ -287,9 +372,12 @@ function ManageLecturer() {
             element={
               <Box className='manage-wrapper'>
                 <DataGrid
+                  onRowSelectionModelChange={(ids) =>
+                    onRowsSelectionHandler(ids)
+                  }
                   rowHeight={60}
                   className='manage-table'
-                  rows={rows}
+                  rows={activeUsers}
                   columns={columns}
                   initialState={{
                     pagination: {
@@ -301,6 +389,7 @@ function ManageLecturer() {
                   pageSizeOptions={[5]}
                   disableRowSelectionOnClick
                   checkboxSelection
+                  onCellClick={handleCellOnclick}
                 />
               </Box>
             }
@@ -312,9 +401,10 @@ function ManageLecturer() {
           element={
             <Box className='manage-wrapper pending-list'>
               <DataGrid
+                onRowSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
                 rowHeight={60}
                 className='manage-table'
-                rows={rowsPendingList}
+                rows={unactiveUsers}
                 columns={columns}
                 initialState={{
                   pagination: {
@@ -326,6 +416,7 @@ function ManageLecturer() {
                 pageSizeOptions={[5]}
                 disableRowSelectionOnClick
                 checkboxSelection
+                onCellClick={handleCellOnclick}
               />
             </Box>
           }
@@ -361,20 +452,51 @@ function ManageLecturer() {
 
         <DialogContent>
           <DialogContentText className='text'>
-            Approve this course ?
+            Active this lecturer?
           </DialogContentText>
         </DialogContent>
 
         <DialogActions className='dialog-actions'>
           <button
             className='approve-btn'
-            onClick={handleCloseUnactiveDialog}
+            onClick={handleUpdateStatus}
           >
             OK
           </button>
           <button
             className='cancel-btn'
             onClick={handleCloseUnactiveDialog}
+          >
+            Cancel
+          </button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={openActiveDialog}
+        onClose={handleCloseActiveDialog}
+        className='dialog'
+      >
+        <DialogTitle className='dialog-title'>
+          <ErrorOutlineOutlinedIcon className='icon--warn' />
+        </DialogTitle>
+
+        <DialogContent>
+          <DialogContentText className='text'>
+            Unactive this lecturer?
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions className='dialog-actions'>
+          <button
+            className='approve-btn'
+            onClick={handleUpdateStatus}
+          >
+            OK
+          </button>
+          <button
+            className='cancel-btn'
+            onClick={handleCloseActiveDialog}
           >
             Cancel
           </button>
