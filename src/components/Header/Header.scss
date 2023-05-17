@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';
+}
+
+.header {
+    --height: 66px;
+    align-items: center;
+    background-color: #fff;
+    border-bottom: 1px solid #e8ebed;
+    display: flex;
+    font-size: 1.4rem;
+    height: var(--height);
+    left: 0;
+    margin: 0;
+    padding: 0 28px;
+    position: sticky;
+    right: 0;
+    top: 0;
+    z-index: 20;
+}
+
+.header_logo {
+    align-items: center;
+    display: flex;
+}
+
+.header_logo a {
+    display: flex;
+}
+
+.header_logo img {
+    border-radius: 8px;
+    flex-shrink: 0;
+    height: 38px;
+    object-fit: contain;
+    width: 38px;
+}
+
+img {
+    border-style: none;
+}
+
+.header_logoHeading {
+    color: #d3d3d3;
+    text-transform: uppercase;
+    font-size: 1rem;
+    margin-left: 40px;
+}
+
+.header_body {
+    flex: 1 1;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.Search_wrapper {
+    border: 2px solid #e8e8e8;
+    border-radius: 20px;
+    flex: 1 1;
+    height: 40px;
+    padding: 0 16px 0 8px;
+    width: 420px;
+    transition: border-color .2s ease-in-out;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.Search_searchIcon {
+    background-color: #fff;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/3917/3917132.png');
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 18px;
+    border-radius: 50%;
+    height: 32px;
+    opacity: .7;
+    transition: opacity .2s ease-in-out;
+    width: 30px;
+}
+
+.Search_input {
+    border: none;
+    caret-color: #444;
+    flex: 1 1;
+    height: 100%;
+    outline: none;
+    padding: 0 4px;
+    font-size: 12px;
+}
+
+input {
+    overflow: visible;
+}
+
+button {
+    border: none;
+    box-shadow: none;
+    display: block;
+    outline: none;
+    padding: 0;
+}
+
+.Shopping_Cart{
+    margin: 0 20px;
+}
+
+.profile_img{
+    overflow: hidden;
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+}
+
+.profile_img img{
+    border-radius: 50%;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
