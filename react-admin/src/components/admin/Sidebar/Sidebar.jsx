@@ -56,8 +56,10 @@ const sidebar = {
 }
 
 function Sidebar() {
+  // console.log(window.localStorage.getItem())
   const [active, setActive] = useState(menuItems[0])
-  const {user,logout} = useAuthContext()
+  const { user, logout } = useAuthContext()
+  console.log(user)
   return (
     <Box
       className='sidebar'
@@ -67,11 +69,9 @@ function Sidebar() {
         <Avatar
           className='sidebar__avatar'
           alt='Avatar'
-          src='
-          https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/88c6ac91-e30a-4c67-a92d-e8178abac9bd/de7pj29-8104cf38-1687-4b12-8d70-9080c8b4377f.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzg4YzZhYzkxLWUzMGEtNGM2Ny1hOTJkLWU4MTc4YWJhYzliZFwvZGU3cGoyOS04MTA0Y2YzOC0xNjg3LTRiMTItOGQ3MC05MDgwYzhiNDM3N2YucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.zYi274oFcygsYUqYCdZP1_Ly4XOFE2SLDO8QtL8RI8k
-          '
+          src={`${user.image}`}
         />
-        <Typography variant='h6'>Im noob master</Typography>
+        <Typography variant='h6'>{`${user.user_name}`}</Typography>
         <Typography
           variant='subtitle1'
           lineHeight='1rem'
@@ -114,9 +114,9 @@ function Sidebar() {
           className='link'
           onClick={logout}
           style={{
-            width:"100%",
-            border:"none",
-            backgroundColor:"#fff"
+            width: "100%",
+            border: "none",
+            backgroundColor: "#fff",
           }}
         >
           <ListItemButton className='category__item'>

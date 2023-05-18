@@ -14,7 +14,6 @@ export const AuthProvider = ({ children }) => {
   }
 
   const login = async ({ email, password }) => {
-    window.close()
     try {
       const { data } = await axios.post("http://localhost:8000/api/login", {
         email,
@@ -31,9 +30,9 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("token", savedData.token)
       await getUser(savedData.id)
       if (savedData.role === "admin") {
+        console.log(user)
         navigate("/admin")
       } else if (savedData.role === "user") {
-        window.close()
         navigate("/")
       }
     } catch (err) {
@@ -45,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const bearer = `Bearer ${localStorage.getItem("token")}`
 
-      //   const result = await axios.post("http://localhost:8000/api/logout")
+      // const result = await axios.post("http://localhost:8000/api/logout")
 
       setUser(null)
       window.localStorage.clear()

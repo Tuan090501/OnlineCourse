@@ -10,7 +10,7 @@ import { Box } from "@mui/material"
 import CreateUser from "./CreateUser/CreateUser"
 import EditUser from "./EditUser/EditUser"
 import useAuthContext from "../context/AuthContext"
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 
 const homePage = {
   marginTop: "68px",
@@ -33,6 +33,7 @@ function HomePage() {
       getUser(localStorage.getItem("id"))
     }
   }, [])
+
   return (
     <Box
       className='content'

@@ -11,6 +11,7 @@ import Roadmap from "./pages/roadmap/Roadmap"
 import Coursedetail from "./pages/coursedetail/Coursedetail"
 import Learningpage from "./pages/learningpage/Learningpage"
 import Slider from "./components/user/slider/SlickSlider"
+import Cart from "./pages/CartUser/CartUser"
 
 function App() {
   return (
@@ -19,6 +20,11 @@ function App() {
         <Route
           path='/'
           element={<Home />}
+        ></Route>
+
+        <Route
+          path='/cart'
+          element={<Cart />}
         ></Route>
 
         <Route path='/course-detail'>
