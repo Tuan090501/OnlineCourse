@@ -64,7 +64,7 @@ export const StepOne = ({ setIsNextFeature }) => {
 export const StepTwo = ({ setIsNextFeature }) => {
     // two while binding
     const [nameCourse, setNameCourse] = useState('');
-
+    console.log(nameCourse)
     useEffect(() => {
         if (nameCourse.length > 0) {
             setIsNextFeature(true);
@@ -103,7 +103,6 @@ export const StepThree = ({ setIsNextFeature }) => {
     // two while binding
     // two while binding
     const [descCourse, setDescCourse] = useState('');
-
     useEffect(() => {
         if (descCourse.length > 0) {
             setIsNextFeature(true);
