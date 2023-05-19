@@ -35,6 +35,9 @@ export const AuthProvider = ({ children }) => {
       } else if (savedData.role === "user") {
         navigate("/")
       }
+      else if(savedData.role==='lecturer'){
+        navigate("/lecturer")
+      }
     } catch (err) {
       console.log(err)
     }

@@ -19,6 +19,7 @@
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.9.0",
         "react-scripts": "5.0.1",
+        "react-select": "^5.7.3",
         "react-slick": "^0.29.0",
         "react-social-login": "^3.4.17",
         "react-social-login-buttons": "^3.6.1",

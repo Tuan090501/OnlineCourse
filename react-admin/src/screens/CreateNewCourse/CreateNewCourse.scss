@@ -1,0 +1,149 @@
+.header-create-new-course {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  position: relative;
+
+  button {
+    background-color: transparent;
+    font-weight: 600;
+    color: #ee4d2d;
+    font-size: 18px;
+    margin-right: 10px;
+  }
+
+  div {
+    position: absolute;
+    height: 4px;
+    bottom: 0;
+    background-color: #ee4d2d;
+    transition: all linear 0.3s;
+  }
+}
+
+.create-new-course-wp {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100vh - 76px);
+
+  h1 {
+    font-size: 30px;
+    padding-bottom: 20px;
+  }
+
+  .navigate-ft {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #ccc;
+    padding-top: 20px;
+    height: 60px;
+    padding-bottom: 20px;
+
+    &.first {
+      justify-content: flex-end;
+    }
+
+    button {
+      cursor: pointer;
+      min-width: 100px;
+      padding: 12px 16px;
+      border-radius: 4px;
+      color: #fff;
+      background-color: #6c757d;
+      border-color: #6c757d;
+
+      &.confirm {
+        color: #fff;
+        background-color: #28a745;
+        border-color: #28a745;
+      }
+    }
+  }
+}
+
+// step
+.content-step {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+
+  .step-item {
+    width: 300px;
+    min-height: 200px;
+    padding: 20px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+
+    span {
+      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    p {
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.102);
+    }
+  }
+}
+
+.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.content-render-step {
+  flex: 1;
+  // height: calc(100% - 110px);
+
+  .active {
+    border: 4px solid #28a745;
+  }
+}
+
+.content-render-confirm {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+
+  img,
+  video {
+    height: 200px;
+    border-radius: 4px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .item {
+    margin-top: 40px;
+    text-align: left;
+
+    label {
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+  }
+
+  p {
+    text-align: left;
+
+    input {
+      margin-top: 10px;
+    }
+  }
+}
