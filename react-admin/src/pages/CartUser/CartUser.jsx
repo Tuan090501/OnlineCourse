@@ -1,5 +1,5 @@
 import { Box, Divider, Typography } from "@mui/material"
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import Header from "../../components/user/header/Header"
 import Footer from "../../components/user/footer/Footer"
 import "./CartUser.scss"
@@ -13,11 +13,32 @@ function Cart() {
   const GlobalState = useContext(Cartcontext)
   const state = GlobalState.state
   const dispatch = GlobalState.dispatch
-  const [cart, setCart] = useState([1, 2])
+  
+  const [cart, setCart] = useState(state.length)
   const navigate = useNavigate()
   const handleCheckout = ()=>{
     navigate('/cart/checkout')
   }
+
+  const handleRemoveCourse = (id) =>(e)=>{ 
+    dispatch({type:"REMOVE",payload:id})
+    setCart(state.length)
+  }
+
+  const getTotalPrice = (arr)=>{
+    let total = 0;
+    arr.forEach((item)=>{
+      total+=item.price
+    })
+    return total
+  }
+
+
+
+ 
+  useEffect(()=>{
+
+  },[])
   return (
     <Box>
       <Header />
@@ -32,9 +53,11 @@ function Cart() {
           variant='h6'
           className='cart__quantity'
         >
-          Không có khóa học nào trong giỏ hàng
+          {
+            GlobalState.state.length===0?"Không có khóa học nào trong giỏ hàng":`Có ${ GlobalState.state.length} khóa học trong giỏ hàng`
+          }
         </Typography>
-        {cart.length === 0 ? (
+        {GlobalState.state.length === 0 ? (
           <Box
             className='cart__courses-wrapper'
             sx={{
@@ -60,24 +83,36 @@ function Cart() {
                 Không có khóa học nào trong giỏ hàng! Keep Shopping
               </Typography>
 
-              <button className='keep-shopping'>Keep Shopping</button>
+              <button className='keep-shopping' onClick={()=>{ navigate('/')}}>Keep Shopping</button>
             </Box>
           </Box>
         ) : (
           <Grid
             className='cart__courses-wrapper'
             container
-            spacing={2}
+            spacing={4}
           >
             <Grid
               className='cart__course-list'
               item
               xs={9}
             >
-              <Divider />
+              
               {
                 state.map((item,index)=>{
-                  return <div>hello</div>
+                  return <Box>
+                    <Divider />
+                    <Box className='cart_course'>
+                      <img src={`${item.img}`} className='cart_course-img'></img>
+                      <Box className='cart_course-detail'>
+                        <Typography className='cart_course-name'>{`${item.course_name }`}</Typography>
+                        <Typography className='cart_course-author'>By {`${item.lecturer.user_name}`}</Typography>
+
+                      </Box>
+                      <button className='cart_course-remove' onClick={handleRemoveCourse(item.id)}>Remove</button>
+                      <Typography className='cart_course-price'>đ{`${item.price}`}</Typography>
+                    </Box>
+                  </Box>
                 })
               }
             </Grid>
@@ -87,8 +122,7 @@ function Cart() {
               xs={3}
             >
               <Typography variant='h4'>
-                Tổng tiền:{" "}
-                <span style={{ fontWeight: "bold" }}>đ1,225,500</span>
+                Tổng tiền:  {`${getTotalPrice(state)}`}đ
               </Typography>
               <button className='checkout-btn' onClick={handleCheckout}>Thanh toán</button>
             </Grid>

@@ -13,12 +13,14 @@ const App = () => {
           index
           element={<Home />}
         />
+        
         <Route path='/course-detail'>
           <Route
             path=':id'
             element={<Coursedetail />}
           />
-        </Route>
+        </Route>  
+        
         <Route
           path='/roadmap'
           element={<Roadmap />}

@@ -1,9 +1,12 @@
 import React from 'react'
 import './learningpage.scss'
 import logo from '../../assets/images/logof8.png'
-
+import axios from "axios"
 
 const Learningpage = () => {
+
+
+  
   return (
     <>
         <div>

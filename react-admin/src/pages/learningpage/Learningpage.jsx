@@ -1,7 +1,7 @@
 import React from 'react'
 import './learningpage.scss'
 import logo from '../../assets/images/logof8.png'
-
+import video1 from '../../assets/videos/video1.mp4'
 
 const Learningpage = () => {
   return (
@@ -171,14 +171,10 @@ const Learningpage = () => {
                             <div className="VideoPlayer_wrapper">
                                 <div className="VideoPlayer_player" style={{"height" : "100%", "width" : "100%"}}>
                                     <div style={{"height" : "100%", "width" : "100%"}}>
-                                        <iframe frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay;
-                                        clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        title="useEffect() with DOM events" width="100%" height="100%"
-                                        src="https://www.youtube.com/embed/xZcWHaGsKUQ?autoplay=
-                                        1&amp;mute=0&amp;controls=1&amp;origin=https%3A%2F%2Ffullstack.edu.vn&amp;
-                                        playsinline=1&amp;showinfo=0&amp;rel=0&amp;iv_load_policy=3&amp;modestbranding=1&amp;
-                                        enablejsapi=1&amp;widgetid=1" id="widget2">
-                                        </iframe>
+                                        <video controls width="100%" height='100%'>
+                                            <source src= {`${video1}`}type="video/mp4"></source>
+                                        </video>
+
                                     </div>
                                 </div>
                             </div>

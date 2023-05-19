@@ -40,7 +40,6 @@ class JWTAuthController extends Controller
         return response()->json([
                 'status' => 'success',
                 'user' => $user,
-
                 'authorisation' => [
                     'token' => $token,
                     'type' => 'bearer',
@@ -80,7 +79,7 @@ class JWTAuthController extends Controller
     public function logout()
     {
          Auth::logout();
-         JWTAuth::invalidate(JWTAuth::getToken());
+
          return response()->json(['message' => 'Successfully logged out']);
     }
 

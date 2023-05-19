@@ -33,7 +33,7 @@ function LoginPage() {
           >
             Login Admin
           </Typography>
-
+         {/* Login with Google */}
           <LoginSocialGoogle
             client_id='505216178982-lt9omdvsn0lp1a5t6rq0da7a0dkip7n0.apps.googleusercontent.com'
             onResolve={(res) => {
@@ -48,6 +48,7 @@ function LoginPage() {
             </GoogleLoginButton>
           </LoginSocialGoogle>
 
+        {/* Login with FaceBook */}
           <LoginSocialFacebook
             appId='961053651566853'
             onResolve={(res) => {

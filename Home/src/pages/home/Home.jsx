@@ -128,7 +128,7 @@ const CourseItem = ({ course }) => {
           <button className="Button_btn CommonItem_cta-btn" >Xem khóa học</button>
         </a>
         <h3 className="CommonItem_title">
-          <a href="/">{course_name}</a>
+          <a href="/">{course_name}</a>w
         </h3>
         <div className="CourseItem_pro-icon">
           <img src={iconvip} alt="" />
