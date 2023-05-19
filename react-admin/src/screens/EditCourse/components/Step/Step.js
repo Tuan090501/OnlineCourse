@@ -49,7 +49,7 @@ export const StepOneEditCourse = () => {
               }}
               className='ms-0 mb-2 mt-1 d-block'
             >
-              (Nhìu hơn <strong>5 từ</strong>)
+              (nhiều hơn <strong>5 từ</strong>)
             </span>
             <input
               className='form-control'
@@ -80,7 +80,7 @@ export const StepOneEditCourse = () => {
               }}
               className='ms-0 mb-2 mt-1 d-block'
             >
-              (Nhìu hơn <strong>10 từ</strong>)
+              (nhiều hơn <strong>10 từ</strong>)
             </span>
             <textarea
               style={{
