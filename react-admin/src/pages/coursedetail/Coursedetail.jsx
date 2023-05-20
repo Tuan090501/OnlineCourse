@@ -7,20 +7,31 @@ import Header from "../../components/user/header/Header"
 import { useNavigate } from "react-router-dom"
 import { Cartcontext } from "../../context/CartContext"
 import axios from "axios"
+import { Box, Snackbar } from "@mui/material"
 
 const Coursedetail = () => {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const Globalstate = useContext(Cartcontext)
   const dispatch = Globalstate.dispatch
   const [course, setCourse] = useState({})
 
+  const [openSnackBar, setOpenSnackBar] = useState(false)
+  const [messageWhenClickCart, setMessageWhenClickCart] = useState("")
+  const handleClickOpenSnackBar = () => {
+    setOpenSnackBar(true)
+  }
+
+  const handleClickCloseSnackBar = (event) => {
+    setOpenSnackBar(false)
+  }
+
   useEffect(() => {
     const fetchCourse = async () => {
-      const copyURL = window.location.href.split("/")
+      const copyURL = window.location.pathname.split("/")
       const id = copyURL[copyURL.length - 1]
       const { data } = await axios.get(`http://localhost:8000/api/course/${id}`)
       setCourse(data)
-      console.log(Globalstate)
+      console.log(data)
     }
     fetchCourse()
   }, [])
@@ -271,16 +282,39 @@ console.log(course)
                   </div>
                   <h5>Miễn phí</h5>
 
-                  <button
-                    className='Button_btn CourseDetail_learnNow'
-                    onClick={() => {
-                      dispatch({ type: "ADD", payload: course })
-                      console.log(Globalstate)
-                      
+                  <Box
+                    sx={{
+                      width: "100%",
                     }}
                   >
-                    Add to cart
-                  </button>
+                    <button
+                      className='Button_btn CourseDetail_learnNow'
+                      style={{
+                        width: "100%",
+                      }}
+                      onClick={() => {
+                        const isCourseExistInCart = Globalstate.state.some(
+                          (item) => {
+                            return item.id === course.id
+                          }
+                        )
+                        if (isCourseExistInCart) {
+                          setMessageWhenClickCart("Already in cart!")
+                        } else {
+                          setMessageWhenClickCart("Add to cart successfully!")
+                        }
+                        handleClickOpenSnackBar()
+                        dispatch({ type: "ADD", payload: course })
+                      }}
+                    >
+                      Add to cart
+                    </button>
+                    <Snackbar
+                      open={openSnackBar}
+                      onClose={handleClickCloseSnackBar}
+                      message={`${messageWhenClickCart}`}
+                    />
+                  </Box>
 
                   <button
                     className='Button_btn CourseDetail_learnNow'

@@ -6,7 +6,7 @@ const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
-  const [error, setError] = useState([])
+  const [error, setError] = useState("")
   const navigate = useNavigate()
   const getUser = async (id) => {
     const { data } = await axios.get(`http://localhost:8000/api/users/${id}`)
@@ -34,9 +34,13 @@ export const AuthProvider = ({ children }) => {
         navigate("/admin")
       } else if (savedData.role === "user") {
         navigate("/")
+      } else if (savedData.role === "lecturer") {
+        navigate("/lecturer")
       }
     } catch (err) {
-      console.log(err)
+      setError(
+        "The password that you've entered is incorrect. Please enter again!"
+      )
     }
   }
 

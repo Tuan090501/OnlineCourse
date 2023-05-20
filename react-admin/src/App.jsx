@@ -13,6 +13,11 @@ import Learningpage from "./pages/learningpage/Learningpage"
 import Slider from "./components/user/slider/SlickSlider"
 import Cart from "./pages/CartUser/CartUser"
 
+import Dashboard from "./screens/Dashboard/Dashboard"
+import MyCourses from "./screens/MyCourses/MyCourses"
+import EditCourse from "./screens/EditCourse/EditCourse"
+import CreateNewCourse from "./screens/CreateNewCourse/CreateNewCourse"
+
 function App() {
   return (
     <div className='app'>
@@ -20,6 +25,26 @@ function App() {
         <Route
           path='/'
           element={<Home />}
+        ></Route>
+
+        <Route
+          path='/lecturer'
+          element={<Dashboard />}
+        ></Route>
+
+        <Route
+          path='/lecturer/my-course'
+          element={<MyCourses />}
+        ></Route>
+
+        <Route
+          path='/lecturer/edit-my-course/1'
+          element={<EditCourse />}
+        ></Route>
+
+        <Route
+          path='/lecturer/create-new-course'
+          element={<CreateNewCourse />}
         ></Route>
 
         <Route

@@ -20,7 +20,7 @@ function CourseItem({ course }) {
           </button>
         </Link>
         <h3 className='CommonItem_title'>
-          <a href='/'>{course_name}</a>
+          <Link to={`/course-detail/${id}`}>{course_name}</Link>
         </h3>
         <div className="rating">
           <Rating value={rating} precision={0.1} readOnly/>

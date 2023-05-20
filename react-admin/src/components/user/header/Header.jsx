@@ -2,7 +2,7 @@ import React from "react"
 import { useState } from "react"
 import "./header.scss"
 import logo from "../../../assets/images/logof8.png"
-import { Box, Button, IconButton } from "@mui/material"
+import { Box, Button, IconButton, Popover, Typography } from "@mui/material"
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined"
 import useAuthContext from "../../../context/AuthContext"
 import { Link, useNavigate } from "react-router-dom"
@@ -57,7 +57,11 @@ function MyCourse() {
           </div>
           <div className='MyCourses_content'>
             <div className='MyCourses_course-item'>
-              <button onClick={navigate('/')}>
+              <button
+                onClick={() => {
+                  navigate("/")
+                }}
+              >
                 <img
                   src='https://files.fullstack.edu.vn/f8-prod/courses/13/13.png'
                   alt=''
@@ -183,8 +187,22 @@ function MyCourse() {
 }
 
 const Header = () => {
-  const { user } = useAuthContext()
+  const [anchorEl, setAnchorEl] = React.useState(null)
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const open = Boolean(anchorEl)
+  const id = open ? "simple-popover" : undefined
+
+  const { user, logout } = useAuthContext()
   const navigate = useNavigate()
+
   const handleLogin = () => {
     navigate("/login")
   }
@@ -268,10 +286,28 @@ const Header = () => {
               <div className='NavBar_avatar-wrapper'>
                 <div className='FallbackAvatar_avatar'>
                   <img
+                    onClick={handleClick}
                     src='https://files.fullstack.edu.vn/f8-prod/user_photos/204816/62873d6d15e85.jpg'
                     alt=''
                     className='Navbar_avatar'
                   />
+                  <Popover
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                  >
+                    <Typography
+                      sx={{ p: 2 }}
+                      onClick={logout}
+                    >
+                      Log out
+                    </Typography>
+                  </Popover>
                 </div>
               </div>
             </div>

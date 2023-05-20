@@ -48,6 +48,19 @@ const menuItems = [
   },
 ]
 
+const meneLecturerItems = [
+  {
+    path: "/lecturer",
+    icon: <WidgetsOutlinedIcon />,
+    text: "Dashboard",
+  },
+  {
+    path: "/lecturer/my-course",
+    icon: <DevicesOutlinedIcon />,
+    text: "My Courses",
+  },
+]
+
 const sidebar = {
   display: {
     xs: "none",
@@ -82,22 +95,41 @@ function Sidebar() {
       <Divider />
 
       <Box width='100%'>
-        <List className='category-list'>
-          {menuItems.map((item) => (
-            <Link
-              className={`link ${active === item && "active"}`}
-              to={item.path}
-              onClick={(e) => {
-                setActive(item)
-              }}
-            >
-              <ListItemButton className='category__item'>
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText>{item.text}</ListItemText>
-              </ListItemButton>
-            </Link>
-          ))}
-        </List>
+        {localStorage.getItem("role") === "admin" ? (
+          <List className='category-list'>
+            {menuItems.map((item) => (
+              <Link
+                className={`link ${active === item && "active"}`}
+                to={item.path}
+                onClick={(e) => {
+                  setActive(item)
+                }}
+              >
+                <ListItemButton className='category__item'>
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText>{item.text}</ListItemText>
+                </ListItemButton>
+              </Link>
+            ))}
+          </List>
+        ) : (
+          <List className='category-list'>
+            {meneLecturerItems.map((item) => (
+              <Link
+                className={`link ${active === item && "active"}`}
+                to={item.path}
+                onClick={(e) => {
+                  setActive(item)
+                }}
+              >
+                <ListItemButton className='category__item'>
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText>{item.text}</ListItemText>
+                </ListItemButton>
+              </Link>
+            ))}
+          </List>
+        )}
 
         <Divider />
 
