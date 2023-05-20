@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\SubCategoriesController;
 use App\Http\Controllers\Api\SessionController;
 use App\Http\Controllers\Api\LectureController;
+use App\Http\Controllers\Api\OrderController;
+
 
 
 use  App\Http\Controllers\OtpController;
@@ -92,3 +94,9 @@ Route::prefix('lecture')->group(function () {
     Route::post('/',[LectureController::class,'insert']);
 });
 
+Route::prefix('orders')->group(function () {
+    Route::get('/',[OrderController::class,'index']);
+     Route::get('/{id}',[OrderController::class,'show']);
+     Route::post('/',[OrderController::class,'insert']);
+
+});

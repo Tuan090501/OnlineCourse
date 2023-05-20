@@ -24,12 +24,13 @@ const Coursedetail = () => {
     }
     fetchCourse()
   }, [])
-
+console.log(course)
   return (
     <>
       <Header />
       <div className='App_withSidebar'>
         <Sidebar />
+        {}
         <div className='App_withSidebarContent'>
           <section className='index-module_grid index-module_fullWidth'>
             <section className='index-module_row CourseDetail_wrapper'>
@@ -200,6 +201,46 @@ const Coursedetail = () => {
                     </div>
                   </div>
                 </div>
+                <div className="CurriculumOfCourse_author">
+                                <h2 className="CurriculumOfCourse_floatLeft">Giảng viên</h2>
+                                <div>
+                                    <h3 className="instructor__name">Ngô Minh Hiếu</h3>
+                                    <p className="instructor__job-title">"Bắt đầu để trờ thành một Developer chuyên nghiệp"</p>
+                                </div>
+                                <div className="instructor__info">
+                                    <img src="https://cafebiz.cafebizcdn.vn/162123310254002176/2021/5/28/photo-1-162218959229049086641.jpg" alt="" className="instructor__image" />
+                                    <ul className="info-list">
+                                        <li>
+                                            <div className="list-content">
+                                                <i className="fa-solid fa-ranking-star"></i>
+                                                <div className="item-list-content">4.8 Xếp hạng giảng viên</div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="list-content">
+                                                <i className="fa-sharp fa-regular fa-star"></i>
+                                                
+                                                <div className="item-list-content">359 đánh giá</div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="list-content">
+                                                <i className="fa-solid fa-circle-user"></i>
+                                                <div className="item-list-content">2032 học viên</div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="list-content">
+                                                <i className="fa-solid fa-folder-open"></i>
+                                                <div className="item-list-content">10 khóa học</div>
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                           
+                            </div>
+
               </section>
               <section className='index-module_col index-module_c-12 index-module_m-12 index-module_l-4'>
                 <div className='CourseDetail_purchaseBadge'>

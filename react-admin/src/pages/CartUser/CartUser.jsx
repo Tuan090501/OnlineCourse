@@ -19,7 +19,7 @@ function Cart() {
   const handleCheckout = ()=>{
     navigate('/cart/checkout')
   }
-
+console.log(state)
   const handleRemoveCourse = (id) =>(e)=>{ 
     dispatch({type:"REMOVE",payload:id})
     setCart(state.length)

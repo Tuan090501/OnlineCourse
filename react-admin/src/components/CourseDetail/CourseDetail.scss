@@ -1,8 +1,8 @@
 $course-detail-width: 50vw;
 $course-detail-height: 85vh;
 
-@import "../../scrollbar.scss";
-@import "../../variables";
+@import "../../../scrollbar.scss";
+@import "../../../variables";
 
 .course-detail {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -99,12 +99,10 @@ $course-detail-height: 85vh;
           box-sizing: border-box;
           padding-right: 38px;
 
-          &::first-letter{
+          &::first-letter {
             text-transform: uppercase;
           }
         }
-
-        
       }
 
       .course-detail__info-thumbnail {

@@ -7,11 +7,11 @@ ul {
     list-style: none;
 }
 
-
 li {
     display: list-item;
     text-align: -webkit-match-parent;
 }
+
 section {
     display: block;
 }
@@ -20,6 +20,7 @@ h1 {
     font-size: 2em;
     margin: 0.67em 0;
 }
+
 .App_withSidebarContent {
     flex: 1 1;
     padding: 0 40px 0 20px;
@@ -56,7 +57,6 @@ h1 {
 // .index-module_c-12 {
 //     width: 100%;
 // }
-
 .index-module_col {
     padding-left: 4px;
     padding-right: 4px;
@@ -70,7 +70,7 @@ h1 {
 }
 
 .CourseDetail_textContent {
-    color: rgba(0,0,0,.8);
+    color: rgba(0, 0, 0, .8);
     font-size: 1rem;
     line-height: 1.6;
 }
@@ -189,7 +189,6 @@ li {
 }
 
 // CSS PHẦN TRÊN CHƯA XONG
-
 //PHẦN ẢNH
 .index-module_l-4 {
     width: calc(33.33333% - 8px);
@@ -227,15 +226,14 @@ li {
     width: 100%;
 }
 
-
 .CourseDetail_imgPreview .CourseDetail_icon {
     color: #fff;
     font-size: 4rem;
     left: 50%;
     position: absolute;
     top: 50%;
-    -webkit-transform: translate(-50%,-50%);
-    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     transition: all .3s linear;
     z-index: 1;
 }
@@ -257,7 +255,7 @@ li {
 }
 
 .CourseDetail_imgPreview:after {
-    background-image: linear-gradient(180deg,rgba(30,30,28,0),rgba(30,30,28,.9));
+    background-image: linear-gradient(180deg, rgba(30, 30, 28, 0), rgba(30, 30, 28, .9));
     bottom: 0;
     content: "";
     display: block;
@@ -291,14 +289,13 @@ p {
     width: 100%;
     padding: 10px 16px;
     border: 1px solid #bd11bd;
-
-    &:hover{
+    &:hover {
         background-color: #f05123;
         color: #fff;
     }
 }
 
-.Button_btn.Button_primary{
+.Button_btn.Button_primary {
     background-color: #f05123;
     color: #fff;
 }
@@ -345,4 +342,64 @@ p {
 
 strong {
     font-weight: 600;
+}
+
+.CurriculumOfCourse_author {
+    margin-top: 50px;
+}
+
+.instructor__name {
+    color: #5624d0;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.instructor__job-title {
+    font-size: 1.2rem;
+    color: #444;
+    font-style: italic;
+}
+
+.instructor__info {
+    display: flex;
+    margin-top: 0.8rem
+}
+
+.instructor__image {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    object-fit: cover;
+    color: #fff;
+    width: 10rem;
+    height: 10rem;
+    margin-right: 20px;
+}
+
+.info-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.list-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    text-align: left;
+    letter-spacing: normal;
+    white-space: normal;
+    padding: 10px 0;
+}
+
+.item-list-content {
+    margin-left: 0.4rem;
+}
+
+.author-name {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #666;
 }

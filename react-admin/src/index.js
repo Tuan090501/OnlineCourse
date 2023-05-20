@@ -18,8 +18,8 @@ root.render( <
     <
     App / >
     <
-    /Context> <
-    /AuthProvider> <
-    /BrowserRouter> <
-    /React.StrictMode>
+    /Context> < /
+    AuthProvider > <
+    /BrowserRouter> < /
+    React.StrictMode >
 )
