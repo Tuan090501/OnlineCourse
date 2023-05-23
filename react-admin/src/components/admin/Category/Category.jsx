@@ -5,12 +5,14 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import { useState } from "react"
 
 import axios from "axios"
+import Spinning from "../../Spinning"
 
 function Category({ categories, handleDeleteCourse }) {
   const copyCategories = [...categories]
   const isShowSubcategories = copyCategories.map(() => false)
   const [mainCategories, setMainCategories] = useState(copyCategories)
   const [showSubcategory, setShowSubcategory] = useState(isShowSubcategories)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleShowSubcategory = (index) => (e) => {
     const newIsShowSubcategories = showSubcategory.map((item, i) => {
@@ -110,12 +112,13 @@ function Category({ categories, handleDeleteCourse }) {
           mainCategories[i].category_name !== copyCategories[i].category_name
         ) {
           try {
+            setIsLoading(true)
             const res = await axios.put(
               `http://localhost:8000/api/categories/${mainCategories[i].id}`,
               { category_name: mainCategories[i].category_name }
             )
             console.log(res.data)
-            window.location.reload()
+            setIsLoading(false)
           } catch (error) {
             console.log(error)
           }
@@ -150,22 +153,24 @@ function Category({ categories, handleDeleteCourse }) {
             (item) =>
               !copyCategories[i].subCategories.find(({ id }) => item.id === id)
           )
+          setIsLoading(true)
           for (let index = 0; index < temp.length; index++) {
             await axios.post(`http://localhost:8000/api/sub-categories`, {
               sub_name: temp[index].sub_name,
               id_category: temp[index].id_category,
             })
           }
-          window.location.reload()
+          setIsLoading(false)
         }
       }
     } else if (mainCategories.length > copyCategories.length) {
       for (let index = 0; index < data_add.length; index++) {
+        setIsLoading(true)
         axios
           .post("http://localhost:8000/api/categories", {
             category_name: data_add[index].category_name,
           })
-          .then((res) => window.location.reload())
+          .then((res) => setIsLoading(false))
           .catch((err) => console.log(err))
       }
 
@@ -187,9 +192,10 @@ function Category({ categories, handleDeleteCourse }) {
   console.log(mainCategories)
   const handleDeleteCategory = async (id) => {
     try {
+      setIsLoading(true)
       await axios.delete(`http://localhost:8000/api/categories/${id}`)
       console.log("Data deleted successfully.")
-      window.location.reload()
+      setIsLoading(false)
     } catch (error) {
       console.error(error)
     }
@@ -228,77 +234,86 @@ function Category({ categories, handleDeleteCourse }) {
         </button>
       </Box>
 
-      {mainCategories.map((item, index) => (
-        <Box className='category'>
-          <Box className='category-wrapper'>
-            <Box className='open-subcategories-btn'>
-              <input
-                type='checkbox'
-                id={`switch-${item.id}`}
-              />
-              <label
-                for={`switch-${item.id}`}
-                onClick={handleShowSubcategory(index)}
-              >
-                <ChevronRightIcon />
-              </label>
-            </Box>
-
-            <TextField
-              className='category-name'
-              defaultValue={item.category_name}
-              type='text'
-              id='category-input'
-              name='category'
-              onChange={handleOnChangeCategory(index)}
-            ></TextField>
-
-            <Box className='action-btns'>
-              <IconButton
-                onClick={() => handleDeleteCategory(item.id)}
-                className='remove-user__btn'
-              >
-                <DeleteIcon />
-              </IconButton>
-            </Box>
-          </Box>
-
-          <Box
-            className={`subcategories ${showSubcategory[index] ? "show" : ""}`}
-          >
-            {item.subCategories.map((subCategory, subCategoryIndex) => (
-              <Box className='subcategory'>
-                <TextField
-                  type='text'
-                  className='category-name'
-                  name='subcategory'
-                  defaultValue={subCategory.sub_name}
-                  onChange={handleOnChangeSubcategory(index, subCategoryIndex)}
-                ></TextField>
-
-                <Box className='action-btns'>
-                  <IconButton
-                    className='remove-user__btn'
-                    onClick={handleDeleteSubcategory(index, subCategoryIndex)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </Box>
+      {isLoading === true ? (
+        <Spinning />
+      ) : (
+        mainCategories.map((item, index) => (
+          <Box className='category'>
+            <Box className='category-wrapper'>
+              <Box className='open-subcategories-btn'>
+                <input
+                  type='checkbox'
+                  id={`switch-${item.id}`}
+                />
+                <label
+                  for={`switch-${item.id}`}
+                  onClick={handleShowSubcategory(index)}
+                >
+                  <ChevronRightIcon />
+                </label>
               </Box>
-            ))}
 
-            <Box className='action-btns'>
-              <button
-                className='create-subcategory-btn'
-                type='button'
-                onClick={handleClickCreateSubCategory(index)}
-              >
-                Create subcategory
-              </button>
+              <TextField
+                className='category-name'
+                defaultValue={item.category_name}
+                type='text'
+                id='category-input'
+                name='category'
+                onChange={handleOnChangeCategory(index)}
+              ></TextField>
+
+              <Box className='action-btns'>
+                <IconButton
+                  onClick={() => handleDeleteCategory(item.id)}
+                  className='remove-user__btn'
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+            </Box>
+
+            <Box
+              className={`subcategories ${
+                showSubcategory[index] ? "show" : ""
+              }`}
+            >
+              {item.subCategories.map((subCategory, subCategoryIndex) => (
+                <Box className='subcategory'>
+                  <TextField
+                    type='text'
+                    className='category-name'
+                    name='subcategory'
+                    defaultValue={subCategory.sub_name}
+                    onChange={handleOnChangeSubcategory(
+                      index,
+                      subCategoryIndex
+                    )}
+                  ></TextField>
+
+                  <Box className='action-btns'>
+                    <IconButton
+                      className='remove-user__btn'
+                      onClick={handleDeleteSubcategory(index, subCategoryIndex)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
+              ))}
+
+              <Box className='action-btns'>
+                <button
+                  className='create-subcategory-btn'
+                  type='button'
+                  onClick={handleClickCreateSubCategory(index)}
+                >
+                  Create subcategory
+                </button>
+              </Box>
             </Box>
           </Box>
-        </Box>
-      ))}
+        ))
+      )}
 
       <Box className='categories-action-btns'>
         <button

@@ -4,16 +4,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 
 function ManageCategory() {
-  // const [arr, setArr] = useState(categories)
-  // const handleDeleteCourse = (id) => {
-  //   console.log(id)
-  //   //  const newData = arr.splice(id,1)
-  //   setArr((prev) => {
-  //     const data = prev.filter((x, idx) => x.id !== id)
-  //     console.log(data)
-  //     return data
-  //   })
-  // }
+
 
   const [categories, setCategories] = useState([])
 

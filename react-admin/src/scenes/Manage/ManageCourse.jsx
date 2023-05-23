@@ -19,6 +19,7 @@ import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined"
 import { Link, Route, Routes } from "react-router-dom"
 import { useState, useEffect } from "react"
 import axios from "axios"
+import Spinning from "../../components/Spinning"
 
 const optionListBtns = [
   {
@@ -38,6 +39,10 @@ function ManageCourse() {
   const [openActiveDialog, setOpenActiveDialog] = useState(false)
 
   const [selectedRowData, setSelectedRowData] = useState(null)
+
+  const [searchApiData, setSearchApiData] = useState([])
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleOpenCourseDetailModal = () => {
     setOpenCourseDetailModal(true)
@@ -61,7 +66,126 @@ function ManageCourse() {
     setOpenActiveDialog(false)
   }
 
-  const columnsPending = [
+  const [course, setCourse] = useState([])
+  const [activeCourse, setActiveCourse] = useState([])
+  const [unactiveCourse, setUnactiveCourse] = useState([])
+  const [info, setInfo] = useState({})
+
+  const handleCellOnclick = (params) => {
+    console.log(params)
+    setInfo(params)
+  }
+
+  useEffect(() => {
+    const fetchCourse = async () => {
+      const actives = await axios.get(`http://localhost:8000/api/course/active`)
+      const rowsActive = []
+      for (let i = 0; i < actives.data.length; i++) {
+        rowsActive.push({
+          id: actives.data[i].id,
+          thumbnail: actives.data[i].img,
+          courseName: actives.data[i].course_name,
+          description: actives.data[i].disciption,
+          price: actives.data[i].price,
+          category: actives.data[i].category.category_name,
+          lecturer: actives.data[i].lecturer.user_name,
+          status: actives.data[i].status,
+        })
+      }
+      setActiveCourse(rowsActive)
+      const unactives = await axios.get(
+        `http://localhost:8000/api/course/unactive/`
+      )
+
+      const rowsUnactive = []
+      for (let i = 0; i < unactives.data.length; i++) {
+        rowsUnactive.push({
+          id: unactives.data[i].id,
+          thumbnail: unactives.data[i].img,
+          courseName: unactives.data[i].course_name,
+          description: unactives.data[i].disciption,
+          price: unactives.data[i].price,
+          category: unactives.data[i].category.category_name,
+          lecturer: unactives.data[i].lecturer.user_name,
+          status: unactives.data[i].status,
+        })
+      }
+
+      setUnactiveCourse(rowsUnactive)
+      const data = await axios.get("http://localhost:8000/api/course")
+      const rows = []
+      for (let i = 0; i < data.data.length; i++) {
+        rows.push({
+          id: data.data[i].id,
+          thumbnail: data.data[i].img,
+          courseName: data.data[i].course_name,
+          description: data.data[i].disciption,
+          price: data.data[i].price,
+          category: data.data[i].category.category_name,
+          lecturer: data.data[i].lecturer.user_name,
+          status: data.data[i].status,
+        })
+      }
+
+      setCourse(rows)
+      setSearchApiData(rows)
+    }
+
+    fetchCourse()
+  }, [])
+
+  const handleUpdateStatus = async (params) => {
+    handleCloseActiveDialog()
+    handleCloseUnactiveDialog()
+    setIsLoading(true)
+    console.log(info.row.id + info.row.status)
+    const { data } = await axios.put(
+      `http://localhost:8000/api/course/${info.row.id}`,
+      {
+        status: info.row.status === 1 ? 0 : 1,
+      }
+    )
+    if (data) {
+      const activeUserList = await axios.get(
+        "http://localhost:8000/api/course/active"
+      )
+      const rowsActive = []
+      for (let i = 0; i < activeUserList.data.length; i++) {
+        rowsActive.push({
+          id: activeUserList.data[i].id,
+          thumbnail: activeUserList.data[i].img,
+          courseName: activeUserList.data[i].course_name,
+          description: activeUserList.data[i].disciption,
+          price: activeUserList.data[i].price,
+          category: activeUserList.data[i].category.category_name,
+          lecturer: activeUserList.data[i].lecturer.user_name,
+          status: activeUserList.data[i].status,
+        })
+      }
+      const unactiveUserList = await axios.get(
+        "http://localhost:8000/api/course/unactive"
+      )
+      const rowsUnactive = []
+      for (let i = 0; i < unactiveUserList.data.length; i++) {
+        rowsUnactive.push({
+          id: unactiveUserList.data[i].id,
+          thumbnail: unactiveUserList.data[i].img,
+          courseName: unactiveUserList.data[i].course_name,
+          description: unactiveUserList.data[i].disciption,
+          price: unactiveUserList.data[i].price,
+          category: unactiveUserList.data[i].category.category_name,
+          lecturer: unactiveUserList.data[i].lecturer.user_name,
+          status: unactiveUserList.data[i].status,
+        })
+      }
+      setActiveCourse(rowsActive)
+      setUnactiveCourse(rowsUnactive)
+      setIsLoading(false)
+    }
+    setIsLoading(false)
+  }
+
+  const columns = [
     {
       field: "thumbnail",
       headerName: "Thumbnail",
@@ -108,18 +232,16 @@ function ManageCourse() {
       align: "center",
       renderCell: (params) => (
         <button
-          className={`${
-            params.value.toLowerCase() === "active" ? "active" : ""
-          }-status`}
+          className={`${params.value === 1 ? "active" : ""}-status`}
           onClick={() => {
-            if (params.value.toLowerCase() !== "active") {
+            if (params.value !== 1) {
               handleOpenUnactiveDialog()
             } else {
               handleOpenActiveDialog()
             }
           }}
         >
-          {params.value}
+          {`${params.value === 1 ? "active" : "unactive"}`}
         </button>
       ),
     },
@@ -142,62 +264,6 @@ function ManageCourse() {
     },
   ]
 
-  const [course, setCourse] = useState([])
-  const [activeCourse, setActiveCourse] = useState([])
-  const [unactiveCourse, setUnactiveCourse] = useState([])
-
-  useEffect(() => {
-    const fetchCourse = async () => {
-      const data = await axios.get(`http://localhost:8000/api/course`)
-
-      const rows = []
-      const activeCoursesList = []
-      const unactiveCourseList = []
-      for (let i = 0; i < data.data.length; i++) {
-        rows.push({
-          id: data.data[i].id,
-          thumbnail: data.data[i].img,
-          courseName: data.data[i].course_name,
-          description: data.data[i].description,
-          price: data.data[i].price,
-          category: data.data[i].category.category_name,
-          lecturer: data.data[i].lecturer.user_name,
-          status: data.data[i].status === 1 ? "active" : "unactive",
-        })
-        if (data.data[i].status === 1) activeCoursesList.push(rows[i])
-        else unactiveCourseList.push(rows[i])
-
-        if (i === data.data.length - 1) {
-          setCourse(rows)
-
-          console.log(course)
-          setActiveCourse(activeCoursesList)
-          setUnactiveCourse(unactiveCourseList)
-        }
-      }
-    }
-    fetchCourse()
-  }, [])
-
-  const onRowsSelectionHandler = async (ids) => {
-    const selectedRowsData = await ids.map((id) =>
-      course.find((row) => row.id === id)
-    )
-    setSelectedRowData(selectedRowsData)
-  }
-
-  const handleUpdateStatus = async (params) => {
-    handleCloseActiveDialog()
-    handleCloseUnactiveDialog()
-    await axios.put(
-      `http://localhost:8000/api/course/${selectedRowData[0].id}`,
-      {
-        status: selectedRowData[0].status === "active" ? 0 : 1,
-      }
-    )
-    window.location.reload()
-  }
-
   return (
     <Box className='manage-page'>
       <Box className='option-list'>
@@ -218,23 +284,49 @@ function ManageCourse() {
         <SearchBar placeholder='Search course by name or description' />
       </Box>
 
-      <Routes>
-        {["/", "/course-list"].map((path) => (
+      {isLoading === true ? (
+        <Spinning />
+      ) : (
+        <Routes>
+          {["/", "/course-list"].map((path) => (
+            <Route
+              path={path}
+              element={
+                <Box className='manage-wrapper'>
+                  <DataGrid
+                    sx={{
+                      textTransform: "capitalize",
+                    }}
+                    rowHeight={60}
+                    className='manage-table'
+                    rows={activeCourse}
+                    columns={columns}
+                    initialState={{
+                      pagination: {
+                        paginationModel: {
+                          pageSize: 5,
+                        },
+                      },
+                    }}
+                    pageSizeOptions={[5]}
+                    disableRowSelectionOnClick
+                    checkboxSelection
+                    onCellClick={handleCellOnclick}
+                  />
+                </Box>
+              }
+            />
+          ))}
+
           <Route
-            path={path}
+            path='/pending-list'
             element={
-              <Box className='manage-wrapper'>
+              <Box className='manage-wrapper pending-list'>
                 <DataGrid
-                  sx={{
-                    textTransform: "capitalize",
-                  }}
-                  onRowSelectionModelChange={(ids) =>
-                    onRowsSelectionHandler(ids)
-                  }
                   rowHeight={60}
                   className='manage-table'
-                  rows={activeCourse}
-                  columns={columnsPending}
+                  rows={unactiveCourse}
+                  columns={columns}
                   initialState={{
                     pagination: {
                       paginationModel: {
@@ -245,37 +337,13 @@ function ManageCourse() {
                   pageSizeOptions={[5]}
                   disableRowSelectionOnClick
                   checkboxSelection
+                  onCellClick={handleCellOnclick}
                 />
               </Box>
             }
-          />
-        ))}
-
-        <Route
-          path='/pending-list'
-          element={
-            <Box className='manage-wrapper pending-list'>
-              <DataGrid
-                onRowSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
-                rowHeight={60}
-                className='manage-table'
-                rows={unactiveCourse}
-                columns={columnsPending}
-                initialState={{
-                  pagination: {
-                    paginationModel: {
-                      pageSize: 5,
-                    },
-                  },
-                }}
-                pageSizeOptions={[5]}
-                disableRowSelectionOnClick
-                checkboxSelection
-              />
-            </Box>
-          }
-        ></Route>
-      </Routes>
+          ></Route>
+        </Routes>
+      )}
 
       {/* Modal mở ra khi click vào button có icon hình bút chì */}
       <Modal
