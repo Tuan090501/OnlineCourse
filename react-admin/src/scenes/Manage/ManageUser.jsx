@@ -20,6 +20,7 @@ import UserDetail from "../../components/admin/UserDetail/UserDetail"
 import { Link, Route, Routes, useNavigate } from "react-router-dom"
 import axios from "axios"
 import ErrorOutlineOutlinedIcon from "@mui/icons-material/ErrorOutlineOutlined"
+import Spinning from "../../components/Spinning"
 
 const optionListBtns = [
   {
@@ -45,6 +46,8 @@ function ManageUser() {
   const [openActiveDialog, setOpenActiveDialog] = useState(false)
   const navigate = useNavigate()
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const handleOpenUnactiveDialog = () => {
     setOpenUnactiveDialog(true)
   }
@@ -59,15 +62,57 @@ function ManageUser() {
     setOpenActiveDialog(false)
   }
 
+  const [info, setInfo] = useState({})
+  const handleCellOnclick = (params) => {
+    console.log(params)
+    setInfo(params)
+  }
+
   const [activeUsers, setActiveUsers] = useState([])
-  const [unactiveUsers, setUnactivesUsers] = useState([])
+  const [unactiveUsers, setUnactiveUsers] = useState([])
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const data = await axios.get(`http://localhost:8000/api/users`)
+      const actives = await axios.get(`http://localhost:8000/api/users/active`)
+      const rowsActive = []
+      for (let i = 0; i < actives.data.length; i++) {
+        rowsActive.push({
+          id: actives.data[i].id,
+          avatar: actives.data[i].image,
+          userName: actives.data[i].email,
+          email: actives.data[i].email,
+          fullName: actives.data[i].first_name,
+          role: actives.data[i].role,
+          status: actives.data[i].status,
+          gender: actives.data[i].gender,
+          phone: actives.data[i].phone_number,
+          address: actives.data[i].address,
+        })
+      }
+      setActiveUsers(rowsActive)
+      const unactives = await axios.get(
+        `http://localhost:8000/api/users/unactive`
+      )
+
+      const rowsUnactive = []
+      for (let i = 0; i < unactives.data.length; i++) {
+        rowsUnactive.push({
+          id: unactives.data[i].id,
+          avatar: unactives.data[i].image,
+          userName: unactives.data[i].email,
+          email: unactives.data[i].email,
+          fullName: unactives.data[i].first_name,
+          role: unactives.data[i].role,
+          status: unactives.data[i].status,
+          gender: unactives.data[i].gender,
+          phone: unactives.data[i].phone_number,
+          address: unactives.data[i].address,
+        })
+      }
+
+      setUnactiveUsers(rowsUnactive)
+      const data = await axios.get("http://localhost:8000/api/users")
       const rows = []
-      const activeUserList = []
-      const unactiveUserList = []
       for (let i = 0; i < data.data.length; i++) {
         rows.push({
           id: data.data[i].id,
@@ -76,51 +121,53 @@ function ManageUser() {
           email: data.data[i].email,
           fullName: data.data[i].first_name,
           role: data.data[i].role,
-          status: data.data[i].status === 1 ? "active" : "unactive",
+          status: data.data[i].status,
           gender: data.data[i].gender,
           phone: data.data[i].phone_number,
           address: data.data[i].address,
         })
-        if (data.data[i].status === 1) activeUserList.push(rows[i])
-        else {
-          unactiveUserList.push(rows[i])
-        }
       }
-      setActiveUsers(activeUserList)
-      setUnactivesUsers(unactiveUserList)
-      console.log(activeUserList)
-      console.log(unactiveUserList)
-
-      setUsers(rows)
-      setSearchApiData(rows)
+      console.log(activeUsers)
+      console.log(unactiveUsers)
     }
     fetchUsers()
   }, [])
 
-  const handleSearch = (e) => {
-    if (e.target.value === "") {
-      setUsers(searchApiData)
-    } else {
-      const filterResult = searchApiData.filter((item) =>
-        item.email.toLowerCase().includes(e.target.value.toLowerCase())
-      )
-      setUsers(filterResult)
-    }
-  }
+  // const handleSearch = (e) => {
+  //   const url = window.location.href.split("/")
+  //   if (
+  //     url[url.length - 1] === "manage-user" ||
+  //     url[url.length - 1] === "user-list"
+  //   ) {
+  //     setUsers(activeUsers)
+  //     setSearchApiData(activeUsers)
+  //     if (e.target.value === "") {
+  //       setActiveUsers(searchApiData)
+  //     } else {
+  //       const filterResult = searchApiData.filter((item) =>
+  //         item.email.toLowerCase().includes(e.target.value.toLowerCase())
+  //       )
+  //       setActiveUsers(filterResult)
+  //     }
+  //   } else {
+  //     setUsers(unactiveUsers)
+  //     setSearchApiData(unactiveUsers)
+  //     if (e.target.value !== "") {
+  //       const filterResult = searchApiData.filter((item) =>
+  //         item.email.toLowerCase().includes(e.target.value.toLowerCase())
+  //       )
+  //       setUnactiveUsers(filterResult)
+  //     } else {
+  //       setUnactiveUsers(searchApiData)
+  //     }
+  //   }
+  // }
 
   const handleOpen = () => {
     setOpenUserDetailModal(true)
   }
   const handleClose = () => {
     setOpenUserDetailModal(false)
-  }
-
-  const onRowsSelectionHandler = async (ids) => {
-    const selectedRowsData = await ids.map((id) =>
-      users.find((row) => row.id === id)
-    )
-    setSelectedRowData(selectedRowsData)
-    console.log(selectedRowData)
   }
 
   const handleClickToEdit = () => {
@@ -134,16 +181,27 @@ function ManageUser() {
     }
   }
   const handleUpdateStatus = async (params) => {
-    console.log(selectedRowData)
     handleCloseActiveDialog()
     handleCloseUnactiveDialog()
-    await axios.put(
-      `http://localhost:8000/api/users/${selectedRowData[0].id}`,
+    setIsLoading(true)
+    const { data } = await axios.put(
+      `http://localhost:8000/api/users/${info.id}`,
       {
-        status: selectedRowData[0].status === "active" ? 0 : 1,
+        status: info.row.status === 1 ? 0 : 1,
       }
     )
-    window.location.reload()
+
+    if (data) {
+      const activeUserList = await axios.get(
+        "http://localhost:8000/api/users/active"
+      )
+      const unactiveUserList = await axios.get(
+        "http://localhost:8000/api/users/unactive"
+      )
+      setActiveUsers(activeUserList.data)
+      setUnactiveUsers(unactiveUserList.data)
+      setIsLoading(false)
+    }
   }
 
   const columns = [
@@ -198,18 +256,16 @@ function ManageUser() {
       align: "center",
       renderCell: (params) => (
         <button
-          className={`${
-            params.value.toLowerCase() === "active" ? "active" : ""
-          }-status`}
+          className={`${params.value === 1 ? "active" : ""}-status`}
           onClick={() => {
-            if (params.value.toLowerCase() !== "active") {
+            if (params.value !== 1) {
               handleOpenUnactiveDialog()
             } else {
               handleOpenActiveDialog()
             }
           }}
         >
-          {params.value}
+          {`${params.value === 1 ? "active" : "unactive"}`}
         </button>
       ),
     },
@@ -255,7 +311,7 @@ function ManageUser() {
 
       <Box className='searchBar-wrapper'>
         <SearchBar
-          handleSearch={handleSearch}
+          // handleSearch={handleSearch}
           placeholder='Search user by name or email'
         />
         <Box className='create-container'>
@@ -275,22 +331,51 @@ function ManageUser() {
         </Box>
       </Box>
 
-      <Routes>
-        {["/", "user-list"].map((path, index) => (
+      {isLoading === true ? (
+        <Spinning />
+      ) : (
+        <Routes>
+          {["/", "user-list"].map((path, index) => (
+            <Route
+              path={path}
+              element={
+                <Box
+                  className='manage-wrapper'
+                  id='1'
+                >
+                  <DataGrid
+                    rowHeight={60}
+                    className='manage-table'
+                    rows={activeUsers}
+                    columns={columns}
+                    initialState={{
+                      pagination: {
+                        paginationModel: {
+                          pageSize: 5,
+                        },
+                      },
+                    }}
+                    pageSizeOptions={[5]}
+                    disableRowSelectionOnClick
+                    checkboxSelection
+                    onCellClick={handleCellOnclick}
+                  />
+                </Box>
+              }
+            />
+          ))}
+
           <Route
-            path={path}
+            path='/pending-list'
             element={
               <Box
-                className='manage-wrapper'
-                id='1'
+                className='manage-wrapper pending-list'
+                id='2'
               >
                 <DataGrid
-                  onRowSelectionModelChange={(ids) =>
-                    onRowsSelectionHandler(ids)
-                  }
                   rowHeight={60}
                   className='manage-table'
-                  rows={activeUsers}
+                  rows={unactiveUsers}
                   columns={columns}
                   initialState={{
                     pagination: {
@@ -302,40 +387,13 @@ function ManageUser() {
                   pageSizeOptions={[5]}
                   disableRowSelectionOnClick
                   checkboxSelection
+                  onCellClick={handleCellOnclick}
                 />
               </Box>
             }
-          />
-        ))}
-
-        <Route
-          path='/pending-list'
-          element={
-            <Box
-              className='manage-wrapper pending-list'
-              id='2'
-            >
-              <DataGrid
-                onRowSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
-                rowHeight={60}
-                className='manage-table'
-                rows={unactiveUsers}
-                columns={columns}
-                initialState={{
-                  pagination: {
-                    paginationModel: {
-                      pageSize: 5,
-                    },
-                  },
-                }}
-                pageSizeOptions={[5]}
-                disableRowSelectionOnClick
-                checkboxSelection
-              />
-            </Box>
-          }
-        ></Route>
-      </Routes>
+          ></Route>
+        </Routes>
+      )}
 
       <Modal
         open={openUserDetailModal}

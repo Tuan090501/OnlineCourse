@@ -34,6 +34,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //User controller
 Route::prefix('users')->group(function () {
     Route::get('/',[ UsersController::class,'index']);
+    Route::get('/active',[ UsersController::class,'active']);
+    Route::get('/unactive',[ UsersController::class,'unactive']);
+    Route::get('/lecturer',[UsersController::class,'lecturer']);
+    Route::get('/active/lecturer',[UsersController::class,'activeLecturer']);
+    Route::get('/unactive/lecturer',[UsersController::class,'unactiveLecturer']);
+
     Route::post('/',[UsersController::class,'insert']);
     Route::get('/{id}',[UsersController::class,'show']);
     Route::put('/{id}',[UsersController::class,'update']);
@@ -58,6 +64,8 @@ Route::post('/logout', [JWTAuthController::class,'logout']
 //Route course
 Route::prefix('course')->group(function (){
     Route::get('/',[CourseController::class,'index']);
+    Route::get('/active',[CourseController::class,'active']);
+    Route::get('/unactive',[CourseController::class,'unactive']);
     Route::post('/',[CourseController::class,'insert']);
     Route::get('/rating', [CourseController::class, 'rate']);
 

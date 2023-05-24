@@ -20,6 +20,7 @@ import { Link, Route, Routes } from "react-router-dom"
 import { useEffect, useState } from "react"
 import UserDetail from "../../components/admin/UserDetail/UserDetail"
 import axios from "axios"
+import Spinning from "../../components/Spinning"
 
 const optionListBtns = [
   {
@@ -37,13 +38,22 @@ function ManageLecturer() {
   const [openLecturerDetailModal, setOpenLecturerDetailModal] = useState(false)
   const [openUnactiveDialog, setOpenUnactiveDialog] = useState(false)
   const [openActiveDialog, setOpenActiveDialog] = useState(false)
-  const [selectedRowData, setSelectedRowData] = useState(null)
+
 
   const [users, setUsers] = useState([])
   const [searchApiData, setSearchApiData] = useState([])
 
   const [activeUsers, setActiveUsers] = useState([])
   const [unactiveUsers, setUnactiveUsers] = useState([])
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const [info, setInfo] = useState({})
+
+  const handleCellOnclick = (params) => {
+    console.log(params.row)
+    setInfo(params)
+  }
 
   const handleOpenCourseDetailModal = () => {
     setOpenLecturerDetailModal(true)
@@ -67,71 +77,96 @@ function ManageLecturer() {
     setOpenActiveDialog(false)
   }
 
-  const handleCellOnclick = (params) => {
-    console.log(params.row)
-  }
-
   useEffect(() => {
     const fetchUsers = async () => {
-      const data = await axios.get(`http://localhost:8000/api/users`)
-      const rows = []
-      const activeUserList = []
-      const unactiveUserList = []
-      for (let i = 0; i < data.data.length; i++) {
-        if (data.data[i].role === "lecturer") {
-          console.log(data.data[i].role)
-
-          rows.push({
-            id: data.data[i].id,
-            avatar: data.data[i].image,
-            userName: data.data[i].email,
-            email: data.data[i].email,
-            fullName: data.data[i].first_name,
-            role: data.data[i].role,
-            status: data.data[i].status === 1 ? "active" : "unactive",
-            gender: data.data[i].gender,
-            phone: data.data[i].phone_number,
-            address: data.data[i].address,
-          })
-          let rowsLength = rows.length
-
-          console.log(rows[rowsLength - 1])
-          if (data.data[i].status === 1)
-            activeUserList.push(rows[rowsLength - 1])
-          else {
-            unactiveUserList.push(rows[rowsLength - 1])
-          }
-        }
+      const actives = await axios.get(
+        `http://localhost:8000/api/users/active/lecturer`
+      )
+      const rowsActive = []
+      for (let i = 0; i < actives.data.length; i++) {
+        rowsActive.push({
+          id: actives.data[i].id,
+          avatar: actives.data[i].image,
+          userName: actives.data[i].email,
+          email: actives.data[i].email,
+          fullName: actives.data[i].first_name,
+          role: actives.data[i].role,
+          status: actives.data[i].status,
+          gender: actives.data[i].gender,
+          phone: actives.data[i].phone_number,
+          address: actives.data[i].address,
+        })
       }
-      console.log(activeUserList)
-      console.log(unactiveUserList)
-      setActiveUsers(activeUserList)
-      setUnactiveUsers(unactiveUserList)
+      setActiveUsers(rowsActive)
+      const unactives = await axios.get(
+        `http://localhost:8000/api/users/unactive/lecturer`
+      )
+
+      const rowsUnactive = []
+      for (let i = 0; i < unactives.data.length; i++) {
+        rowsUnactive.push({
+          id: unactives.data[i].id,
+          avatar: unactives.data[i].image,
+          userName: unactives.data[i].email,
+          email: unactives.data[i].email,
+          fullName: unactives.data[i].first_name,
+          role: unactives.data[i].role,
+          status: unactives.data[i].status,
+          gender: unactives.data[i].gender,
+          phone: unactives.data[i].phone_number,
+          address: unactives.data[i].address,
+        })
+      }
+
+      setUnactiveUsers(rowsUnactive)
+      const data = await axios.get("http://localhost:8000/api/users")
+      const rows = []
+      for (let i = 0; i < data.data.length; i++) {
+        rows.push({
+          id: data.data[i].id,
+          avatar: data.data[i].image,
+          userName: data.data[i].email,
+          email: data.data[i].email,
+          fullName: data.data[i].first_name,
+          role: data.data[i].role,
+          status: data.data[i].status,
+          gender: data.data[i].gender,
+          phone: data.data[i].phone_number,
+          address: data.data[i].address,
+        })
+      }
+      console.log(activeUsers)
+      console.log(unactiveUsers)
       setUsers(rows)
       setSearchApiData(rows)
     }
     fetchUsers()
   }, [])
 
-  const onRowsSelectionHandler = async (ids) => {
-    const selectedRowsData = await ids.map((id) =>
-      users.find((row) => row.id === id)
-    )
-    setSelectedRowData(selectedRowsData)
-    console.log(selectedRowData)
-  }
-
   const handleUpdateStatus = async (params) => {
-    console.log(selectedRowData)
     handleCloseActiveDialog()
     handleCloseUnactiveDialog()
-    await axios.put(
-      `http://localhost:8000/api/users/${selectedRowData[0].id}`,
+    setIsLoading(true)
+    const { data } = await axios.put(
+      `http://localhost:8000/api/users/${info.id}`,
       {
-        status: selectedRowData[0].status === "active" ? 0 : 1,
+        status: info.row.status === 1 ? 0 : 1,
       }
     )
-    window.location.reload()
+
+    if (data) {
+      const activeUserList = await axios.get(
+        "http://localhost:8000/api/users/active/lecturer"
+      )
+      console.log(activeUserList.data)
+      const unactiveUserList = await axios.get(
+        "http://localhost:8000/api/users/unactive/lecturer"
+      )
+      console.log(unactiveUserList.data)
+      setActiveUsers(activeUserList.data)
+      setUnactiveUsers(unactiveUserList.data)
+      setIsLoading(false)
+    }
   }
 
   const columns = [
@@ -147,19 +182,9 @@ function ManageLecturer() {
       ),
     },
     {
-      field: "firstName",
-      headerName: "First name",
-      width: 150,
-    },
-    {
-      field: "lastName",
-      headerName: "Last name",
-      width: 150,
-    },
-    {
-      field: "fullName",
-      headerName: "Full name",
-      width: 250,
+      field: "userName",
+      headerName: "User name",
+      width: 200,
     },
     {
       field: "email",
@@ -170,11 +195,23 @@ function ManageLecturer() {
       ),
     },
     {
-      field: "type",
-      headerName: "Type",
+      field: "fullName",
+      headerName: "Full name",
+      width: 200,
+    },
+    {
+      field: "gender",
+      headerName: "Gender",
+      width: 100,
+    },
+    {
+      field: "role",
+      headerName: "Role",
       width: 150,
       headerAlign: "center",
       align: "center",
+
+      renderCell: (params) => <Typography>{`${params.value}`} </Typography>,
     },
     {
       field: "status",
@@ -184,164 +221,35 @@ function ManageLecturer() {
       align: "center",
       renderCell: (params) => (
         <button
-          className={`${
-            params.value.toLowerCase() === "active" ? "active" : ""
-          }-status`}
+          className={`${params.value === 1 ? "active" : ""}-status`}
           onClick={() => {
-            if (params.value.toLowerCase() !== "active") {
+            if (params.value !== 1) {
               handleOpenUnactiveDialog()
             } else {
               handleOpenActiveDialog()
             }
           }}
         >
-          {params.value}
+          {`${params.value === 1 ? "active" : "unactive"}`}
         </button>
       ),
     },
     {
       field: "action",
       headerName: "Action",
-      width: 150,
+      width: 170,
       headerAlign: "center",
       align: "center",
-      renderCell: () => (
+      renderCell: (params) => (
         <Box>
           <IconButton
             className='detail-user__btn'
-            onClick={handleOpenCourseDetailModal}
+            // onClick={handleOpen}
           >
             <AccountBoxOutlinedIcon />
           </IconButton>
         </Box>
       ),
-    },
-  ]
-
-  const rows = [
-    {
-      id: 1,
-      avatar:
-        "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-      firstName: "Filippo",
-      lastName: "Inzaghi",
-      fullName: "Filippo Inzaghi",
-      email: "inzaghi@gmail.com",
-      type: "user",
-      status: "active",
-    },
-    {
-      id: 1,
-      avatar:
-        "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-      firstName: "Filippo",
-      lastName: "Inzaghi",
-      fullName: "Filippo Inzaghi",
-      email: "inzaghi@gmail.com",
-      type: "user",
-      status: "active",
-    },
-    {
-      id: 1,
-      avatar:
-        "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-      firstName: "Filippo",
-      lastName: "Inzaghi",
-      fullName: "Filippo Inzaghi",
-      email: "inzaghi@gmail.com",
-      type: "user",
-      status: "active",
-    },
-    {
-      id: 1,
-      avatar:
-        "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-      firstName: "Filippo",
-      lastName: "Inzaghi",
-      fullName: "Filippo Inzaghi",
-      email: "inzaghi@gmail.com",
-      type: "user",
-      status: "active",
-    },
-    {
-      id: 1,
-      avatar:
-        "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-      firstName: "Filippo",
-      lastName: "Inzaghi",
-      fullName: "Filippo Inzaghi",
-      email: "inzaghi@gmail.com",
-      type: "user",
-      status: "active",
-    },
-    {
-      id: 1,
-      avatar:
-        "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-      firstName: "Filippo",
-      lastName: "Inzaghi",
-      fullName: "Filippo Inzaghi",
-      email: "inzaghi@gmail.com",
-      type: "user",
-      status: "active",
-    },
-    {
-      id: 1,
-      avatar:
-        "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-      firstName: "Filippo",
-      lastName: "Inzaghi",
-      fullName: "Filippo Inzaghi",
-      email: "inzaghi@gmail.com",
-      type: "user",
-      status: "active",
-    },
-    {
-      id: 1,
-      avatar:
-        "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-      firstName: "Filippo",
-      lastName: "Inzaghi",
-      fullName: "Filippo Inzaghi",
-      email: "inzaghi@gmail.com",
-      type: "user",
-      status: "active",
-    },
-    {
-      id: 1,
-      avatar:
-        "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-      firstName: "Filippo",
-      lastName: "Inzaghi",
-      fullName: "Filippo Inzaghi",
-      email: "inzaghi@gmail.com",
-      type: "user",
-      status: "active",
-    },
-    {
-      id: 1,
-      avatar:
-        "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-      firstName: "Filippo",
-      lastName: "Inzaghi",
-      fullName: "Filippo Inzaghi",
-      email: "inzaghi@gmail.com",
-      type: "user",
-      status: "active",
-    },
-  ]
-
-  const rowsPendingList = [
-    {
-      id: 1,
-      avatar:
-        "https://img.a.transfermarkt.technology/portrait/big/25149-1586856473.jpg?lm=1",
-      firstName: "Filippo",
-      lastName: "Inzaghi",
-      fullName: "Filippo Inzaghi",
-      email: "inzaghi@gmail.com",
-      type: "user",
-      status: "unactive",
     },
   ]
 
@@ -365,19 +273,45 @@ function ManageLecturer() {
         <SearchBar placeholder='Search lecturer by name or email' />
       </Box>
 
-      <Routes>
-        {["/", "lecturer-list"].map((path) => (
+      {isLoading === true ? (
+        <Spinning />
+      ) : (
+        <Routes>
+          {["/", "lecturer-list"].map((path) => (
+            <Route
+              path={path}
+              element={
+                <Box className='manage-wrapper'>
+                  <DataGrid
+                    rowHeight={60}
+                    className='manage-table'
+                    rows={activeUsers}
+                    columns={columns}
+                    initialState={{
+                      pagination: {
+                        paginationModel: {
+                          pageSize: 5,
+                        },
+                      },
+                    }}
+                    pageSizeOptions={[5]}
+                    disableRowSelectionOnClick
+                    checkboxSelection
+                    onCellClick={handleCellOnclick}
+                  />
+                </Box>
+              }
+            />
+          ))}
+
           <Route
-            path={path}
+            path='/pending-list'
             element={
-              <Box className='manage-wrapper'>
+              <Box className='manage-wrapper pending-list'>
                 <DataGrid
-                  onRowSelectionModelChange={(ids) =>
-                    onRowsSelectionHandler(ids)
-                  }
                   rowHeight={60}
                   className='manage-table'
-                  rows={activeUsers}
+                  rows={unactiveUsers}
                   columns={columns}
                   initialState={{
                     pagination: {
@@ -393,35 +327,9 @@ function ManageLecturer() {
                 />
               </Box>
             }
-          />
-        ))}
-
-        <Route
-          path='/pending-list'
-          element={
-            <Box className='manage-wrapper pending-list'>
-              <DataGrid
-                onRowSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
-                rowHeight={60}
-                className='manage-table'
-                rows={unactiveUsers}
-                columns={columns}
-                initialState={{
-                  pagination: {
-                    paginationModel: {
-                      pageSize: 5,
-                    },
-                  },
-                }}
-                pageSizeOptions={[5]}
-                disableRowSelectionOnClick
-                checkboxSelection
-                onCellClick={handleCellOnclick}
-              />
-            </Box>
-          }
-        ></Route>
-      </Routes>
+          ></Route>
+        </Routes>
+      )}
 
       <Modal
         open={openLecturerDetailModal}
