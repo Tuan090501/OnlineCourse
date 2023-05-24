@@ -6,6 +6,7 @@ import "./CartUser.scss"
 import Grid from "@mui/material/Unstable_Grid2"
 import { useNavigate } from "react-router-dom"
 import { Cartcontext } from "../../context/CartContext"
+import axios from "axios"
 
 
 
@@ -17,13 +18,18 @@ function Cart() {
   const [cart, setCart] = useState(state.length)
   const navigate = useNavigate()
   const handleCheckout = ()=>{
-    navigate('/cart/checkout')
+    
+  //  const data =  axios.post(`http://localhost:8000/api/orders`,{
+
+  //  })
+
+    // navigate('/cart/checkout')
   }
-console.log(state)
   const handleRemoveCourse = (id) =>(e)=>{ 
     dispatch({type:"REMOVE",payload:id})
     setCart(state.length)
   }
+
 
   const getTotalPrice = (arr)=>{
     let total = 0;
@@ -32,12 +38,14 @@ console.log(state)
     })
     return total
   }
+ 
+  const total = getTotalPrice(state);
 
 
 
  
   useEffect(()=>{
-
+    
   },[])
   return (
     <Box>

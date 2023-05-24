@@ -1,153 +1,134 @@
 $course-detail-width: 50vw;
 $course-detail-height: 85vh;
-
 @import "../../../scrollbar.scss";
 @import "../../../variables";
-
 .course-detail {
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  position: relative;
-  background-color: #fff;
-  width: $course-detail-width;
-
-  .course-detail__header {
-    .course-detail__title {
-      text-align: center;
-      padding: 12px;
-      color: #f93e1d;
-      text-transform: capitalize;
-    }
-
-    .close-btn {
-      position: absolute;
-      right: 0;
-      top: 0;
-      border: none;
-      cursor: pointer;
-      width: 44px;
-      height: 44px;
-      transition: all 0.15s ease-in-out;
-
-      background-color: #fff;
-      &:hover {
-        background-color: #f93e1d;
-        color: #fff;
-      }
-
-      & svg {
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
-
-  &__body {
-    overflow-y: scroll;
-    overflow-x: clip;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     position: relative;
-    left: 0;
-    right: 0;
-
-    height: calc($course-detail-height - 56px);
-    padding: 12px 20px 0px 20px;
-    box-sizing: border-box;
-
-    .course-detail__info-wrapper {
-      margin: 20px 0px;
-      position: relative;
-      border: 1px solid #999;
-      border-radius: 8px;
-
-      .course-detail__info-title {
-        text-transform: capitalize;
-        color: #f93e1d;
-        position: absolute;
-        top: -14px;
-        left: 10px;
-        font-size: 14px;
-        background-color: #fff;
-        padding: 4px;
-      }
-      .course-detail__info-content {
-        padding: 14px;
-        min-height: 40px;
-      }
-
-      .course-detail__info-content.description {
-        min-height: 80px;
-      }
-
-      .course-detail__info-content.price {
-        min-height: 0;
-      }
-    }
-
-    .course-detail__info-wrapper.no-border {
-      border: none;
-
-      .course-detail__info-title {
-        font-size: 20px;
-        left: 0;
-        padding: 0;
-      }
-      .course-detail__info-list {
-        & li {
-          display: list-item;
-          margin-left: 40px;
-          list-style-type: disc;
-          width: 100%;
-          box-sizing: border-box;
-          padding-right: 38px;
-
-          &::first-letter {
-            text-transform: uppercase;
-          }
-        }
-      }
-
-      .course-detail__info-thumbnail {
-        height: 600px;
-        width: 100%;
-        margin-top: 20px;
-        object-fit: cover;
-        object-position: center;
-        border-radius: 4px;
-      }
-      .preview-video {
-        margin-top: 14px;
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
-
-  .course-detail__footer {
     background-color: #fff;
-    padding: 8px 24px;
-    display: flex;
-    justify-content: flex-end;
-
-    .close-btn {
-      background-color: #f62e0b;
-      color: #fff;
-      border: none;
-      padding: 10px 24px;
-      margin: 8px 0px;
-      font-size: 17px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.15s ease-in;
-
-      &:hover {
-        background-color: #f93e1d;
-      }
+    width: $course-detail-width;
+    .course-detail__header {
+        .course-detail__title {
+            text-align: center;
+            padding: 12px;
+            color: #f93e1d;
+            text-transform: capitalize;
+        }
+        .close-btn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            border: none;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            transition: all 0.15s ease-in-out;
+            background-color: #fff;
+            &:hover {
+                background-color: #f93e1d;
+                color: #fff;
+            }
+            & svg {
+                width: 100%;
+                height: 100%;
+            }
+        }
     }
-  }
+    &__body {
+        overflow-y: scroll;
+        overflow-x: clip;
+        position: relative;
+        left: 0;
+        right: 0;
+        height: calc($course-detail-height - 56px);
+        padding: 12px 20px 0px 20px;
+        box-sizing: border-box;
+        .course-detail__info-wrapper {
+            margin: 20px 0px;
+            position: relative;
+            border: 1px solid #999;
+            border-radius: 8px;
+            .course-detail__info-title {
+                text-transform: capitalize;
+                color: #f93e1d;
+                position: absolute;
+                top: -14px;
+                left: 10px;
+                font-size: 14px;
+                background-color: #fff;
+                padding: 4px;
+            }
+            .course-detail__info-content {
+                padding: 14px;
+                min-height: 40px;
+            }
+            .course-detail__info-content.description {
+                min-height: 80px;
+            }
+            .course-detail__info-content.price {
+                min-height: 0;
+            }
+        }
+        .course-detail__info-wrapper.no-border {
+            border: none;
+            .course-detail__info-title {
+                font-size: 20px;
+                left: 0;
+                padding: 0;
+            }
+            .course-detail__info-list {
+                & li {
+                    display: list-item;
+                    margin-left: 40px;
+                    list-style-type: disc;
+                    width: 100%;
+                    box-sizing: border-box;
+                    padding-right: 38px;
+                    &::first-letter {
+                        text-transform: uppercase;
+                    }
+                }
+            }
+            .course-detail__info-thumbnail {
+                height: 600px;
+                width: 100%;
+                margin-top: 20px;
+                object-fit: cover;
+                object-position: center;
+                border-radius: 4px;
+            }
+            .preview-video {
+                margin-top: 14px;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+    .course-detail__footer {
+        background-color: #fff;
+        padding: 8px 24px;
+        display: flex;
+        justify-content: flex-end;
+        .close-btn {
+            background-color: #f62e0b;
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            margin: 8px 0px;
+            font-size: 17px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s ease-in;
+            &:hover {
+                background-color: #f93e1d;
+            }
+        }
+    }
 }
 
 @media screen and (max-width: $large) {
-  $course-detail-width: 94vw;
-  .course-detail {
-    width: $course-detail-width;
-  }
+    $course-detail-width: 94vw;
+    .course-detail {
+        width: $course-detail-width;
+    }
 }

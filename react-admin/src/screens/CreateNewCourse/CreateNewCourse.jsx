@@ -13,20 +13,37 @@ import Sidebar from "../../components/admin/Sidebar/Sidebar"
 export default function CreateNewCourse() {
   const [stepActive, setStepActive] = useState(1)
   const [isActiveNextFeature, setIsNextFeature] = useState(false)
-
-  const handleClickNextAndPrevStep = (type) => {
+  const [data,setData] = useState(null)
+  const [course,setCourse] = useState([])
+ console.log(data)
+  const handleDataChange = (newData) => {
+    
+    setData(newData);
+  };
+ 
+  console.log(course)
+  const handleClickNextAndPrevStep = (type,newData) => {
+    
     if (type === "prev") {
       setStepActive(stepActive - 1)
     }
 
     if (type === "next") {
       setStepActive(stepActive + 1)
+      setCourse(prevCourse => {
+        const updatedCourse = [...prevCourse];
+        updatedCourse.push(newData);
+        return updatedCourse;
+      });
     }
   }
 
-  const handleConfirmData = () => {
-    alert("test")
-    console.log("Call API")
+  const handleConfirmData = (newData) => {
+    setCourse(prevCourse => {
+      const updatedCourse = [...prevCourse];
+      updatedCourse.push(newData);
+      return updatedCourse;
+    });
   }
 
   return (
@@ -71,17 +88,17 @@ export default function CreateNewCourse() {
           }}
         >
           {stepActive === 1 && <StepOne setIsNextFeature={setIsNextFeature} />}
-          {stepActive === 2 && <StepTwo setIsNextFeature={setIsNextFeature} />}
+          {stepActive === 2 && <StepTwo setIsNextFeature={setIsNextFeature} onDataChange={handleDataChange} />}
           {stepActive === 3 && (
-            <StepThree setIsNextFeature={setIsNextFeature} />
+            <StepThree setIsNextFeature={setIsNextFeature} onDataChange={handleDataChange} />
           )}
-          {stepActive === 4 && <StepFour setIsNextFeature={setIsNextFeature} />}
-          {stepActive === 5 && <StepFive setIsNextFeature={setIsNextFeature} />}
+          {stepActive === 4 && <StepFour setIsNextFeature={setIsNextFeature} onDataChange={handleDataChange} />}
+          {stepActive === 5 && <StepFive setIsNextFeature={setIsNextFeature}  onDataChange={handleDataChange}/>}
         </div>
         <div
           style={{
             padding: "10px 20px",
-          }}
+          }}  
           className={stepActive !== 1 ? "navigate-ft" : "navigate-ft first"}
         >
           {stepActive !== 1 && (
@@ -100,9 +117,9 @@ export default function CreateNewCourse() {
             onClick={() => {
               if (isActiveNextFeature) {
                 if (stepActive < 5) {
-                  handleClickNextAndPrevStep("next")
+                  handleClickNextAndPrevStep("next",data)
                 } else {
-                  handleConfirmData()
+                  handleConfirmData(data)
                 }
               }
             }}

@@ -25,9 +25,9 @@ class UsersController extends Controller
         $request->validate([
 
         ]);
-        $username = $request->input('user_name');
+        $username = $request->input('email');
 
-        $userExists = Users::where('user_name', $username)->exists();
+        $userExists = Users::where('email', $username)->exists();
         if(!$userExists){
             $user = Users::create( [
                 "address"=>$request->address,

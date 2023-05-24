@@ -18,8 +18,12 @@ import MyCourses from "./screens/MyCourses/MyCourses"
 import EditCourse from "./screens/EditCourse/EditCourse"
 import CreateNewCourse from "./screens/CreateNewCourse/CreateNewCourse"
 
+import { PayPalScriptProvider} from "@paypal/react-paypal-js";
+
+
 function App() {
   return (
+    <PayPalScriptProvider options={{ "client-id": "AdrUj8lKOMQ55mATfM89HcpENy7XpwkpftfSTFE5e3s3lbwryADM8lqSUsYzAPhsJFjNeI-FJpw0Re7-" }}>
     <div className='app'>
       <Routes>
         <Route
@@ -104,6 +108,7 @@ function App() {
         ></Route>
       </Routes>
     </div>
+    </PayPalScriptProvider>
   )
 }
 

@@ -59,9 +59,12 @@ Route::post('/logout', [JWTAuthController::class,'logout']
 Route::prefix('course')->group(function (){
     Route::get('/',[CourseController::class,'index']);
     Route::post('/',[CourseController::class,'insert']);
+    Route::get('/rating', [CourseController::class, 'rate']);
+
     Route::get('/{id}',[CourseController::class,'show']);
     Route::put('/{id}',[CourseController::class,'update']);
     Route::delete('/{id}', [CourseController::class, 'delete']);
+
 });
 
 //Route category

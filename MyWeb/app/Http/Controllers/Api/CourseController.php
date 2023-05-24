@@ -15,6 +15,10 @@ class CourseController extends Controller
         $course = Course::with(['lecturer:id,user_name','category:id,category_name','sessionsWithLectures'])->get();
         return response()->json($course);
     }
+    public function rate(){
+        $course = Course::with(['lecturer:id,user_name','category:id,category_name','sessionsWithLectures'])->orderby('rating','DESC')->limit(5)->get();
+        return response()->json($course);
+    }
 
 
     public function insert(Request $request)

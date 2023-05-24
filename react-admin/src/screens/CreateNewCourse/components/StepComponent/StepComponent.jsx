@@ -20,10 +20,10 @@ const dataDemo = [
 ]
 
 const dataDemoSelectCategory = [
-  { value: "c1", label: "Học HTML CSS Căn Bản Để Thực Chiến" },
-  { value: "c2", label: "Học JS và JS Nâng Cao Cùng Với Tom" },
-  { value: "c3", label: "Git Căn Bản Cho Người Mới Bắt Đầu" },
-  { value: "c4", label: "TypeScript Không Khó - Học Cùng Với Chúng Tôi" },
+  { value: 1, label: "Học HTML CSS Căn Bản Để Thực Chiến" },
+  { value: 2, label: "Học JS và JS Nâng Cao Cùng Với Tom" },
+  { value: 3, label: "Git Căn Bản Cho Người Mới Bắt Đầu" },
+  { value: 4, label: "TypeScript Không Khó - Học Cùng Với Chúng Tôi" },
 ]
 
 export const StepOne = ({ setIsNextFeature }) => {
@@ -68,10 +68,9 @@ export const StepOne = ({ setIsNextFeature }) => {
   )
 }
 
-export const StepTwo = ({ setIsNextFeature }) => {
+export const StepTwo = ({ setIsNextFeature,onDataChange }) => {
   // two while binding
   const [nameCourse, setNameCourse] = useState("")
-  console.log(nameCourse)
   useEffect(() => {
     if (nameCourse.length > 0) {
       setIsNextFeature(true)
@@ -79,6 +78,14 @@ export const StepTwo = ({ setIsNextFeature }) => {
       setIsNextFeature(false)
     }
   }, [nameCourse, setIsNextFeature])
+  const handleInputChange = (e) => {
+    const newData = e.target.value;
+    const data = {
+      course_name : e.target.value
+    }
+    setNameCourse(newData);
+    onDataChange(data); // Gọi hàm callback để truyền dữ liệu lên component cha
+  };
 
   return (
     <div>
@@ -103,9 +110,7 @@ export const StepTwo = ({ setIsNextFeature }) => {
             padding: "12px",
           }}
           value={nameCourse}
-          onChange={(e) => {
-            setNameCourse(e.target.value)
-          }}
+          onChange={handleInputChange}
           className='form-control'
           placeholder='Bạn hãy nhập tên khóa học của bạn ....'
           required
@@ -115,7 +120,7 @@ export const StepTwo = ({ setIsNextFeature }) => {
   )
 }
 
-export const StepThree = ({ setIsNextFeature }) => {
+export const StepThree = ({ setIsNextFeature,onDataChange }) => {
   // two while binding
   // two while binding
   const [descCourse, setDescCourse] = useState("")
@@ -126,7 +131,14 @@ export const StepThree = ({ setIsNextFeature }) => {
       setIsNextFeature(false)
     }
   }, [descCourse, setIsNextFeature])
-
+  const handleInputChange = (e) => {
+    const newData = e.target.value;
+    const data = {
+      description : e.target.value
+    }
+    setDescCourse(newData);
+    onDataChange(data); // Gọi hàm callback để truyền dữ liệu lên component cha
+  };
   return (
     <div>
       <h1
@@ -151,9 +163,7 @@ export const StepThree = ({ setIsNextFeature }) => {
             padding: "12px",
           }}
           value={descCourse}
-          onChange={(e) => {
-            setDescCourse(e.target.value)
-          }}
+          onChange={handleInputChange}
           className='form-control'
           placeholder='Bạn hãy nhập mô tả khóa học của bạn ....'
         />
@@ -162,7 +172,7 @@ export const StepThree = ({ setIsNextFeature }) => {
   )
 }
 
-export const StepFour = ({ setIsNextFeature }) => {
+export const StepFour = ({ setIsNextFeature,onDataChange }) => {
   const [dataSelect, setDataSelect] = useState(null)
 
   useEffect(() => {
@@ -172,7 +182,14 @@ export const StepFour = ({ setIsNextFeature }) => {
       setIsNextFeature(false)
     }
   }, [dataSelect, setIsNextFeature])
-
+  const handleInputChange = (e) => {
+    const newData = e.value;
+    const data = {
+      category : e.value
+    }
+    setDataSelect(newData);
+    onDataChange(data); // Gọi hàm callback để truyền dữ liệu lên component cha
+  };
   return (
     <div>
       <h1
@@ -191,7 +208,7 @@ export const StepFour = ({ setIsNextFeature }) => {
         }}
       >
         <Select
-          onChange={(e) => setDataSelect(e.value)}
+          onChange={e =>handleInputChange(e)}
           placeholder='Chọn category khóa học của bạn...'
           options={dataDemoSelectCategory}
         />
@@ -200,7 +217,7 @@ export const StepFour = ({ setIsNextFeature }) => {
   )
 }
 
-export const StepFive = ({ setIsNextFeature }) => {
+export const StepFive = ({ setIsNextFeature, onDataChange }) => {
   const [fileImage, setFileImage] = useState(null)
   const [fileVideo, setFileVideo] = useState(null)
 
@@ -211,7 +228,22 @@ export const StepFive = ({ setIsNextFeature }) => {
       setIsNextFeature(false)
     }
   }, [fileImage, fileVideo, setIsNextFeature])
-
+  const handleInputChangeIMG = (e) => {
+    const newData = e.target.files[0];
+    const data = {
+      img : e.target.files[0]
+    }
+    setFileImage(newData);
+    onDataChange(data); // Gọi hàm callback để truyền dữ liệu lên component cha
+  }
+  const handleInputChangeVideo = (e) => {
+    const newData = e.target.files[0];
+    const data = {
+      video : e.target.files[0]
+    }
+    setFileVideo(newData);
+    onDataChange(data); // Gọi hàm callback để truyền dữ liệu lên component cha
+  }
   return (
     <div>
       <h1
@@ -254,7 +286,7 @@ export const StepFive = ({ setIsNextFeature }) => {
                 Upload your course image here. it must meet out image quality
                 ...
                 <input
-                  onChange={(e) => setFileImage(e.target.files[0])}
+                  onChange={handleInputChangeIMG}
                   type='file'
                 />
               </p>
@@ -299,7 +331,7 @@ export const StepFive = ({ setIsNextFeature }) => {
                 Upload your course image here. it must meet out image quality
                 ...
                 <input
-                  onChange={(e) => setFileVideo(e.target.files[0])}
+                  onChange={handleInputChangeVideo}
                   type='file'
                 />
               </p>

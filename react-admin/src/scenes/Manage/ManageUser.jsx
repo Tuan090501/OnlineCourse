@@ -125,6 +125,7 @@ function ManageUser() {
 
   const handleClickToEdit = () => {
     if (selectedRowData !== null && selectedRowData.length === 1) {
+    
       navigate("/admin/manage-user/admin-edit-user", {
         state: {
           selectedRowData,

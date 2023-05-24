@@ -10,7 +10,8 @@ import StatsBox from "../../components/admin/StatsBox/StatsBox"
 import UsersStatBox from "../../components/admin/UsersStatBox/UsersStatBox"
 import CourseBox from "../../components/admin/CourseBox/CourseBox"
 import { Box, Divider, Typography } from "@mui/material"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 // array data of statsBox
 const statsBox = [
@@ -104,7 +105,15 @@ const courses = [
 ]
 
 function Dashboard() {
-  useEffect(() => {}, [])
+  const [course,setCourse] = useState([]);
+  useEffect(() => {
+    const fetchCourse = async () => {
+      const response = await axios.get(`http://localhost:8000/api/course/rating`)
+      setCourse(response.data)
+    }
+    fetchCourse()
+  }, [])
+  console.log(course)
 
   return (
     <Box className='dashboard-container'>
@@ -217,16 +226,16 @@ function Dashboard() {
               Highly Rated content
             </Typography>
 
-            {courses.map(
-              ({ image, title, author, studentQuantity, rating }) => (
+            {course.map(
+              ( i ) => (
                 <Box>
                   <Divider />
                   <CourseBox
-                    image={image}
-                    title={title}
-                    author={author}
-                    studentQuantity={studentQuantity}
-                    rating={rating}
+                    image={i.img}
+                    title={i.course_name}
+                    author={i.lecturer.user_name}
+                    studentQuantity={0}
+                    rating={i.rating}
                   />
                 </Box>
               )

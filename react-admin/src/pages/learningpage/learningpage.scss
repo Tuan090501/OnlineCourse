@@ -208,11 +208,9 @@ button {
 }
 
 // Ẩn hiện dropdown menu
-
 // .TrackItem_track-steps-list {
 //     display: none;
 // }
-
 .StepItem_wrapper {
     display: flex;
     flex-direction: row;
@@ -388,7 +386,7 @@ button {
     align-items: center;
     background-color: #f0f0f0;
     bottom: 0;
-    box-shadow: 0 -2px 3px rgba(0,0,0,.1);
+    box-shadow: 0 -2px 3px rgba(0, 0, 0, .1);
     display: flex;
     height: 50px;
     justify-content: center;
@@ -420,7 +418,7 @@ button {
 }
 
 .ActionBar_btn.ActionBar_primary {
-    border: 2px solid  #f05123;
+    border: 2px solid #f05123;
 }
 
 .ActionBar_btn.ActionBar_btn {
@@ -477,7 +475,7 @@ button {
 .ActionButton_wrapper {
     background-color: #fff;
     border-radius: 999px;
-    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     color: #f05123;
     cursor: pointer;
     font-size: 1rem;
@@ -489,3 +487,53 @@ button {
 .ActionButton_title {
     margin-left: 8px;
 }
+
+@media screen and (max-width: 739px) {
+    .Tracks_wrapper {
+        display: none;
+    }
+    .Content_wrapper {
+        width: 100%;
+    }
+    .Header_action-btn {
+        display: none;
+    }
+    .Header_course-title {
+        font-size: 0.8rem;
+    }
+    .Video_contentTop {
+        display: block;
+    }
+    .ActionBar_toggle-wrap {
+        display: none;
+    }
+    .Header_logo {
+        display: none;
+    }
+    .Header_completed-msg {
+        font-size: 0.8rem;
+    }
+    .Heading_heading {
+        font-size: 1.8rem;
+    }
+    .Video_addNote .Video_label {
+        margin-left: 8px;
+        font-size: 0.8rem;
+    }
+    .Main_comment-btn.Main_show-tracks {
+        right: 20px;
+    }
+}
+
+// Tablet
+@media screen and (min-width: 740px) and (max-width: 1023px) {
+    .Tracks_wrapper {
+        display: none;
+    }
+    .Content_wrapper {
+        width: 100%;
+    }
+}
+
+// PC
+@media screen and (min-width: 1024px) {}

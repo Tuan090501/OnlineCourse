@@ -2,11 +2,11 @@ import { Box, Rating, Typography } from "@mui/material"
 import "./CourseBox.scss"
 
 function CourseBox({
-  image = "https://prod-discovery.edx-cdn.org/media/course/image/0e575a39-da1e-4e33-bb3b-e96cc6ffc58e-8372a9a276c1.small.png",
-  title = "Learn Web development",
-  author = "Phạm Trần Quốc Tiến",
-  studentQuantity = 0,
-  rating = 0,
+  image ,
+  title ,
+  author ,
+  studentQuantity ,
+  rating ,
 }) {
   return (
     <Box className='courseBox'>

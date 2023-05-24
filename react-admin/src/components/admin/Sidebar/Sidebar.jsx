@@ -72,7 +72,6 @@ function Sidebar() {
   // console.log(window.localStorage.getItem())
   const [active, setActive] = useState(menuItems[0])
   const { user, logout } = useAuthContext()
-  console.log(user)
   return (
     <Box
       className='sidebar'
