@@ -17,6 +17,7 @@ import Dashboard from "./screens/Dashboard/Dashboard"
 import MyCourses from "./screens/MyCourses/MyCourses"
 import EditCourse from "./screens/EditCourse/EditCourse"
 import CreateNewCourse from "./screens/CreateNewCourse/CreateNewCourse"
+import RegisterEnterOTP from "./scenes/RegisterPage/RegisterEnterOTP"
 
 function App() {
   return (
@@ -86,6 +87,11 @@ function App() {
         <Route
           path='/register'
           element={<Register />}
+        ></Route>
+
+        <Route
+          path='/register/enterOTP'
+          element={<RegisterEnterOTP />}
         ></Route>
 
         <Route
