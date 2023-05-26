@@ -89,7 +89,7 @@ function Sidebar() {
           variant='subtitle1'
           lineHeight='1rem'
         >
-          Admin
+          {`${user.role}`}
         </Typography>
       </Box>
       <Divider />
