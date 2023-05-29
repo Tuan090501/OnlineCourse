@@ -6,13 +6,16 @@ import axios from "axios"
 const Learningpage = () => {
   const [lectureVideo, setLectureVideo] = useState("")
   useEffect(() => {
-    const fetchLecture = async() => {
+    const fetchLecture = async () => {
       const response = await axios.get("http://localhost:8000/api/lecture")
-      setLectureVideo(('../../assets/videos/video1.mp4'))
-
+      //   setLectureVideo(('../../assets/videos/video1.mp4'))
+      //   console.log(lectureVideo)
+      // setLectureVideo("video1.mp4")
     }
+
     fetchLecture()
   }, [])
+  console.log(lectureVideo)
   return (
     <>
       <div>
@@ -355,7 +358,7 @@ const Learningpage = () => {
                       >
                         <source
                           type='video/mp4'
-                          src={require(`${lectureVideo}`)}
+                          // src={require(`../../assets/videos/${lectureVideo}`)}
                         ></source>
                       </video>
                     </div>
