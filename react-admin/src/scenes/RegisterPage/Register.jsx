@@ -3,6 +3,7 @@ import "./Register.scss"
 import { Link, useNavigate } from "react-router-dom"
 import Grid from "@mui/material/Unstable_Grid2"
 import { useState } from "react"
+import axios from "axios"
 
 const arrayRange = (start, stop, step) =>
   Array.from(
@@ -44,7 +45,7 @@ function Register() {
   const handleChangeConfirmPwd = (e) => {
     setConfirmPwd(e.target.value)
   }
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault()
     console.log(pwd, confirmPwd)
     if (pwd !== confirmPwd)
@@ -56,7 +57,7 @@ function Register() {
       userName: e.target.username.value,
 
       role: "user",
-      gender: e.target.gender.value,
+      gender: "",
       phone: "",
       avatar: "",
       status: "active",
@@ -67,7 +68,23 @@ function Register() {
         streetHouse: "",
       },
     }
-    navigate("/forgot-password", { state: { data } })
+    const userList = await axios.get("http://localhost:8000/api/users")
+    const emailIsExist = await userList.data.filter((item, index) => {
+      return item.email === e.target.email.value
+    })
+    console.log(emailIsExist + emailIsExist.length)
+    if (emailIsExist.length === 0) {
+      axios
+        .post("http://localhost:8000/api/send-otp", {
+          email: e.target.email.value,
+        })
+        .then((respone) => console.log(respone.data))
+        .catch((err) => console.log(err))
+      navigate("/register/enterOTP", { state: { data } })
+    } else {
+      setError("The email you entered existed! Please use another email!")
+      console.log("email exist")
+    }
   }
 
   return (
@@ -154,109 +171,17 @@ function Register() {
               ></TextField>
             </Grid>
 
-            {/* Gender input */}
             <Grid
               item
               xs={12}
             >
-              Gender
-            </Grid>
-
-            <Grid
-              item
-              xs={4}
-            >
-              <Box className='form__radio'>
-                <label for='male'>Male</label>
-                <input
-                  type='radio'
-                  name='gender'
-                  id='male'
-                  value='male'
-                />
-              </Box>
-            </Grid>
-
-            <Grid
-              item
-              xs={4}
-            >
-              <Box className='form__radio'>
-                <label for='female'>Female</label>
-                <input
-                  type='radio'
-                  name='gender'
-                  id='female'
-                  value='female'
-                />
-              </Box>
-            </Grid>
-
-            <Grid
-              item
-              xs={4}
-            >
-              <Box className='form__radio'>
-                <label for='other'>Other</label>
-                <input
-                  type='radio'
-                  name='gender'
-                  id='other'
-                  value='other'
-                />
-              </Box>
-            </Grid>
-
-            {/* Birthday Input */}
-            <Grid
-              item
-              xs={12}
-            >
-              Birthday
-            </Grid>
-            <Grid
-              item
-              xs={4}
-            >
-              <select
-                className='form__select'
-                id='birthday-date'
-                name='birthday-date'
+              <Typography
+                sx={{
+                  color: "red",
+                }}
               >
-                {datesOfMonth.map((item) => (
-                  <option value={item}>{`${item}`}</option>
-                ))}
-              </select>
-            </Grid>
-
-            <Grid
-              item
-              xs={4}
-            >
-              <select
-                className='form__select'
-                id='birthday-month'
-                name='birthday-month'
-              >
-                {monthsOfyear.map((item) => (
-                  <option value={item}>{`${item}`}</option>
-                ))}
-              </select>
-            </Grid>
-
-            <Grid
-              item
-              xs={4}
-            >
-              <select
-                className='form__select'
-                id='birthday-year'
-                name='birthday-year'
-              >
-                {years.map((item) => (
-                  <option value={item}>{`${item}`}</option>
-                ))}
-              </select>
+                {error ? error : ""}
+              </Typography>
             </Grid>
           </Grid>
 

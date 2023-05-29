@@ -9,7 +9,7 @@ class Lecture extends Model
 {
     use HasFactory;
     protected $table = 'lectures';
-    protected $fillable = ['title','id_session','video'];
+    protected $fillable = ['title','session_id','video'];
 
     const UPDATED_AT = NULL;
     const CREATED_AT = NULL;

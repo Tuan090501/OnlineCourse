@@ -1,8 +1,15 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Select from "react-select"
 import DeleteIcon from "@mui/icons-material/Delete"
-import { Box } from "@mui/material"
+import { Box, Divider, Typography } from "@mui/material"
 import { useNavigate } from "react-router-dom"
+import "./Step.scss"
+import CreateSection from "../../../../components/user/CreateSection/CreateSection"
+import axios from "axios"
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks"
+import AddCircleIcon from "@mui/icons-material/AddCircle"
+import { saveAs } from "file-saver"
+import Spinning from "../../../../components/Spinning"
 
 const dataCoursesSelect = [
   { value: "c1", label: "Học HTML CSS Căn Bản Để Thực Chiến" },
@@ -618,6 +625,77 @@ export const StepTwoEditCourse = () => {
 }
 
 export const StepThreeEditCourse = () => {
+  const [section, setSection] = useState({})
+  const [lecture, setLecture] = useState([])
+  const [videoName, setVideoName] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [isLectureList, setIsLectureList] = useState(false)
+
+  const onCreateNewSection = async (e) => {
+    e.preventDefault()
+    const course_id = window.location.href.split("/")
+    setSection({
+      title: e.target.newsection.value,
+      course_id: Number(course_id[course_id.length - 1]),
+    })
+    if (section) {
+      const { data } = await axios.post(
+        "http://localhost:8000/api/session",
+        section
+      )
+      const createNewSectionForm = document.querySelector(
+        ".create-new-section-form"
+      )
+
+      createNewSectionForm.style.display = "none"
+      setIsLectureList(true)
+    }
+  }
+
+  const onCreateNewLecture = async (e) => {
+    e.preventDefault()
+
+    setIsLoading(true)
+    const sessions = await axios.get("http://localhost:8000/api/session")
+    let tempSession = {}
+    for (let i = 0; i < sessions.data.length; i++) {
+      if (
+        section.title === sessions.data[i].title &&
+        section.course_id === sessions.data[i].course_id
+      ) {
+        tempSession = { ...sessions.data[i] }
+        break
+      }
+    }
+    const tempLecture = {
+      title: e.target.newlecture.value,
+      session_id: tempSession.id,
+      video: `../../assets/videos/${videoName.name}`,
+    }
+
+    const data = await axios.post(
+      "http://localhost:8000/api/lecture",
+      tempLecture
+    )
+    if (data) {
+      const lectures = await axios.get(
+        `http://localhost:8000/api/lecture/${tempLecture.session_id}`
+      )
+
+      setIsLoading(false)
+
+      const arr = [...lectures.data]
+      console.log(arr)
+      setLecture(arr)
+      console.log(lecture)
+    }
+  }
+
+  useEffect(() => {
+    const fetchLecture = async () => {}
+    fetchLecture()
+  }, [])
+
   return (
     <div
       className='step-wp-edit-course'
@@ -639,7 +717,375 @@ export const StepThreeEditCourse = () => {
           đố, bài tập mã hóa và bài tập).
         </p>
         <div className='step-content-edit-course-wp'>
-          <span className='curriculum'>+ Add new section</span>
+          <button
+            className='curriculum'
+            onClick={() => {
+              const createNewSection = document.querySelector(
+                ".create-new-section"
+              )
+              createNewSection.style.display = "block"
+            }}
+          >
+            + Add new section
+          </button>
+          <Box
+            className='create-new-section'
+            style={{
+              display: "none",
+            }}
+          >
+            <Box className='create-new-section-wrapper'>
+              <form
+                onSubmit={onCreateNewSection}
+                className='create-new-section-form'
+              >
+                <Box
+                  style={{
+                    padding: "12px 20px",
+                  }}
+                >
+                  <Box
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label
+                      for='new-section'
+                      style={{
+                        fontWeight: "bold",
+                        minWidth: "150px",
+                      }}
+                    >
+                      New Section
+                    </label>
+                    <input
+                      type='text'
+                      id='new-section'
+                      className='new-section'
+                      name='newsection'
+                      placeholder='Enter title'
+                    ></input>
+                  </Box>
+                  <Box
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      marginTop: "12px",
+                    }}
+                  >
+                    <button
+                      className='cancel-btn'
+                      type='button'
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type='submit'
+                      className='create-section'
+                    >
+                      Create Section
+                    </button>
+                  </Box>
+                </Box>
+              </form>
+
+              {isLoading === true ? (
+                <Spinning />
+              ) : isLectureList === false ? (
+                ""
+              ) : lecture.length === 0 ? (
+                <form
+                  onSubmit={onCreateNewLecture}
+                  className='create-new-lecture-form'
+                  style={
+                    {
+                      // display: "none",
+                    }
+                  }
+                >
+                  <Box
+                    style={{
+                      padding: "20px",
+                      backgroundColor: "#00daff0f",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        display: "flex",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Unpublished Section
+                      <LibraryBooksIcon
+                        sx={{ width: "20px", margin: "0px 4px" }}
+                      />
+                      <Typography sx={{ fontWeight: "normal" }}>
+                        : Overview
+                      </Typography>
+                    </Typography>
+
+                    <button
+                      className='add__new-lecture'
+                      type='button'
+                      onClick={() => {
+                        const createNewLecture = document.querySelector(
+                          ".create__new-lecture"
+                        )
+                        createNewLecture.style.display = "block"
+                      }}
+                    >
+                      <AddCircleIcon /> Lecturer
+                    </button>
+
+                    <Box
+                      className='create__new-lecture'
+                      sx={{
+                        display: "none",
+                      }}
+                    >
+                      <Box
+                        style={{
+                          padding: "12px 20px 12px",
+                          border: "1px solid #222",
+                          marginTop: "18px",
+                          backgroundColor: "#fff",
+                        }}
+                      >
+                        <Box>
+                          <Box
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                            }}
+                          >
+                            <label
+                              for='new-lecture'
+                              style={{
+                                fontWeight: "bold",
+                                minWidth: "150px",
+                              }}
+                            >
+                              New Lecturer
+                            </label>
+                            <input
+                              type='text'
+                              id='new-lecture'
+                              className='new-section'
+                              name='newlecture'
+                              placeholder='Enter title'
+                            ></input>
+                          </Box>
+                          <Box
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              marginTop: "20px",
+                            }}
+                          >
+                            <label
+                              for='new-lecture'
+                              style={{
+                                fontWeight: "bold",
+                                minWidth: "150px",
+                              }}
+                            >
+                              Lecturer video
+                            </label>
+                            <input
+                              onChange={(e) => {
+                                setVideoName(e.target.files[0])
+                                console.log(e.target.files[0])
+                              }}
+                              type='file'
+                              name='lecture_video'
+                            />
+                          </Box>
+                          <Box
+                            style={{
+                              display: "flex",
+                              justifyContent: "flex-end",
+                              marginTop: "12px",
+                            }}
+                          >
+                            <button
+                              className='cancel-btn'
+                              type='button'
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              type='submit'
+                              className='create-section'
+                            >
+                              Add lecture
+                            </button>
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                </form>
+              ) : (
+                <Box>
+                  <form
+                    onSubmit={onCreateNewLecture}
+                    className='create-new-lecture-form'
+                  >
+                    <Box
+                      style={{
+                        padding: "20px",
+                        backgroundColor: "#00daff0f",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          display: "flex",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Unpublished Section
+                        <LibraryBooksIcon
+                          sx={{ width: "20px", margin: "0px 4px" }}
+                        />
+                        <Typography sx={{ fontWeight: "normal" }}>
+                          : Overview
+                        </Typography>
+                      </Typography>
+
+                      <button
+                        className='add__new-lecture'
+                        type='button'
+                        onClick={() => {
+                          const createNewLecture = document.querySelector(
+                            ".create__new-lecture"
+                          )
+                          createNewLecture.style.display = "block"
+                        }}
+                      >
+                        <AddCircleIcon /> Lecturer
+                      </button>
+
+                      <Box
+                        className='create__new-lecture'
+                        sx={{
+                          display: "none",
+                        }}
+                      >
+                        <Box
+                          style={{
+                            padding: "12px 20px 12px",
+                            border: "1px solid #222",
+                            marginTop: "18px",
+                            backgroundColor: "#fff",
+                          }}
+                        >
+                          <Box>
+                            <Box
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                              }}
+                            >
+                              <label
+                                for='new-lecture'
+                                style={{
+                                  fontWeight: "bold",
+                                  minWidth: "150px",
+                                }}
+                              >
+                                New Lecturer
+                              </label>
+                              <input
+                                type='text'
+                                id='new-lecture'
+                                className='new-section'
+                                name='newlecture'
+                                placeholder='Enter title'
+                              ></input>
+                            </Box>
+                            <Box
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                marginTop: "20px",
+                              }}
+                            >
+                              <label
+                                for='new-lecture'
+                                style={{
+                                  fontWeight: "bold",
+                                  minWidth: "150px",
+                                }}
+                              >
+                                Lecturer video
+                              </label>
+                              <input
+                                onChange={(e) => {
+                                  setVideoName(e.target.files[0])
+                                  console.log(e.target.files[0])
+                                }}
+                                type='file'
+                                name='lecture_video'
+                              />
+                            </Box>
+                            <Box
+                              style={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                marginTop: "12px",
+                              }}
+                            >
+                              <button
+                                className='cancel-btn'
+                                type='button'
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                type='submit'
+                                className='create-section'
+                              >
+                                Add lecture
+                              </button>
+                            </Box>
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </form>
+                  {lecture.map((item, index) => (
+                    <Box
+                      sx={{
+                        padding: "16px",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <span
+                          style={{
+                            marginRight: "20px",
+                          }}
+                        >
+                          Lecture {`${index}`}:{" "}
+                        </span>
+                        <LibraryBooksIcon />
+                        <span
+                          style={{
+                            marginLeft: "10px",
+                          }}
+                        >{`${item.title}`}</span>
+                      </Typography>
+                    </Box>
+                  ))}
+                </Box>
+              )}
+            </Box>
+          </Box>
         </div>
       </Box>
     </div>

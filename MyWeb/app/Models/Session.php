@@ -9,7 +9,7 @@ class Session extends Model
 {
     use HasFactory;
     protected $table ='sessions';
-    protected $fillable = ['title', 'id_course'];
+    protected $fillable = ['title', 'course_id'];
 
     public function course () {
         return $this->belongsTo(Course::class);
@@ -19,4 +19,8 @@ class Session extends Model
     {
         return $this->hasMany(Lecture::class);
     }
+
+    const UPDATED_AT = NULL;
+    const CREATED_AT = NULL;
+
 }
