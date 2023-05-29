@@ -101,11 +101,7 @@ function Sidebar() {
           variant='subtitle1'
           lineHeight='1rem'
         >
-<<<<<<< HEAD
           {users.role}
-=======
-          {`${user.role}`}
->>>>>>> 40b568648a511781c269bf22ab1d4dce5288e4a9
         </Typography>
       </Box>
       <Divider />
