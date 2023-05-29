@@ -90,38 +90,32 @@ export default function MyCourses() {
               </Box>
             
 
-                  
-                  <div className='render-course'>
-       
-                    <Grid container   rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                    {course.map((i) => (
-                      <Grid key={i.id} item xs={6}>
-                        <Link to={`/lecturer/edit-my-course/${i.id}`}>
-                       
-                          <Courses
-                            thumbnailCourse={
-                              `${i.img}`
-                            }
-                            nameCourse={`${i.course_name}`}
-                            subtitleCourses={
-                              "Cascading Style Sheets (CSS) is a stylesheet language that allows you to control the appearance of your webpages. In this hands-on course, Christina Truong demonstrates the concepts that form the foundation of CSS, explaining what you need to know to tweak existing CSS and write your own."
-                            }
-                          />
-                           <Breadcrumbs aria-label="breadcrumb">
-                            
-                          <Typography color="text.primary">Draft</Typography>
-                          {i.status === 0 || i.status === 1 ? <Typography color="#f6685e">Processing</Typography>:<Typography color="#f6685e"></Typography>}
-                          {i.status === 1 ?<Typography color="#00e676">Public</Typography>:""}
-                          
-                            </Breadcrumbs>
-                        </Link>
-                      </Grid>
-                        ))}
+              <div className='render-course'>
+                <Grid
+                  container
+                  rowSpacing={3}
+                  columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                >
+                  {courses.map((item, index) => (
+                    <Grid
+                      item
+                      xs={6}
+                    >
+                      <Link to={`/lecturer/edit-my-course/${item.id}`}>
+                        <Courses
+                          thumbnailCourse={
+                            "https://hinhanhdephd.com/wp-content/uploads/2015/12/hinh-anh-dep-girl-xinh-hinh-nen-dep-gai-xinh.jpg"
+                          }
+                          nameCourse={"CSS Essential Training"}
+                          subtitleCourses={
+                            "Cascading Style Sheets (CSS) is a stylesheet language that allows you to control the appearance of your webpages. In this hands-on course, Christina Truong demonstrates the concepts that form the foundation of CSS, explaining what you need to know to tweak existing CSS and write your own."
+                          }
+                        />
+                      </Link>
                     </Grid>
-                          
-                  </div>
-   
-                    
+                  ))}
+                </Grid>
+              </div>
             </div>
           </div>
         </div>

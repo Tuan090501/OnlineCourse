@@ -104,6 +104,7 @@ Route::prefix('lecture')->group(function () {
     Route::get('/',[LectureController::class,'index']);
     Route::get('/{id}',[LectureController::class,'course']);
     Route::post('/',[LectureController::class,'insert']);
+    Route::get('/{id}',[LectureController::class,'getLectureWithSessionID']);
 });
 
 Route::prefix('orders')->group(function () {
