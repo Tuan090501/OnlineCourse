@@ -37,8 +37,8 @@ function CourseItem({ course }) {
       
         </div>
         <div className='price'>
-          <span className='CourseItem_old-price'>1.2000.000</span>
-          <span className='CourseItem_main-price'>FREE</span>
+          <span className='CourseItem_old-price'>{price}$</span>
+          <span className='CourseItem_main-price'>{price}$</span>
         </div>
       </div>
     </div>

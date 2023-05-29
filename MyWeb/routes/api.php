@@ -102,7 +102,9 @@ Route::prefix('session')->group(function () {
 
 Route::prefix('lecture')->group(function () {
     Route::get('/',[LectureController::class,'index']);
+    Route::get('/{id}',[LectureController::class,'course']);
     Route::post('/',[LectureController::class,'insert']);
+
 });
 
 Route::prefix('orders')->group(function () {

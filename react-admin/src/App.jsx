@@ -23,7 +23,7 @@ import { PayPalScriptProvider} from "@paypal/react-paypal-js";
 
 function App() {
   return (
-    <PayPalScriptProvider options={{ "client-id": "AdrUj8lKOMQ55mATfM89HcpENy7XpwkpftfSTFE5e3s3lbwryADM8lqSUsYzAPhsJFjNeI-FJpw0Re7-" }}>
+   
     <div className='app'>
       <Routes>
         <Route
@@ -42,9 +42,11 @@ function App() {
         ></Route>
 
         <Route
-          path='/lecturer/edit-my-course/1'
+          path='/lecturer/edit-my-course/'
           element={<EditCourse />}
-        ></Route>
+        >
+          <Route path=':id'  element={<EditCourse />}/>
+        </Route>
 
         <Route
           path='/lecturer/create-new-course'
@@ -108,7 +110,7 @@ function App() {
         ></Route>
       </Routes>
     </div>
-    </PayPalScriptProvider>
+   
   )
 }
 

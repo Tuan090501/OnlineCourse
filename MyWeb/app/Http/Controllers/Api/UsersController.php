@@ -24,11 +24,13 @@ class UsersController extends Controller
         $user = Users::where('status',1)->get();
         return response()->json($user);
     }
-    
+
     public function unactive () {
         $user = Users::where('status',0)->get();
         return response()->json($user);
     }
+
+
 
     public function lecturer (){
         $user = Users::where('role',"lecturer")->get();

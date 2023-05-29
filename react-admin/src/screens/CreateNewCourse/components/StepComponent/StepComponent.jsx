@@ -234,15 +234,17 @@ export const StepFive = ({ setIsNextFeature, onDataChange }) => {
       img : e.target.files[0]
     }
     setFileImage(newData);
-    onDataChange(data); // Gọi hàm callback để truyền dữ liệu lên component cha
+   // Gọi hàm callback để truyền dữ liệu lên component cha
   }
-  const handleInputChangeVideo = (e) => {
+  const handleInputChangeVideo = (e,fileImage) => {
     const newData = e.target.files[0];
     const data = {
-      video : e.target.files[0]
+      video : e.target.files[0],
+      img: fileImage
     }
     setFileVideo(newData);
-    onDataChange(data); // Gọi hàm callback để truyền dữ liệu lên component cha
+    onDataChange(data); 
+   // Gọi hàm callback để truyền dữ liệu lên component cha
   }
   return (
     <div>
@@ -331,7 +333,7 @@ export const StepFive = ({ setIsNextFeature, onDataChange }) => {
                 Upload your course image here. it must meet out image quality
                 ...
                 <input
-                  onChange={handleInputChangeVideo}
+                  onChange={(e)=>handleInputChangeVideo(e,fileImage)}
                   type='file'
                 />
               </p>

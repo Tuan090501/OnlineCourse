@@ -3,6 +3,7 @@ import Grid from "@mui/material/Unstable_Grid2"
 import "./CreateUser.scss"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 function CreateUser() {
   // State to storage data about provinces, cities
   const [provinces, setProvinces] = useState([])
@@ -10,7 +11,7 @@ function CreateUser() {
   const [districts, setDistricts] = useState([])
   // State to storage data about wards of district
   const [wards, setWards] = useState([])
-
+  const naviagte = useNavigate()
   // get list of provinces of VietNam
   const getProvinces = async () => {
     const response = await axios({
@@ -90,7 +91,10 @@ function CreateUser() {
     console.log(data)
     axios.post(`http://localhost:8000/api/users/`,data)
     .then(response => console.log(response.data))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err)
+    )
+    alert("Thêm user thành công!")
+    naviagte("/admin/manage-user")
   }
 
   useEffect(() => {

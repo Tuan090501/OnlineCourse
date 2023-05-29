@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './learningpage.scss'
 import logo from '../../assets/images/logof8.png'
-import video1 from '../../assets/videos/video1.mp4'
 
 const Learningpage = () => {
+    const  video1 = 'video1.mp4'
+    const [video,setVideo] = useState('')
+    useEffect(() => {
+       
+        setVideo('video1.mp4');
+      }, []);
+    console.log(video)
+
   return (
+    
     <>
         <div>
             <section className="index-module_grid index-module_fullWidth">
@@ -172,7 +180,7 @@ const Learningpage = () => {
                                 <div className="VideoPlayer_player" style={{"height" : "100%", "width" : "100%"}}>
                                     <div style={{"height" : "100%", "width" : "100%"}}>
                                         <video controls width="100%" height='100%'>
-                                            <source src= {`${video1}`}type="video/mp4"></source>
+                                            <source src={require(`../../assets/videos/${video1}`)} type="video/mp4" />
                                         </video>
 
                                     </div>

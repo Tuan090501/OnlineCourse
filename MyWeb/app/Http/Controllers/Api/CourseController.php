@@ -24,7 +24,7 @@ class CourseController extends Controller
         $course = Course::with(['lecturer:id,user_name','category:id,category_name','sessionsWithLectures'])->where('status',1)->get();
         return response()->json($course);
     }
-    
+
     public function unactive () {
         $course = Course::with(['lecturer:id,user_name','category:id,category_name','sessionsWithLectures'])->where('status',0)->get();
         return response()->json($course);
@@ -33,7 +33,6 @@ class CourseController extends Controller
 
     public function insert(Request $request)
     {
-
             $course = Course::create($request->all());
             if($course) {
                 return response()->json(['message' => 'course created'], 201);
@@ -43,6 +42,7 @@ class CourseController extends Controller
             }
 
     }
+
 
     public function show ($id){
         $course = Course::with(['lecturer:id,user_name','category:id,category_name','sessionsWithLectures'])->find($id);
@@ -54,7 +54,7 @@ class CourseController extends Controller
 
     }
 
-   
+
 
     public function update (Request $request, $id){
         $course = Course::find($id);

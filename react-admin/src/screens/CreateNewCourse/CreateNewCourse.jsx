@@ -9,13 +9,14 @@ import {
 } from "./components/StepComponent/StepComponent"
 import Header from "../../components/admin/Header/Header"
 import Sidebar from "../../components/admin/Sidebar/Sidebar"
-
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
 export default function CreateNewCourse() {
   const [stepActive, setStepActive] = useState(1)
   const [isActiveNextFeature, setIsNextFeature] = useState(false)
   const [data,setData] = useState(null)
   const [course,setCourse] = useState([])
- console.log(data)
+  const navigate = useNavigate()
   const handleDataChange = (newData) => {
     
     setData(newData);
@@ -38,12 +39,27 @@ export default function CreateNewCourse() {
     }
   }
 
-  const handleConfirmData = (newData) => {
+  const handleConfirmData = (newData,course) => {
     setCourse(prevCourse => {
       const updatedCourse = [...prevCourse];
       updatedCourse.push(newData);
       return updatedCourse;
     });
+    const data = axios.post('http://localhost:8000/api/course',{
+      course_name: course[1].course_name,
+      description : course[2].description,
+      user_id: parseInt(localStorage.getItem('id')),
+      id_category: course[3].category,
+      img: course[4].img.name,
+      video: course[4].video.name,
+      status: 0
+     
+    }).then(e=> console.log(e.data)).catch(err=>console.log(err))
+    alert("Thêm khóa học thành công")
+    navigate("/lecturer/my-course")
+    
+  
+  
   }
 
   return (
@@ -119,7 +135,7 @@ export default function CreateNewCourse() {
                 if (stepActive < 5) {
                   handleClickNextAndPrevStep("next",data)
                 } else {
-                  handleConfirmData(data)
+                  handleConfirmData(data,course)
                 }
               }
             }}

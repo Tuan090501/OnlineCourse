@@ -7,8 +7,8 @@ import Header from "../../components/user/header/Header"
 import { useNavigate } from "react-router-dom"
 import { Cartcontext } from "../../context/CartContext"
 import axios from "axios"
-import { Box, Snackbar } from "@mui/material"
-
+import { Box, Snackbar } from "@mui/material" 
+import { useParams } from "react-router-dom"
 const Coursedetail = () => {
   // const navigate = useNavigate()
   const Globalstate = useContext(Cartcontext)
@@ -280,7 +280,8 @@ console.log(course)
                     </svg>
                     <p>Xem giới thiệu khóa học</p>
                   </div>
-                  <h5>Miễn phí</h5>
+
+                  <h5>{course.price}$</h5>
 
                   <Box
                     sx={{

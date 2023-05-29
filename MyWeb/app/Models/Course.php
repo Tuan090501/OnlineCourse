@@ -9,7 +9,7 @@ class Course extends Model
 {
     use HasFactory;
     protected $table = 'courses';
-    protected $fillable = ['title', 'price', 'discount','status','description','video'];
+    protected $fillable = ['course_name', 'price', 'id_category','user_id','status','description','video','img','rating','discount'];
 
     public function sessionsWithLectures(){
         return $this->hasMany(Session::class)->with('lectures');

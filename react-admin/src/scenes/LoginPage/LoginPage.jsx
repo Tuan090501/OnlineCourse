@@ -8,6 +8,7 @@ import {
 } from "react-social-login-buttons"
 import { useState } from "react"
 import useAuthContext from "../../context/AuthContext"
+import axios from "axios"
 
 function LoginPage() {
   const navigate = useNavigate()
@@ -20,6 +21,9 @@ function LoginPage() {
     console.log(email, password)
     login({ email, password })
   }
+  const handleFacebook = (res) =>{
+    console.log(res) 
+ }
   return (
     <Box className='loginPage'>
       <Box className='form-container'>
@@ -51,9 +55,7 @@ function LoginPage() {
           {/* Login with FaceBook */}
           <LoginSocialFacebook
             appId='961053651566853'
-            onResolve={(res) => {
-              console.log(res)
-            }}
+            onResolve={handleFacebook}
             onReject={(err) => {
               console.log(err)
             }}

@@ -23,7 +23,7 @@ export default function Courses({
         }}
       >
         <img
-          src={thumbnailCourse}
+          src={require(`../../../assets/images/${thumbnailCourse}`)}
           alt='courses'
           className='courses_image'
         />

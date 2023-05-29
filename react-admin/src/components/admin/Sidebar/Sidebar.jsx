@@ -17,9 +17,9 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"
 import "./Sidebar.scss"
 import { Link } from "react-router-dom"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import useAuthContext from "../../../context/AuthContext"
-
+import axios from "axios"
 const menuItems = [
   {
     path: "/admin",
@@ -72,6 +72,19 @@ function Sidebar() {
   // console.log(window.localStorage.getItem())
   const [active, setActive] = useState(menuItems[0])
   const { user, logout } = useAuthContext()
+  const [users,setUsers] = useState([])
+
+  useEffect(()=>{
+ 
+        const fetchUser = async () =>{
+          const id = Number(localStorage.getItem("id"))
+
+          const data = await axios.get(`http://localhost:8000/api/users/${id}`)
+          setUsers(data.data)
+
+      }
+      fetchUser()
+  },[])
   return (
     <Box
       className='sidebar'
@@ -81,14 +94,14 @@ function Sidebar() {
         <Avatar
           className='sidebar__avatar'
           alt='Avatar'
-          src={`${user.image}`}
+          src={users.image}
         />
-        <Typography variant='h6'>{`${user.user_name}`}</Typography>
+        <Typography variant='h6'>{users.user_name}</Typography>
         <Typography
           variant='subtitle1'
           lineHeight='1rem'
         >
-          Admin
+          {users.role}
         </Typography>
       </Box>
       <Divider />

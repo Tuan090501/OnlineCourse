@@ -7,24 +7,45 @@ import Grid from "@mui/material/Unstable_Grid2"
 import { useNavigate } from "react-router-dom"
 import { Cartcontext } from "../../context/CartContext"
 import axios from "axios"
+import { PayPalScriptProvider, PayPalButtons} from "@paypal/react-paypal-js";
+
 
 
 
 function Cart() {
   const GlobalState = useContext(Cartcontext)
   const state = GlobalState.state
+  console.log(state)
   const dispatch = GlobalState.dispatch
-  
+  console.log(state)
   const [cart, setCart] = useState(state.length)
   const navigate = useNavigate()
-  const handleCheckout = ()=>{
+  const handleCheckout = (total,state)=>{
+    const data = []
+    for (let i = 0; i < state.length; i++) {
+        data.push({
+          user_id: localStorage.getItem('id'),
+          course_id: state[i].id,
+          price: state[i].price
+        })
+      
+    }
+    const payment = {
+      total : total,
+      order_detail: data
+    }
+    const pay = axios.post(`http://localhost:8000/api/orders`,payment)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+    
+    }
     
   //  const data =  axios.post(`http://localhost:8000/api/orders`,{
 
   //  })
 
     // navigate('/cart/checkout')
-  }
+ 
   const handleRemoveCourse = (id) =>(e)=>{ 
     dispatch({type:"REMOVE",payload:id})
     setCart(state.length)
@@ -41,7 +62,55 @@ function Cart() {
  
   const total = getTotalPrice(state);
 
+  const [paidFor, setPaidFor] = useState(false);
+  const [error, setError] = useState(null);
 
+  const handleApprove = (total,state) => {
+    console.log(state)
+    const data = []
+    for (let i = 0; i < state.length; i++) {
+        data.push({
+          user_id: localStorage.getItem('id'),
+          course_id: state[i].id,
+          price: state[i].price
+        })
+      
+    }
+    const payment = {
+      total : total,
+      order_detail: data
+    }
+    const pay = axios.post(`http://localhost:8000/api/orders`,payment)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+  
+ 
+
+
+   
+
+    // Call backend function to fulfill order
+
+    // if response is success
+    setPaidFor(true);
+    // Refresh user's account or subscription status
+
+   
+    
+    // if response is error
+    // alert("Your payment was processed successfully. However, we are unable to fulfill your purchase. Please contact us at support@designcode.io for assistance.");
+  };
+
+  if (paidFor) {
+    // Display success message, modal or redirect user to success page
+    alert("Thank you for your purchase!");
+    navigate('/')
+    window.location.reload()
+  }
+  if (error) {
+    // Display error message, modal or redirect user to error page
+    alert(error);
+  }
 
  
   useEffect(()=>{
@@ -132,7 +201,62 @@ function Cart() {
               <Typography variant='h4'>
                 Tổng tiền:  {`${getTotalPrice(state)}`}đ
               </Typography>
-              <button className='checkout-btn' onClick={handleCheckout}>Thanh toán</button>
+              <PayPalScriptProvider options={{ "client-id": "AdrUj8lKOMQ55mATfM89HcpENy7XpwkpftfSTFE5e3s3lbwryADM8lqSUsYzAPhsJFjNeI-FJpw0Re7-" }}>
+                <PayPalButtons
+                    style={{ 
+                        color:"silver",
+                        layout:"horizontal",
+                        tagline: false,
+                        shape: "pill"
+
+                     }}
+                    createOrder={(data, actions) => {
+                        return actions.order.create({
+                          purchase_units: [
+                            {
+                              description: state.description,
+                              amount: {
+                                value: total
+                              }
+                            }
+                          ]
+                        });
+                      }}
+
+                    onApprove={async (data, actions) => {
+                        const order = await actions.order.capture(); 
+                        console.log("order", order);
+                      
+                        handleApprove(total,state);
+                      }}
+
+                    onError={(err) => {
+                        setError(err);
+                        console.error("PayPal Checkout onError", err);
+                      }}
+                    
+                    onCancel={() => {
+                        // Display cancel message, modal or redirect user to cancel page or back to cart
+                      }}
+
+                    onClick={(data, actions) => {
+                        // Validate on button click, client or server side
+                        const hasAlreadyBoughtCourse = false;
+                      
+                        if (hasAlreadyBoughtCourse) {
+                          setError(
+                            "You already bought this course. Go to your account to view your list of courses."
+                          );
+                      
+                          return actions.reject();
+                        } else {
+                          return actions.resolve();
+                        }
+                      }}
+                      
+                />
+              </PayPalScriptProvider>
+              <button className='checkout-btn' onClick={()=>handleCheckout(total,state)}>Thanh toán</button>
             </Grid>
           </Grid>
         )}

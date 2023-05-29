@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useState } from "react"
 import "./header.scss"
 import logo from "../../../assets/images/logof8.png"
@@ -6,6 +6,9 @@ import { Box, Button, IconButton, Popover, Typography } from "@mui/material"
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined"
 import useAuthContext from "../../../context/AuthContext"
 import { Link, useNavigate } from "react-router-dom"
+import CourseSellingPage from '../searchbar/CourseSellingPage'
+import axios from "axios"
+
 
 const styleMyCourse = {
   zIndex: 9999,
@@ -187,6 +190,27 @@ function MyCourse() {
 }
 
 const Header = () => {
+ 
+  const [courses,setCourse] = useState([])
+  
+const fetchData = async () => {
+  try {
+    const response = await axios.get('http://localhost:8000/api/course');
+    const data = response.data;
+    const updatedCourses = data.map(course => ({
+      id: course.id,
+      title: course.course_name,
+      image: course.img
+    }));
+    setCourse(updatedCourses);
+  } catch (error) {
+    console.log(error);
+  }
+};
+useEffect(() => {
+  fetchData();
+}, []);
+console.log(courses)
   const [anchorEl, setAnchorEl] = React.useState(null)
 
   const handleClick = (event) => {
@@ -226,7 +250,7 @@ const Header = () => {
           <h4 className='header_logoHeading'>Học Lập Trình Để Đi Làm</h4>
         </div>
         <div className='header_body'>
-          <div>
+          {/* <div>
             <div
               className='Search_wrapper'
               aria-expanded='false'
@@ -239,7 +263,9 @@ const Header = () => {
                 placeholder='Tìm kiếm khóa học, bài viết, video, ...'
               />
             </div>
-          </div>
+          </div> */}
+          <CourseSellingPage courses={courses} />
+
         </div>
 
         <Box className='header_action'>

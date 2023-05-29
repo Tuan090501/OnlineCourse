@@ -163,7 +163,7 @@ function ManageCourse() {
         })
       }
       const unactiveUserList = await axios.get(
-        "http://localhost:8000/api/course/unactive"
+        "http://localhost:8000/api/course/unactive" 
       )
       const rowsUnactive = []
       for (let i = 0; i < unactiveUserList.data.length; i++) {
