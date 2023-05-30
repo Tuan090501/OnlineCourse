@@ -10,13 +10,15 @@ import axios from "axios"
 import { Box, Snackbar } from "@mui/material" 
 import { useParams } from "react-router-dom"
 const Coursedetail = () => {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const Globalstate = useContext(Cartcontext)
   const dispatch = Globalstate.dispatch
   const [course, setCourse] = useState({})
-
+  const [check,setCheck] = useState()
   const [openSnackBar, setOpenSnackBar] = useState(false)
   const [messageWhenClickCart, setMessageWhenClickCart] = useState("")
+
+
   const handleClickOpenSnackBar = () => {
     setOpenSnackBar(true)
   }
@@ -31,11 +33,20 @@ const Coursedetail = () => {
       const id = copyURL[copyURL.length - 1]
       const { data } = await axios.get(`http://localhost:8000/api/course/${id}`)
       setCourse(data)
-      console.log(data)
     }
     fetchCourse()
   }, [])
 console.log(course)
+  useEffect(() => {
+    const checkCourse = async () => {
+      const copyURL = window.location.pathname.split("/")
+      const user_id = localStorage.getItem('id')
+      const id = copyURL[copyURL.length - 1]
+      const { data } = await axios.get(`http://localhost:8000/api/orders/courses/${user_id }/purchased/${id}`)
+      setCheck(data)
+    }
+    checkCourse()
+  }, [])
   return (
     <>
       <Header />
@@ -288,6 +299,19 @@ console.log(course)
                       width: "100%",
                     }}
                   >
+                    {check  ? 
+                    <button
+                    className='Button_btn CourseDetail_learnNow'
+                    style={{
+                      width: "100%",
+                    }}
+                    onClick={()=>navigate("/learning-page")}
+                   
+                  >
+                    Enroll
+                  </button>
+                    : 
+                    
                     <button
                       className='Button_btn CourseDetail_learnNow'
                       style={{
@@ -309,7 +333,7 @@ console.log(course)
                       }}
                     >
                       Add to cart
-                    </button>
+                    </button> }
                     <Snackbar
                       open={openSnackBar}
                       onClose={handleClickCloseSnackBar}

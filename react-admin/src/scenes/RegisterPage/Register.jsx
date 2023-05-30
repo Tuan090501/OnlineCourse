@@ -36,7 +36,7 @@ function Register() {
   const [pwd, setPwd] = useState("")
   const [confirmPwd, setConfirmPwd] = useState("")
   const [error, setError] = useState("")
-
+  const  [otp,setOTP] =useState('')
   const handleChangePwd = (e) => {
     setPwd(e.target.value)
     console.log(pwd)
@@ -74,13 +74,17 @@ function Register() {
     })
     console.log(emailIsExist + emailIsExist.length)
     if (emailIsExist.length === 0) {
-      axios
-        .post("http://localhost:8000/api/send-otp", {
-          email: e.target.email.value,
-        })
-        .then((respone) => console.log(respone.data))
-        .catch((err) => console.log(err))
-      navigate("/register/enterOTP", { state: { data } })
+      const otp = axios
+          .post("http://localhost:8000/api/send-otp", {
+               email: e.target.email.value,
+          })
+          .then((response) => {
+              console.log(response.data.otp);
+              navigate("/register/enterOTP", 
+              { state: { "data": data,
+              "otp": response.data.otp } });
+          })
+ .catch((err) => console.log(err));
     } else {
       setError("The email you entered existed! Please use another email!")
       console.log("email exist")

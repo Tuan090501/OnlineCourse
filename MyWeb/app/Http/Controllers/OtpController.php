@@ -19,7 +19,7 @@ class OtpController extends Controller
         try {
             Mail::to($email)->send(new SendOTP($mailData));
             return response()->json(['message' => 'OTP email sent successfully',
-                                      'opt' => $otp]);
+                                      'otp' => $otp]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to send OTP email'], 500);
         }

@@ -101,7 +101,7 @@ function Sidebar() {
           variant='subtitle1'
           lineHeight='1rem'
         >
-          {users.role}
+          {`${users.role}`}
         </Typography>
       </Box>
       <Divider />

@@ -21,6 +21,7 @@ const styleMyCourse = {
 function MyCourse() {
   const [isDivVisible, setIsDivVisible] = useState(false)
 
+  const [coursePurchased,setCoursePurchase] = useState([])
   function toggleDiv() {
     setIsDivVisible((prevIsDivVisible) => !prevIsDivVisible)
   }
@@ -35,6 +36,15 @@ function MyCourse() {
     transform: "translate3d(-120px, 58.4px, 0px)",
     display: isDivVisible ? "block" : "none",
   }
+  useEffect(()=>{
+    const fectchCoursePurchased = async () =>{
+      const id = localStorage.getItem('id')
+      const data = await axios.get(`http://localhost:8000/api/course/purchased/${id}`)
+      setCoursePurchase(data.data)
+    }
+    fectchCoursePurchased()
+  },[])
+  console.log(coursePurchased)
 
   return (
     <div>
@@ -59,129 +69,32 @@ function MyCourse() {
             </a>
           </div>
           <div className='MyCourses_content'>
-            <div className='MyCourses_course-item'>
+          {coursePurchased.map(i => (
+            <div className='MyCourses_course-item' key={i.id}>
               <button
                 onClick={() => {
                   navigate("/")
                 }}
               >
                 <img
-                  src='https://files.fullstack.edu.vn/f8-prod/courses/13/13.png'
+                  src={`${i.img}`}
                   alt=''
                   className='MyCourses_course-thumb'
                 />
               </button>
               <div className='MyCourses_course-info'>
                 <h3 className='MyCourses_course-title'>
-                  Xây dựng Website với ReactJS
+                  {i.course_name}
                 </h3>
                 <p className='MyCourses_last-completed'>
                   Học cách đây 2 tháng trước
                 </p>
               </div>
             </div>
-            <div className='MyCourses_course-item'>
-              <a href=''>
-                <img
-                  src='https://files.fullstack.edu.vn/f8-prod/courses/13/13.png'
-                  alt=''
-                  className='MyCourses_course-thumb'
-                />
-              </a>
-              <div className='MyCourses_course-info'>
-                <h3 className='MyCourses_course-title'>
-                  Xây dựng Website với ReactJS
-                </h3>
-                <p className='MyCourses_last-completed'>
-                  Học cách đây 2 tháng trước
-                </p>
-              </div>
-            </div>
-            <div className='MyCourses_course-item'>
-              <a href=''>
-                <img
-                  src='https://files.fullstack.edu.vn/f8-prod/courses/13/13.png'
-                  alt=''
-                  className='MyCourses_course-thumb'
-                />
-              </a>
-              <div className='MyCourses_course-info'>
-                <h3 className='MyCourses_course-title'>
-                  Xây dựng Website với ReactJS
-                </h3>
-                <p className='MyCourses_last-completed'>
-                  Học cách đây 2 tháng trước
-                </p>
-              </div>
-            </div>
-            <div className='MyCourses_course-item'>
-              <a href=''>
-                <img
-                  src='https://files.fullstack.edu.vn/f8-prod/courses/13/13.png'
-                  alt=''
-                  className='MyCourses_course-thumb'
-                />
-              </a>
-              <div className='MyCourses_course-info'>
-                <h3 className='MyCourses_course-title'>
-                  Xây dựng Website với ReactJS
-                </h3>
-                <p className='MyCourses_last-completed'>
-                  Học cách đây 2 tháng trước
-                </p>
-              </div>
-            </div>
-            <div className='MyCourses_course-item'>
-              <a href=''>
-                <img
-                  src='https://files.fullstack.edu.vn/f8-prod/courses/13/13.png'
-                  alt=''
-                  className='MyCourses_course-thumb'
-                />
-              </a>
-              <div className='MyCourses_course-info'>
-                <h3 className='MyCourses_course-title'>
-                  Xây dựng Website với ReactJS
-                </h3>
-                <p className='MyCourses_last-completed'>
-                  Học cách đây 2 tháng trước
-                </p>
-              </div>
-            </div>
-            <div className='MyCourses_course-item'>
-              <a href=''>
-                <img
-                  src='https://files.fullstack.edu.vn/f8-prod/courses/13/13.png'
-                  alt=''
-                  className='MyCourses_course-thumb'
-                />
-              </a>
-              <div className='MyCourses_course-info'>
-                <h3 className='MyCourses_course-title'>
-                  Xây dựng Website với ReactJS
-                </h3>
-                <p className='MyCourses_last-completed'>
-                  Học cách đây 2 tháng trước
-                </p>
-              </div>
-            </div>
-            <div className='MyCourses_course-item'>
-              <a href=''>
-                <img
-                  src='https://files.fullstack.edu.vn/f8-prod/courses/13/13.png'
-                  alt=''
-                  className='MyCourses_course-thumb'
-                />
-              </a>
-              <div className='MyCourses_course-info'>
-                <h3 className='MyCourses_course-title'>
-                  Xây dựng Website với ReactJS
-                </h3>
-                <p className='MyCourses_last-completed'>
-                  Học cách đây 2 tháng trước
-                </p>
-              </div>
-            </div>
+))}
+
+            
+
           </div>
         </ul>
       </div>

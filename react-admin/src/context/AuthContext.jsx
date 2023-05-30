@@ -22,35 +22,93 @@ export const AuthProvider = ({ children }) => {
  localStorage.setItem("user", JSON.stringify(data))
  }
 
+ const loginFacebook = async ({ email, provider, data }) => {
+   try {
+     const response = await axios.get(`http://localhost:8000/api/users/${email}/${data.userID}`);
+     if(response.data.length === 0 ){
+      const { userFacebook } = await axios.post(`http://localhost:8000/api/users/registerSocial`, {
+         'email' : data.email,
+         'user_name': data.last_name,
+         'image': data.picture.data.url,
+         'facebook_id': Number(data.userID),
+         'status': 1,
+         'role' :"user"
+      }).then(res=>{
+        
+         const savedData = {
+            id: res.data.id,
+            role: res.data.role,
+            token: data.accessToken,
+         }
+         localStorage.setItem("id", savedData.id)
+         localStorage.setItem("role", savedData.role)
+         localStorage.setItem("token", savedData.token)
+         getUser(savedData.id)
+
+         if (savedData.role === "admin") {
+            navigate("/admin")
+            } else if (savedData.role === "user") {
+            navigate("/")
+            } else if (savedData.role === "lecturer") {
+            navigate("/lecturer")
+            }
+      }
+         ).catch(err=>console.log(err));
+      
+
+     }else{
+      const savedData = {
+         id: response.data[0].id,
+         role: response.data[0].role,
+         token: data.accessToken,
+      }
+      localStorage.setItem("id", savedData.id)
+      localStorage.setItem("role", savedData.role)
+      localStorage.setItem("token", savedData.token)
+      await getUser(savedData.id)
+      if (savedData.role === "admin") {
+      
+      navigate("/admin")
+      } else if (savedData.role === "user") {
+      navigate("/")
+      } else if (savedData.role === "lecturer") {
+      navigate("/lecturer")
+      }
+     }
+   } catch (error) {
+     console.error(error);
+     // Handle any errors that occur during the API request
+   }
+ };
+
  const login = async ({ email, password }) => {
- try {
- const { data } = await axios.post("http://localhost:8000/api/login", {
- email,
- password,
- })
- const savedData = {
- id: data.user.id,
- role: data.user.role,
- token: data.authorisation.token,
- }
- console.log(savedData)
- localStorage.setItem("id", savedData.id)
- localStorage.setItem("role", savedData.role)
- localStorage.setItem("token", savedData.token)
- await getUser(savedData.id)
- if (savedData.role === "admin") {
- console.log(user)
- navigate("/admin")
- } else if (savedData.role === "user") {
- navigate("/")
- } else if (savedData.role === "lecturer") {
- navigate("/lecturer")
- }
- } catch (err) {
- setError(
- "The password that you've entered is incorrect. Please enter again!"
- )
- }
+   try {
+      const { data } = await axios.post("http://localhost:8000/api/login", {
+               email,
+               password,
+      })
+      const savedData = {
+         id: data.user.id,
+         role: data.user.role,
+         token: data.authorisation.token,
+      }
+    localStorage.setItem("id", savedData.id)
+    localStorage.setItem("role", savedData.role)
+    localStorage.setItem("token", savedData.token)
+    await getUser(savedData.id)
+    if (savedData.role === "admin") {
+    
+    navigate("/admin")
+    } else if (savedData.role === "user") {
+    navigate("/")
+    } else if (savedData.role === "lecturer") {
+    navigate("/lecturer")
+    }
+    } catch (err) {
+    setError(
+    "The password that you've entered is incorrect. Please enter again!"
+    )
+    }
  }
 
  const logout = async () => {
@@ -67,7 +125,7 @@ export const AuthProvider = ({ children }) => {
  }
  }
  return (
- <AuthContext.Provider value={{ user, error, getUser, login, logout }}>
+ <AuthContext.Provider value={{ user, error, getUser, login, logout,loginFacebook }}>
  {children}
  </AuthContext.Provider>
  )

@@ -24,7 +24,6 @@ function Cart() {
     const data = []
     for (let i = 0; i < state.length; i++) {
         data.push({
-          user_id: localStorage.getItem('id'),
           course_id: state[i].id,
           price: state[i].price
         })
@@ -32,7 +31,10 @@ function Cart() {
     }
     const payment = {
       total : total,
-      order_detail: data
+      user_id: localStorage.getItem('id'),
+      order_detail: data,
+  
+
     }
     const pay = axios.post(`http://localhost:8000/api/orders`,payment)
     .then(res => console.log(res))
@@ -70,7 +72,6 @@ function Cart() {
     const data = []
     for (let i = 0; i < state.length; i++) {
         data.push({
-          user_id: localStorage.getItem('id'),
           course_id: state[i].id,
           price: state[i].price
         })
@@ -78,9 +79,10 @@ function Cart() {
     }
     const payment = {
       total : total,
+      user_id: localStorage.getItem('id'),
       order_detail: data
     }
-    const pay = axios.post(`http://localhost:8000/api/orders`,payment)
+      axios.post(`http://localhost:8000/api/orders`,payment)
     .then(res => console.log(res))
     .catch(err => console.log(err))
   
@@ -104,8 +106,7 @@ function Cart() {
   if (paidFor) {
     // Display success message, modal or redirect user to success page
     alert("Thank you for your purchase!");
-    navigate('/')
-    window.location.reload()
+    
   }
   if (error) {
     // Display error message, modal or redirect user to error page

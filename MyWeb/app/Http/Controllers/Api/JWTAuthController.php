@@ -50,12 +50,9 @@ class JWTAuthController extends Controller
 
     }
 
-    public function register(Request $request){
-        $request->validate([
 
-            
-            'password' => 'required|string|min:6',
-        ]);
+
+    public function register(Request $request){
 
         $user = Users::create([
             'user_name' => $request->user_name,

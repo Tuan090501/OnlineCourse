@@ -53,12 +53,7 @@ const statsBox = [
 ]
 
 // select and search khoá học data pendding backend
-const dataCoursesSelect = [
-  { value: "c1", label: "Học HTML CSS Căn Bản Để Thực Chiến" },
-  { value: "c2", label: "Học JS và JS Nâng Cao Cùng Với Tom" },
-  { value: "c3", label: "Git Căn Bản Cho Người Mới Bắt Đầu" },
-  { value: "c4", label: "TypeScript Không Khó - Học Cùng Với Chúng Tôi" },
-]
+
 
 // data demo user
 const dataUsersDemo = [
@@ -85,15 +80,47 @@ const dataUsersDemo = [
 const lineChart = [{}]
 
 function Dashboard() {
-  const [valueSelectCourse, setValueSelectCourse] = useState(null)
+  const [dataCoursesSelect,setDataCoursesSelect] = useState([])
+  const [students, setStudents] = useState([])
 
+  useEffect(()=>{
+    const fetchCourse = async () =>{
+      const id = localStorage.getItem('id')
+      const data = await axios.get(`http://localhost:8000/api/lecture/${id}`)
+      const dataCourse = data.data.map(i => ({
+        value: i.id,
+        label: i.course_name
+      }));
+    setDataCoursesSelect(dataCourse)      
+    }
+    fetchCourse()
+  },[])
+  // const dataCoursesSelect = [
+  //   { value: "c1", label: "Học HTML CSS Căn Bản Để Thực Chiến" },
+  //   { value: "c2", label: "Học JS và JS Nâng Cao Cùng Với Tom" },
+  //   { value: "c3", label: "Git Căn Bản Cho Người Mới Bắt Đầu" },
+  //   { value: "c4", label: "TypeScript Không Khó - Học Cùng Với Chúng Tôi" },
+  // ]
+  const [valueSelectCourse, setValueSelectCourse] = useState(null)
   const handleChangeReactSelect = (e) => {
     setValueSelectCourse(e.value)
   }
 
   useEffect(() => {
-    console.log(valueSelectCourse)
-
+      const fetchStudent = async () =>{
+        const data = await axios.get(`http://localhost:8000/api/course/showStudent/${valueSelectCourse}`)
+        const dataStudent = data.data.map(i=>({
+          id: 1,
+          avatar: i.image,
+          email: i.email,
+          price: i.price,
+          boughtAt: i.created_at,
+          action: 1
+        }))      
+        
+        setStudents(dataStudent)
+      }
+      fetchStudent()
     // handle khi valueSelectCourse thay doi
   }, [valueSelectCourse])
 
@@ -107,34 +134,8 @@ function Dashboard() {
     alert("Bạn đang click pagination " + type)
   }
 
-  const [students, setStudents] = useState([])
 
-  useEffect(() => {
-    const fetchStudents = async () => {
-      const id = localStorage.getItem('id')
-      const { data } = await axios.get("http://localhost:8000/api/course")
-      const courses = data.filter((item,index)=>item.user_id===id)
-      const rows = []
 
-      for (let i = 0; i < data.data.length; i++) {
-        rows.push({
-          id: data.data[i].id,
-          avatar: data.data[i].image,
-          userName: data.data[i].email,
-          email: data.data[i].email,
-          fullName: data.data[i].first_name,
-          role: data.data[i].role,
-          status: data.data[i].status === 1 ? "active" : "unactive",
-          gender: data.data[i].gender,
-          phone: data.data[i].phone_number,
-          address: data.data[i].address,
-        })
-      }
-      console.log(rows)
-      setStudents(rows)
-    }
-    fetchStudents()
-  }, [])
 
   const columns = [
     {

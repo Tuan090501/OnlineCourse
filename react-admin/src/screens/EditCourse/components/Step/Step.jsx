@@ -4,11 +4,9 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import { Box, Divider, Typography } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import "./Step.scss"
-import CreateSection from "../../../../components/user/CreateSection/CreateSection"
 import axios from "axios"
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
-import { saveAs } from "file-saver"
 import Spinning from "../../../../components/Spinning"
 
 const dataCoursesSelect = [

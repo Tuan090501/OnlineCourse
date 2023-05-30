@@ -14,15 +14,19 @@ function LoginPage() {
   const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const { login, error } = useAuthContext()
+  const { login, loginFacebook, error } = useAuthContext()
 
   const handleLogin = async (event) => {
     event.preventDefault()
     console.log(email, password)
     login({ email, password })
   }
-  const handleFacebook = (res) =>{
-    console.log(res) 
+  const handleFacebook = async (res,e) =>{
+    const email = res.data.email
+    const provider = res.provider
+    const data = res.data
+    loginFacebook({email,provider,data})
+
  }
   return (
     <Box className='loginPage'>
@@ -40,6 +44,8 @@ function LoginPage() {
           {/* Login with Google */}
           <LoginSocialGoogle
             client_id='505216178982-lt9omdvsn0lp1a5t6rq0da7a0dkip7n0.apps.googleusercontent.com'
+            scope="openid profile email"
+            access_type="offline"
             onResolve={(res) => {
               console.log(res)
             }}

@@ -47,11 +47,10 @@ class UsersController extends Controller
         return response()->json($user);
     }
 
+
     public function insert(Request $request)
     {
-        $request->validate([
 
-        ]);
         $username = $request->input('email');
 
         $userExists = Users::where('email', $username)->exists();
@@ -76,6 +75,24 @@ class UsersController extends Controller
                 'exists' => $userExists
             ]);
         }
+
+    }
+
+    public function registerSocial(Request $request){
+        $userExists = Users::where('email',$request->email)->exists();
+        if (!$userExists) {
+            $user = Users::create($request->all());
+            return response()->json($user);
+        }else{
+            return response()->json(['message'=>"User existed"]);
+        }
+
+    }
+
+
+    public function showSocialFacebook($email,$facebook_id) {
+        $user = Users::where('email',$email)->where('facebook_id',$facebook_id)->get();
+        return response()->json($user);
 
     }
 

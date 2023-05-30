@@ -2,12 +2,13 @@ import { Box, TextField, Typography } from "@mui/material"
 import { useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 import "./Register.scss"
+import { useState } from "react"
 
 function RegisterEnterOTP() {
   const location = useLocation()
   const data = location.state
+  const [otp,setOtp] = useState('')
   const navigate = useNavigate()
-
   const handleBackToLogin = () => {
     navigate("/register")
   }
@@ -16,15 +17,19 @@ function RegisterEnterOTP() {
     e.preventDefault()
     console.log(data)
 
-    const res = await axios.post("http://localhost:8000/api/register", {
-      email: data.data.email,
-      user_name: data.data.userName,
-      password: data.data.password,
-    })
-    console.log(res)
-    if (res) {
-      navigate("/login")
+    if (data.otp === otp){
+      const res = await axios.post("http://localhost:8000/api/register", {
+        email: data.data.email,
+        user_name: data.data.userName,
+        password: data.data.password,
+      })
+      if (res) {
+        navigate("/login")
+      }
+    }else{
+        alert("Code nhập không đúng")
     }
+    
   }
   return (
     <Box className='forgotPasswordPage'>
@@ -50,12 +55,14 @@ function RegisterEnterOTP() {
           </Typography>
 
           <TextField
+            onChange={e=>setOtp(e.target.value)}
             className='form__input'
             label='Code'
             type='text'
             name='codeResetPassword'
             placeholder='Enter code'
             required
+
           ></TextField>
 
           <Box
