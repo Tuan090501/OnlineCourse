@@ -15,15 +15,17 @@ function RegisterEnterOTP() {
 
   const handleOnClick = async (e) => {
     e.preventDefault()
-    console.log(data)
+    console.log(data.data.role)
 
-    if (data.otp === otp){
+    if (data.otp === Number(otp)){
       const res = await axios.post("http://localhost:8000/api/register", {
         email: data.data.email,
         user_name: data.data.userName,
         password: data.data.password,
+        role: data.data.role
       })
       if (res) {
+        alert("Đăng ký thành công")
         navigate("/login")
       }
     }else{

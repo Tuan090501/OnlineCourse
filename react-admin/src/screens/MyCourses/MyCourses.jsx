@@ -12,16 +12,7 @@ import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs'
 
 export default function MyCourses() {
-  const [courses, setCourses] = useState([])
-
-  useEffect(() => {
-    const fetchCourses = async () => {
-      const { data } = await axios.get("http://localhost:8000/api/course")
-      console.log(data)
-      setCourses(data)
-    }
-    fetchCourses()
-  }, [])
+ 
 
   const navigate = useNavigate()
   const [course, setCourse] = useState([])
@@ -96,7 +87,7 @@ export default function MyCourses() {
                   rowSpacing={3}
                   columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                 >
-                  {courses.map((item, index) => (
+                  {course.map((item, index) => (
                     <Grid
                       item
                       xs={6}

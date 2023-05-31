@@ -58,6 +58,7 @@ class JWTAuthController extends Controller
             'user_name' => $request->user_name,
             'password' => bcrypt($request->password),
             'email' => $request->email,
+            'role' => $request->role
 
         ]);
 

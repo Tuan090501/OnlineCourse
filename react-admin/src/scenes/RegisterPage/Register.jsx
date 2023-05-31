@@ -55,18 +55,10 @@ function Register() {
       password: e.target.password.value,
       confirmPassword: e.target.confirmPassword.value,
       userName: e.target.username.value,
-
       role: "user",
-      gender: "",
-      phone: "",
-      avatar: "",
+      
       status: "active",
-      address: {
-        province: "",
-        district: "",
-        ward: "",
-        streetHouse: "",
-      },
+     
     }
     const userList = await axios.get("http://localhost:8000/api/users")
     const emailIsExist = await userList.data.filter((item, index) => {
@@ -79,7 +71,7 @@ function Register() {
                email: e.target.email.value,
           })
           .then((response) => {
-              console.log(response.data.otp);
+              console.log(data);
               navigate("/register/enterOTP", 
               { state: { "data": data,
               "otp": response.data.otp } });

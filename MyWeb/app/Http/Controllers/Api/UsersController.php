@@ -61,7 +61,7 @@ class UsersController extends Controller
                 "birthday" => $request->birthday,
                 "email" => $request->email,
                 "gender"=> $request->gender,
-                "password" => bcrypt($request->input("password")),
+                "password" => bcrypt($request->password),
                 "phone_number" => $request->phone_number,
                 "role" => $request->role,
                 "status"=>  $request->status,

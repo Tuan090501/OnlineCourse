@@ -188,7 +188,7 @@ function Cart() {
 
                       </Box>
                       <button className='cart_course-remove' onClick={handleRemoveCourse(item.id)}>Remove</button>
-                      <Typography className='cart_course-price'>đ{`${item.price}`}</Typography>
+                      <Typography className='cart_course-price'>${`${item.price}`}</Typography>
                     </Box>
                   </Box>
                 })
@@ -200,7 +200,7 @@ function Cart() {
               xs={3}
             >
               <Typography variant='h4'>
-                Tổng tiền:  {`${getTotalPrice(state)}`}đ
+                Tổng tiền:  {`${getTotalPrice(state)}`}$
               </Typography>
               <PayPalScriptProvider options={{ "client-id": "AdrUj8lKOMQ55mATfM89HcpENy7XpwkpftfSTFE5e3s3lbwryADM8lqSUsYzAPhsJFjNeI-FJpw0Re7-" }}>
                 <PayPalButtons
