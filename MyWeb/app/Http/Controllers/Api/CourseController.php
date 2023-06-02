@@ -12,16 +12,17 @@ class CourseController extends Controller
     use HasFactory;
 
     public function index(){
-        $course = Course::all();
+        $course = Course::with(['lecturer:id,user_name','category:id,category_name','sessionsWithLectures'])->get();
         return response()->json($course);
     }
+
 
     public function insert(Request $request)
     {
 
             $course = Course::create($request->all());
             if($course) {
-                return response()->json(['message' => 'User created'], 201);
+                return response()->json(['message' => 'course created'], 201);
 
             } else {
                 return response()->json(['message'=>'insert course false',404]);
@@ -30,7 +31,7 @@ class CourseController extends Controller
     }
 
     public function show ($id){
-        $course = Course::find($id);
+         $course = Course::with(['lecturer:id,user_name','category:id,category_name','sessionsWithLectures'])->find($id);
         if($course) {
             return response()->json($course);
         } else {

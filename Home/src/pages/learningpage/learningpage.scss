@@ -1,0 +1,491 @@
+.index-module_fullWidth {
+    width: 100%;
+}
+
+.index-module_grid {
+    padding: 0;
+    margin: 0 auto;
+}
+
+.Header_wrapper {
+    --wrapper-height: 50px;
+    align-items: center;
+    background-color: #29303b;
+    display: flex;
+    height: var(--wrapper-height);
+    position: relative;
+    z-index: 1;
+}
+
+.Header_back-btn {
+    cursor: pointer;
+    display: flex;
+    height: var(--wrapper-height);
+    transition: background-color .2s linear;
+    width: 60px;
+}
+
+.Header_back-btn .Header_icon {
+    color: #fff;
+    font-size: 1rem;
+    margin: auto;
+}
+
+.svg-inline--fa {
+    display: var(--fa-display, inline-block);
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+}
+
+.Header_logo {
+    margin-left: 8px;
+    position: relative;
+    top: 1px;
+}
+
+.Header_logo img {
+    height: 30px;
+    border-radius: 8px;
+}
+
+.Header_course-title {
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    color: #fff;
+    display: -webkit-box;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-left: 16px;
+    overflow: hidden;
+}
+
+.Header_actions {
+    align-items: center;
+    display: flex;
+    margin-left: auto;
+}
+
+.Header_progress-bar {
+    align-items: center;
+    display: flex;
+    margin-right: 24px;
+}
+
+.Header_completed-msg {
+    color: #fff;
+    font-size: 0.9rem;
+    margin-left: 6px;
+}
+
+button {
+    border: none;
+    box-shadow: none;
+    display: block;
+    outline: none;
+    padding: 0;
+}
+
+.Header_action-btn {
+    background-color: transparent;
+    color: #fff;
+    font-size: 0.9rem;
+    margin-right: 24px;
+    opacity: .8;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.Header_action-btn .Header_icon {
+    margin-right: 6px;
+}
+
+.svg-inline--fa {
+    display: var(--fa-display, inline-block);
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+}
+
+.Tracks_wrapper {
+    border-left: 1px solid #e7e7e7;
+    bottom: 50px;
+    margin-top: 50px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 23%;
+    z-index: 2;
+}
+
+.Tracks_container {
+    // -webkit-animation: Tracks_fadeIn .2s ease-in;
+    // animation: Tracks_fadeIn .2s ease-in;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.Tracks_header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 16px;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.Tracks_heading {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    margin: 0;
+    font-weight: 600;
+}
+
+// Nút x để tắt menu
+.Tracks_close-btn {
+    background-color: transparent;
+    display: none;
+    font-size: 1.8rem;
+    margin-right: 8px;
+}
+
+.Tracks_body {
+    overflow-y: overlay;
+}
+
+.Tracks_body {
+    flex: 1 1;
+    overscroll-behavior: contain;
+}
+
+.TrackItem_wrapper {
+    background-color: #f7f8fa;
+    border-bottom: 1px solid #dedfe0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 8px 20px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    z-index: 2;
+}
+
+.TrackItem_title {
+    color: #000;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.TrackItem_desc {
+    color: #29303b;
+    font-size: 0.8rem;
+    font-weight: 400;
+    margin-top: 4px;
+}
+
+.TrackItem_icon {
+    color: var(--text-color);
+    font-size: 1.2rem;
+    position: absolute;
+    right: 23px;
+    top: 12px;
+}
+
+.TrackItem_opened {
+    display: block;
+}
+
+// Ẩn hiện dropdown menu
+
+// .TrackItem_track-steps-list {
+//     display: none;
+// }
+
+.StepItem_wrapper {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0 10px 2px;
+    position: relative;
+    transition: all .3s ease-in-out;
+}
+
+.StepItem_info {
+    cursor: pointer;
+    flex: 1 1;
+    margin: 0 0 0 28px;
+    position: relative;
+}
+
+.StepItem_title {
+    color: #000;
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.4;
+    margin: 0;
+    position: relative;
+    top: -2px;
+}
+
+.StepItem_desc {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+}
+
+.StepItem_lesson-icon {
+    color: #888;
+    font-size: 0.8rem;
+    margin-right: 6px;
+    transition: all .3s ease-in-out;
+}
+
+.StepItem_icon-box {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-right: 12px;
+    width: 36px;
+}
+
+.StepItem_state-icon {
+    color: #5db85c;
+    font-size: 1rem;
+    margin-top: 1px;
+}
+
+.Content_wrapper {
+    overflow-y: overlay;
+}
+
+.Content_wrapper {
+    -ms-scroll-chaining: none;
+    bottom: 50px;
+    left: 0;
+    margin-top: 50px;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    position: fixed!important;
+    top: 0;
+    width: 77%;
+}
+
+.Video_wrapper {
+    background-color: #000;
+    padding: 0 5%;
+    position: relative;
+    width: 90%;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.VideoPlayer_wrapper {
+    padding-top: 56.25%;
+    position: relative;
+}
+
+.VideoPlayer_player {
+    inset: 0;
+    overflow: hidden;
+    position: absolute;
+}
+
+.Video_content {
+    min-height: 400px;
+    padding: 0 8.5%;
+}
+
+.Video_contentTop {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.Heading_heading {
+    font-size: 2rem;
+    margin: 48px 0 8px;
+    font-weight: 600;
+}
+
+.Heading_updated {
+    font-size: 0.8rem;
+    margin-bottom: 36px;
+}
+
+.Video_addNote {
+    background-color: #ebebeb;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 12px 16px;
+    position: relative;
+    top: -12px;
+    transition: .3s ease;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.Video_addNote .Video_label {
+    margin-left: 8px;
+}
+
+.MarkdownParser_wrapper {
+    word-wrap: break-word;
+    color: #292929;
+    font-size: 1rem;
+    line-height: 2;
+}
+
+.MarkdownParser_wrapper a[href] {
+    color: #f05123;
+    text-decoration: underline;
+}
+
+.MarkdownParser_wrapper h2 {
+    font-weight: 600;
+}
+
+.MarkdownParser_wrapper blockquote {
+    border-left: 3px solid #f05123;
+    color: #757575;
+    margin-left: 0;
+    padding: 0 0 2px 20px;
+}
+
+.Powered_wrapper {
+    color: #666;
+    font-size: 1rem;
+    padding: 12px 0;
+    text-align: center;
+}
+
+.Powered_heart {
+    color: #d43c68;
+}
+
+.Powered_dot {
+    padding: 0 6px;
+}
+
+.ActionBar_wrapper {
+    align-items: center;
+    background-color: #f0f0f0;
+    bottom: 0;
+    box-shadow: 0 -2px 3px rgba(0,0,0,.1);
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    right: 0;
+    z-index: 2;
+}
+
+.ActionBar_btn {
+    border-radius: 6px;
+    color: #404040;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 8px 12px;
+    transition: .3s ease;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.ActionBar_btn span {
+    padding: 8px;
+}
+
+.ActionBar_btn.ActionBar_highlight {
+    background-color: #f05123;
+    color: #fff;
+}
+
+.ActionBar_btn.ActionBar_primary {
+    border: 2px solid  #f05123;
+}
+
+.ActionBar_btn.ActionBar_btn {
+    margin-left: 12px;
+}
+
+.ActionBar_toggle-wrap {
+    align-items: center;
+    bottom: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30%;
+}
+
+.ActionBar_track-title {
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    font-size: 1rem;
+    overflow: hidden;
+    font-weight: 600;
+}
+
+.ActionBar_toggle-btn {
+    align-items: center;
+    background-color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    flex-shrink: 0;
+    font-size: 1rem;
+    height: 38px;
+    justify-content: center;
+    margin: 0 10px;
+    width: 38px;
+}
+
+.Main_comment-btn.Main_show-tracks {
+    right: calc(23% + 30px);
+}
+
+.Main_comment-btn {
+    bottom: 70px;
+    position: fixed;
+    right: 20px;
+    z-index: 1;
+}
+
+.ActionButton_wrapper {
+    background-color: #fff;
+    border-radius: 999px;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    color: #f05123;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 8px 12px;
+    position: relative;
+}
+
+.ActionButton_title {
+    margin-left: 8px;
+}

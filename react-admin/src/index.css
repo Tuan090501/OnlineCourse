@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500;600;700&family=Roboto:wght@100;300;400;500;700;900&display=swap");
+html,
+body,
+#root,
+.app,
+.content{
+    
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.app{
+    display: flex;
+    position: relative;
+}

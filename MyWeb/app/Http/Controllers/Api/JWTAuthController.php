@@ -20,7 +20,7 @@ class JWTAuthController extends Controller
     public function login(Request $request)
     {
 
-        $credentials = $request->only('user_name', 'password');
+        $credentials = $request->only('email', 'password');
 
         $token=Auth::attempt($credentials);
 
@@ -59,7 +59,6 @@ class JWTAuthController extends Controller
         ]);
 
         $user = Users::create([
-
             'user_name' => $request->user_name,
             'password' => bcrypt($request->password),
             'email' => $request->user_name,
