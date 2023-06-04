@@ -8,7 +8,7 @@ use App\Models\Users;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
-
+use Lcobucci\JWT\Token\Builder;
 
 class JWTAuthController extends Controller
 {
@@ -22,7 +22,7 @@ class JWTAuthController extends Controller
 
         $credentials = $request->only('user_name', 'password');
 
-        $token=Auth::attempt(  $credentials);
+        $token=Auth::attempt($credentials);
 
 
 
@@ -96,9 +96,6 @@ class JWTAuthController extends Controller
             ]
         ]);
     }
-
-
-
     }
 
 
