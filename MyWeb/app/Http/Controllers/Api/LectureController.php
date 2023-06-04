@@ -24,4 +24,12 @@ class LectureController extends Controller
         return  Course::where('user_id',$id)->get();
 
     }
+    public function getLectureWithSessionID ($id){
+        $lecture = Lecture::where('session_id',$id)->get();
+        if ($lecture) {
+            return  response()->json($lecture);
+        } else {
+            return  response()->json(['message'=>'Insert lecture fail']);
+        }
+    }
 }

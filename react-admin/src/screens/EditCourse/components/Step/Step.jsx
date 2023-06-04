@@ -715,7 +715,7 @@ export const StepThreeEditCourse = () => {
           đố, bài tập mã hóa và bài tập).
         </p>
         <div className='step-content-edit-course-wp'>
-          <button
+        <button
             className='curriculum'
             onClick={() => {
               const createNewSection = document.querySelector(
@@ -1084,6 +1084,7 @@ export const StepThreeEditCourse = () => {
               )}
             </Box>
           </Box>
+
         </div>
       </Box>
     </div>
@@ -1091,6 +1092,21 @@ export const StepThreeEditCourse = () => {
 }
 
 export const StepFourEditCourse = () => {
+  const [price,setPrice] = useState(0)
+  const handelOnclick = ()=>{
+    const copyURL = window.location.pathname.split("/")
+    const id = copyURL[copyURL.length - 1]
+    console.log(id)
+    axios.put(`http://localhost:8000/api/course/${id}`,{price: price})
+    .then(()=>{
+      alert("thêm giá tiền thành công!") 
+      window.location.href= "http://localhost:3000/lecturer/my-course"
+    }
+      
+    
+    )
+    
+  }
   return (
     <div className='step-wp-edit-course'>
       <div
@@ -1147,7 +1163,7 @@ export const StepFourEditCourse = () => {
         <div className='step-content-edit-course-wp'>
           <div className='item-step-edit mb-4'>
             <label className='d-block'>
-              <strong>Giá tiền * VND</strong>
+              <strong>Giá tiền * $</strong>
             </label>
 
             <div
@@ -1158,13 +1174,15 @@ export const StepFourEditCourse = () => {
             >
               <input
                 className='form-control'
-                placeholder='e.g 200.000VND'
+                onChange={(e)=>setPrice(e.target.value)}
+                placeholder='e.g 20$'
                 style={{
                   flex: "1",
                   padding: "10px",
                 }}
               />
               <button
+                onClick={handelOnclick}
                 className='btn btn-danger d-block ms-auto'
                 style={{
                   width: "90px",
@@ -1192,7 +1210,7 @@ export const StepFourEditCourse = () => {
               className='d-block'
               style={{ display: "block" }}
             >
-              <strong>Thanh toán</strong>
+              <strong>Giảm giá</strong>
             </label>
             <Box
               sx={{
@@ -1205,10 +1223,11 @@ export const StepFourEditCourse = () => {
                   padding: "10px",
                 }}
                 className='form-control'
-                placeholder='Paypal account: example@example.com'
+                placeholder='e.g 50%'
               />
 
               <button
+                onClick={handelOnclick}
                 className='btn btn-danger d-block ms-auto'
                 style={{
                   width: "90px",

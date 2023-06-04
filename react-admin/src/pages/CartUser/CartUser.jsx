@@ -37,7 +37,10 @@ function Cart() {
 
     }
     const pay = axios.post(`http://localhost:8000/api/orders`,payment)
-    .then(res => console.log(res))
+    .then(() => {
+      alert("Thanh toán thành công")
+      window.location.href="http://localhost:3000/"
+    })
     .catch(err => console.log(err))
     
     }
@@ -181,14 +184,14 @@ function Cart() {
                   return <Box>
                     <Divider />
                     <Box className='cart_course'>
-                      <img src={`${item.img}`} className='cart_course-img'></img>
+                      <img src={require(`../../assets/images/${item.img}`)} className='cart_course-img'></img>
                       <Box className='cart_course-detail'>
                         <Typography className='cart_course-name'>{`${item.course_name }`}</Typography>
                         <Typography className='cart_course-author'>By {`${item.lecturer.user_name}`}</Typography>
 
                       </Box>
                       <button className='cart_course-remove' onClick={handleRemoveCourse(item.id)}>Remove</button>
-                      <Typography className='cart_course-price'>${`${item.price}`}</Typography>
+                      <Typography className='cart_course-price'>{`${item.price}`}$</Typography>
                     </Box>
                   </Box>
                 })

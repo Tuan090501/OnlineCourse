@@ -95,7 +95,7 @@ export default function MyCourses() {
                       <Link to={`/lecturer/edit-my-course/${item.id}`}>
                         <Courses
                           thumbnailCourse={item.img}
-                          nameCourse={"CSS Essential Training"}
+                          nameCourse={item.course_name}
                           subtitleCourses={
                             "Cascading Style Sheets (CSS) is a stylesheet language that allows you to control the appearance of your webpages. In this hands-on course, Christina Truong demonstrates the concepts that form the foundation of CSS, explaining what you need to know to tweak existing CSS and write your own."
                           }

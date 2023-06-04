@@ -1,14 +1,14 @@
-import React, { useEffect } from "react"
+import React, { useEffect , useContext} from "react"
 import { useState } from "react"
 import "./header.scss"
 import logo from "../../../assets/images/logof8.png"
-import { Box, Button, IconButton, Popover, Typography } from "@mui/material"
+import {Box,  Button, IconButton, Popover, Typography } from "@mui/material"
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined"
 import useAuthContext from "../../../context/AuthContext"
 import { Link, useNavigate } from "react-router-dom"
 import CourseSellingPage from '../searchbar/CourseSellingPage'
 import axios from "axios"
-
+import {Cartcontext} from '../../../context/CartContext'
 
 const styleMyCourse = {
   zIndex: 9999,
@@ -22,6 +22,24 @@ function MyCourse() {
   const [isDivVisible, setIsDivVisible] = useState(false)
 
   const [coursePurchased,setCoursePurchase] = useState([])
+
+  const [course, setCourse] = useState([])
+  const { user, logout } = useAuthContext()
+  useEffect(() => {
+    const fetchCourse = async () => {
+      const { data } = await axios.get("http://localhost:8000/api/course")
+      console.log(user.id)
+      const tempArr = [...data]
+      let courses = []
+      for (let i = 0; i < tempArr.length; i++) {
+        if (tempArr[i].user_id === user.id) {
+          courses.push(tempArr[i])
+        }
+      }
+      setCourse(courses)
+    }
+    fetchCourse()
+  }, [])
   function toggleDiv() {
     setIsDivVisible((prevIsDivVisible) => !prevIsDivVisible)
   }
@@ -44,8 +62,7 @@ function MyCourse() {
     }
     fectchCoursePurchased()
   },[])
-  console.log(coursePurchased)
-
+console.log(course)
   return (
     <div>
       <button
@@ -69,29 +86,37 @@ function MyCourse() {
             </a>
           </div>
           <div className='MyCourses_content'>
-          {coursePurchased.map(i => (
-            <div className='MyCourses_course-item' key={i.id}>
+          {course.map((item, index) => (
               <button
-                onClick={() => {
-                  navigate("/")
+                className='MyCourses_course-item'
+                style={{
+                  width: "calc(100% - 24px)",
                 }}
               >
-                <img
-                  src={`${i.img}`}
-                  alt=''
-                  className='MyCourses_course-thumb'
-                />
+                <button
+                  onClick={() => {
+                    navigate(`/course-detail/${item.id}`)
+                  }}
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <img
+                    src={require(`../../../assets/images/${item.img}`)}
+                    alt=''
+                    className='MyCourses_course-thumb'
+                  />
+                </button>
+                <div className='MyCourses_course-info'>
+                  <h3 className='MyCourses_course-title'>
+                    {`${item.course_name}`}
+                  </h3>
+                  <p className='MyCourses_last-completed' style={{ overflow:"hidden" }}>
+                    Đã mua 
+                  </p>
+                </div>
               </button>
-              <div className='MyCourses_course-info'>
-                <h3 className='MyCourses_course-title'>
-                  {i.course_name}
-                </h3>
-                <p className='MyCourses_last-completed'>
-                  Học cách đây 2 tháng trước
-                </p>
-              </div>
-            </div>
-))}
+            ))}
 
             
 
@@ -103,7 +128,9 @@ function MyCourse() {
 }
 
 const Header = () => {
- 
+ const GlobalState = useContext(Cartcontext)
+ const state = GlobalState.state
+ const [cart,setCart]=useState(state.length)
   const [courses,setCourse] = useState([])
   
 const fetchData = async () => {
@@ -187,6 +214,27 @@ console.log(courses)
               className='cart-btn'
               onClick={handleMoveToCart}
             >
+              {console.log(cart)}
+              {cart === 0 ? (
+                ""
+              ) : (
+                <span
+                  style={{
+                    backgroundColor: "#fff",
+                    zIndex: 1,
+                    position: "absolute",
+                    fontWeight: "bold",
+                    color: "#8710D8",
+                    width: "14px",
+                    height: "14px",
+                    top: "6px",
+                    right: "5px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >{`${cart}`}</span>
+              )}
               <ShoppingCartOutlinedIcon />
             </IconButton>
           </Box>

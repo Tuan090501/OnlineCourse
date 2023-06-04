@@ -6,9 +6,20 @@ import Footer from "../../components/user/footer/Footer"
 import Header from "../../components/user/header/Header"
 import { useNavigate } from "react-router-dom"
 import { Cartcontext } from "../../context/CartContext"
-import axios from "axios"
+import axios, { Axios } from "axios"
 import { Box, Snackbar } from "@mui/material" 
 import { useParams } from "react-router-dom"
+import {
+  Avatar,
+  Grid,
+  Modal,
+  Rating,
+
+  Typography,
+} from "@mui/material"
+import CloseIcon from "@mui/icons-material/Close"
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
+
 const Coursedetail = () => {
   const navigate = useNavigate()
   const Globalstate = useContext(Cartcontext)
@@ -18,7 +29,49 @@ const Coursedetail = () => {
   const [openSnackBar, setOpenSnackBar] = useState(false)
   const [messageWhenClickCart, setMessageWhenClickCart] = useState("")
 
+  const [courseIsPay, setCourseIsPay] = useState(false)
 
+  const [openRating, setOpenRating] = useState(false)
+  const handleOpenRating = () => setOpenRating(true)
+  const handleCloseRating = () => setOpenRating(false)
+
+  const [rating, setRating] = useState(0)
+  const [review, setReview] = useState("")
+  const [comment,setComment] = useState([])
+  const handleSubmitCourseRating = () => {
+
+     if (rating>0) {
+      const id = Number(localStorage.getItem("id"))
+      const copyURL = window.location.pathname.split("/")
+      const id_course = copyURL[copyURL.length - 1]
+
+      const data =  axios.post(`http://localhost:8000/api/comment/`,{
+          id_user : id,
+          id_course: id_course,
+          comment: review,
+          rate: rating
+      })
+     } else{
+      alert ('Vui lòng chọn số sao đánh giá')
+     }
+  }
+
+  const ratings = [
+    {
+      user_name: "Orlando",
+      avatar:
+        "https://cafebiz.cafebizcdn.vn/162123310254002176/2021/5/28/photo-1-162218959229049086641.jpg",
+      rating: 3,
+      review: "Nice course, beyond my expectations.",
+    },
+    {
+      user_name: "Orlando",
+      avatar:
+        "https://cafebiz.cafebizcdn.vn/162123310254002176/2021/5/28/photo-1-162218959229049086641.jpg",
+      rating: 5,
+      review: "Nice course, beyond my expectations.",
+    },
+  ]
   const handleClickOpenSnackBar = () => {
     setOpenSnackBar(true)
   }
@@ -33,10 +86,25 @@ const Coursedetail = () => {
       const id = copyURL[copyURL.length - 1]
       const { data } = await axios.get(`http://localhost:8000/api/course/${id}`)
       setCourse(data)
+
+      if(data.user_id === Number(localStorage.getItem("id"))){
+        setCourseIsPay(true)
+      }
     }
     fetchCourse()
   }, [])
-console.log(course)
+  useEffect(() => {
+    const fetchCommnet = async () => {
+      const copyURL = window.location.pathname.split("/")
+      const id = copyURL[copyURL.length - 1]
+      const { data } = await axios.get(`http://localhost:8000/api/comment/${id}`)
+      setComment(data)
+
+     
+    }
+    fetchCommnet()
+  }, [])
+console.log(comment)
   useEffect(() => {
     const checkCourse = async () => {
       const copyURL = window.location.pathname.split("/")
@@ -262,6 +330,64 @@ console.log(course)
                                 </div>
                            
                             </div>
+                            <Box className='course__rating-wrapper'>
+                  <Typography
+                    variant='h4'
+                    sx={{
+                      fontWeight: "bold",
+                      marginBottom: "30px",
+                    }}
+                  >
+                    Đánh giá
+                  </Typography>
+                  <Grid2
+                    container
+                    spacing={2}
+                  >
+                    {comment.map((item, index) => (
+                      <Grid2
+                        item
+                        xs={6}
+                        sx={{
+                          borderTop: "1px solid #999",
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            padding: "20px 0px",
+                          }}
+                        >
+                          <Avatar src={`${comment.image}`}></Avatar>
+                          <Box
+                            sx={{
+                              marginLeft: "16px",
+                              flex: "1",
+                            }}
+                          >
+                            <Typography>{`${item.user_name}`}</Typography>
+                            <Rating
+                              name='read-only'
+                              value={item.rate}
+                              readOnly
+                            />
+                          </Box>
+                        </Box>
+
+                        <Typography
+                          className='review-comment'
+                          sx={{
+                            margin: "14px 0px",
+                            fontSize: "16px",
+                          }}
+                        >
+                          {`${item.comment}`}
+                        </Typography>
+                      </Grid2>
+                    ))}
+                  </Grid2>
+                </Box>
 
               </section>
               <section className='index-module_col index-module_c-12 index-module_m-12 index-module_l-4'>
@@ -294,63 +420,151 @@ console.log(course)
 
                   <h5>{course.price}$</h5>
 
-                  <Box
-                    sx={{
-                      width: "100%",
-                    }}
-                  >
-                    {check  ? 
-                    <button
-                    className='Button_btn CourseDetail_learnNow'
-                    style={{
-                      width: "100%",
-                    }}
-                    onClick={()=>navigate("/learning-page")}
-                   
-                  >
-                    Enroll
-                  </button>
-                    : 
-                    
-                    <button
-                      className='Button_btn CourseDetail_learnNow'
-                      style={{
+                  {check === false ? (
+                    <Box
+                      sx={{
                         width: "100%",
                       }}
-                      onClick={() => {
-                        const isCourseExistInCart = Globalstate.state.some(
-                          (item) => {
-                            return item.id === course.id
-                          }
-                        )
-                        if (isCourseExistInCart) {
-                          setMessageWhenClickCart("Already in cart!")
-                        } else {
-                          setMessageWhenClickCart("Add to cart successfully!")
-                        }
-                        handleClickOpenSnackBar()
-                        dispatch({ type: "ADD", payload: course })
+                    >
+                      <Box
+                        sx={{
+                          width: "100%",
+                        }}
+                      >
+                        <button
+                          className='Button_btn CourseDetail_learnNow'
+                          style={{
+                            width: "100%",
+                          }}
+                          onClick={() => {
+                            const isCourseExistInCart = Globalstate.state.some(
+                              (item) => {
+                                return item.id === course.id
+                              }
+                            )
+                            if (isCourseExistInCart) {
+                              setMessageWhenClickCart("Already in cart!")
+                            } else {
+                              setMessageWhenClickCart(
+                                "Add to cart successfully!"
+                              )
+                            }
+                            handleClickOpenSnackBar()
+                            dispatch({ type: "ADD", payload: course })
+                          }}
+                        >
+                          Add to cart
+                        </button>
+                        <Snackbar
+                          open={openSnackBar}
+                          onClose={handleClickCloseSnackBar}
+                          message={`${messageWhenClickCart}`}
+                        />
+                      </Box>
+
+                      <button
+                        className='Button_btn CourseDetail_learnNow'
+                        style={{
+                          backgroundColor: "#f05123",
+                          color: "#fff",
+                          border: "none",
+                        }}
+                      >
+                        Buy now
+                      </button>
+                    </Box>
+                  ) : (
+                    <Box
+                      sx={{
+                        width: "100%",
                       }}
                     >
-                      Add to cart
-                    </button> }
-                    <Snackbar
-                      open={openSnackBar}
-                      onClose={handleClickCloseSnackBar}
-                      message={`${messageWhenClickCart}`}
-                    />
-                  </Box>
+                      <button
+                        className='Button_btn CourseDetail_learnNow'
+                        style={{
+                          backgroundColor: "#f05123",
+                          color: "#fff",
+                          border: "none",
+                        }}
+                        onClick={() => {
+                          navigate("/learning-page")
+                        }}
+                      >
+                        Đi đến khóa học
+                      </button>
 
-                  <button
-                    className='Button_btn CourseDetail_learnNow'
-                    style={{
-                      backgroundColor: "#f05123",
-                      color: "#fff",
-                      border: "none",
-                    }}
-                  >
-                    Buy now
-                  </button>
+                      <button
+                        className='Button_btn CourseDetail_learnNow'
+                        style={{
+                          width: "100%",
+                        }}
+                        onClick={handleOpenRating}
+                      >
+                        Đánh giá khóa học
+                      </button>
+                      <Modal
+                        open={openRating}
+                        onClose={handleCloseRating}
+                      >
+                        <Box className='rating-modal'>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "flex-end",
+                            }}
+                          >
+                            <button
+                              className='close-rating'
+                              onClick={handleCloseRating}
+                            >
+                              <CloseIcon />
+                            </button>
+                          </Box>
+                          <Box className='rating-body'>
+                            <Typography
+                              variant='h5'
+                              sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            >
+                              Bạn đánh giá thế nào về khóa học này?
+                            </Typography>
+                            <Typography component='p'></Typography>
+                            <Rating
+                              sx={{
+                                margin: "20px auto",
+                              }}
+                              name='simple-controlled'
+                              value={rating}
+                              onChange={(event, newValue) => {
+                                setRating(newValue)
+                              }}
+                            />
+                            <textarea
+                              name='review'
+                              placeholder='Hãy cho chúng tôi biết về trải nghiệm của bạn khi học khóa học này'
+                              onChange={(event) => {
+                                setReview(event.target.value)
+                              }}
+                            ></textarea>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                marginTop: "20px",
+                              }}
+                            >
+                              <button onClick={handleSubmitCourseRating}>
+                                Save and continue
+                              </button>
+                            </Box>
+                          </Box>
+                        </Box>
+                      </Modal>
+                    </Box>
+                  )}
+
 
                   <ul>
                     <li>

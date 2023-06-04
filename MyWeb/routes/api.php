@@ -10,6 +10,8 @@ use App\Http\Controllers\Api\SubCategoriesController;
 use App\Http\Controllers\Api\SessionController;
 use App\Http\Controllers\Api\LectureController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\CommentController;
+
 
 
 
@@ -119,5 +121,12 @@ Route::prefix('orders')->group(function () {
     Route::get('/courses/{user_id}/purchased/{course_id}', [OrderController::class, 'checkCoursePurchase']);
      Route::get('/{id}',[OrderController::class,'show']);
      Route::post('/',[OrderController::class,'insert']);
+Route::get('/{id}',[LectureController::class,'getLectureWithSessionID']);
+});
 
+Route::prefix('comment')->group(function () {
+    Route::get('/',[CommentController::class,'index']);
+
+     Route::get('/{course_id}',[CommentController::class,'showCommentsByCourse']);
+     Route::post('/',[CommentController::class,'insert']);
 });

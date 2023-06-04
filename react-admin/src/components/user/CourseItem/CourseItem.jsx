@@ -6,15 +6,15 @@ import Rating from '@mui/material/Rating';
 function CourseItem({ course }) {
 
   const { course_name, img, price, id,lecturer,rating } = course
-
+ 
   return (
     <div className='index-module_l-3'>
       <div className='CommonItem_wrapper Home_courseItem'>
         <Link
           to={`/course-detail/${id}`}
           className='CommonItem_thumb CommonItem_has-link'
-          style={{ backgroundImage: `url(${img})` }}
-        >
+          style={{ backgroundImage: `url(${require(`../../../assets/images/${img}`)})` }}
+          >
           <button className='Button_btn CommonItem_cta-btn'>
             Xem khóa học
           </button>

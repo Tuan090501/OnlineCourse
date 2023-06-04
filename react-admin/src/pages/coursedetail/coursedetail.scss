@@ -521,5 +521,58 @@ strong {
     }
 }
 
+.MuiModal-root.css-79ws1d-MuiModal-root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .rating-modal {
+        background-color: #fff;
+        width: 550px;
+        .close-rating {
+            background-color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.1s ease-out;
+            &:hover {
+                background-color: #111;
+                color: #fff;
+            }
+        }
+        .rating-body {
+            padding: 8px 28px 30px;
+            display: flex;
+            flex-direction: column;
+            textarea {
+                font-size: 16px;
+                height: 120px;
+                color: #000;
+                border: 3px solid #222;
+                border-top: 3px solid #eee;
+                resize: none;
+                padding: 12px;
+            }
+            button {
+                font-size: 16px;
+                color: #fff;
+                background-color: #000;
+                padding: 12px 16px;
+                text-transform: capitalize;
+                cursor: pointer;
+            }
+            svg {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    }
+}
+
+.course__rating-wrapper {
+    margin-top: 50px;
+    .css-48o8vh-MuiTypography-root {
+        margin: 8px 0px 20px;
+    }
+}
+
 // PC
 @media screen and (min-width: 1024px) {}
