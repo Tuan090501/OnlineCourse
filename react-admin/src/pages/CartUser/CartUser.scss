@@ -1,0 +1,71 @@
+.cart-container {
+    padding: 20px 140px;
+    .cart__courses-wrapper {
+        display: flex;
+        justify-content: center;
+        // width: 100%;
+        height: 400px;
+        border-radius: 2px;
+        .cart__course-list {
+            .keep-shopping {
+                font-size: 16px;
+                padding: 15px 22px;
+                background-color: #a435f0;
+                cursor: pointer;
+                color: #fff;
+                font-weight: bold;
+                transition: 0.1s ease all;
+                margin: 30px auto;
+                &:hover {
+                    background-color: #8710d8;
+                }
+            }
+            .cart_course {
+                display: flex;
+                margin: 20px 0px;
+                .cart_course-img {
+                    border: 1px solid #d2d1d1;
+                    width: 120px;
+                    height: 70px;
+                    margin-right: 15px;
+                }
+                .cart_course-detail {
+                    flex: 1;
+                    .cart_course-name {
+                        font-weight: bold;
+                    }
+                    .cart_course-author {
+                        font-weight: 300;
+                    }
+                }
+                .cart_course-remove {
+                    width: 50px;
+                    height: 20px;
+                    cursor: pointer;
+                    background-color: #fff;
+                    color: rgb(85, 85, 245);
+                    margin-right: 50px;
+                    font-size: 16px;
+                }
+                .cart_course-price {
+                    color: #a435f0
+                }
+            }
+        }
+        .cart__course-checkout {
+            .checkout-btn {
+                width: 100%;
+                font-size: 16px;
+                color: #fff;
+                background-color: #a435f0;
+                font-weight: bold;
+                padding: 15px 0px;
+                cursor: pointer;
+                margin: 10px 0px;
+                &:hover {
+                    background-color: #8710d8;
+                }
+            }
+        }
+    }
+}

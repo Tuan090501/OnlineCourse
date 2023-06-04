@@ -20,12 +20,54 @@ class UsersController extends Controller
         return response()->json($user);
     }
 
+    public function active () {
+        $user = Users::where('status',1)->get();
+        return response()->json($user);
+    }
+
+    public function unactive () {
+        $user = Users::where('status',0)->get();
+        return response()->json($user);
+    }
+
+
+
+    public function lecturer (){
+        $user = Users::where('role',"lecturer")->get();
+        return response()->json($user);
+    }
+
+    public function activeLecturer(){
+        $user = Users::where('role','lecturer')->where('status',1)->get();
+        return response()->json($user);
+    }
+
+    public function unactiveLecturer(){
+        $user = Users::where('role','lecturer')->where('status',0)->get();
+        return response()->json($user);
+    }
+
+
     public function insert(Request $request)
     {
-        $username = $request->input('user_name');
-        $userExists = Users::where('user_name', $username)->exists();
+
+        $username = $request->input('email');
+
+        $userExists = Users::where('email', $username)->exists();
         if(!$userExists){
-            $user = Users::create($request->all());
+            $user = Users::create( [
+                "address"=>$request->address,
+                "image" => $request->image,
+                "birthday" => $request->birthday,
+                "email" => $request->email,
+                "gender"=> $request->gender,
+                "password" => bcrypt($request->password),
+                "phone_number" => $request->phone_number,
+                "role" => $request->role,
+                "status"=>  $request->status,
+                "user_name"=>$request->user_name
+
+            ] );
 
             return response()->json(['message' => 'User created'], 201);
         }else{
@@ -33,6 +75,24 @@ class UsersController extends Controller
                 'exists' => $userExists
             ]);
         }
+
+    }
+
+    public function registerSocial(Request $request){
+        $userExists = Users::where('email',$request->email)->exists();
+        if (!$userExists) {
+            $user = Users::create($request->all());
+            return response()->json($user);
+        }else{
+            return response()->json(['message'=>"User existed"]);
+        }
+
+    }
+
+
+    public function showSocialFacebook($email,$facebook_id) {
+        $user = Users::where('email',$email)->where('facebook_id',$facebook_id)->get();
+        return response()->json($user);
 
     }
 

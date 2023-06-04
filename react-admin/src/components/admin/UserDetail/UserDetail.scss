@@ -1,0 +1,121 @@
+$user-detail-width: 35vw;
+$user-detail-height: 85vh;
+
+@import "../../../variables";
+
+.user-detail {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  position: relative;
+  background-color: #fff;
+  width: $user-detail-width;
+
+  .user-detail__header {
+    .user-detail__title {
+      text-align: center;
+      padding: 12px;
+      color: #f93e1d;
+      text-transform: capitalize;
+    }
+
+    .close-btn {
+      margin-left: 8px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      border: none;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      transition: all 0.15s ease-in-out;
+
+      background-color: #fff;
+      &:hover {
+        background-color: #f93e1d;
+        color: #fff;
+      }
+
+      & svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  //   User detail body
+  .user-detail__body {
+    padding: 20px 20px 16px 20px;
+
+    .user-detail__avatar {
+      cursor: pointer;
+      margin: 4px auto;
+      width: 160px;
+      height: 160px;
+      border: 0.1px solid lightgray;
+    }
+
+    .user-detail__info-wrapper {
+      margin: 20px 0px;
+      position: relative;
+      border: 1px solid #999;
+      border-radius: 8px;
+
+      .user-detail__info-title {
+        text-transform: capitalize;
+        color: #f93e1d;
+        position: absolute;
+        top: -14px;
+        left: 10px;
+        font-size: 14px;
+        background-color: #fff;
+        padding: 4px;
+      }
+      .user-detail__info-content {
+        padding: 14px;
+        min-height: 30px;
+      }
+    }
+  }
+
+  .user-detail__footer {
+    background-color: #fff;
+    padding: 8px 20px;
+    display: flex;
+    justify-content: flex-end;
+
+    .close-btn {
+      background-color: #f62e0b;
+      color: #fff;
+      border: none;
+      padding: 10px 24px;
+      margin: 8px 0px;
+      font-size: 17px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease-in;
+
+      &:hover {
+        background-color: #ff4b2b;
+      }
+    }
+  }
+}
+
+.modal .user-detail__avatar {
+  width: 400px;
+  height: 400px;
+}
+
+@media screen and (max-width: $large) {
+  $user-detail-width: 80vw;
+  .user-detail {
+    width: $user-detail-width;
+  }
+}
+
+@media screen and (max-width: $small) {
+  $user-detail-width: 95vw;
+  .user-detail {
+    width: $user-detail-width;
+  }
+}
+

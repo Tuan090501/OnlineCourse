@@ -1,0 +1,396 @@
+* {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+.header {
+    --height: 66px;
+    align-items: center;
+    background-color: #fff;
+    border-bottom: 1px solid #e8ebed;
+    display: flex;
+    font-size: 1.4rem;
+    height: var(--height);
+    left: 0;
+    padding: 0 28px;
+    position: sticky;
+    right: 0;
+    top: 0;
+    z-index: 20;
+}
+
+.header_logo {
+    flex: 1 1;
+    align-items: center;
+    display: flex;
+}
+
+.header_logo a {
+    display: flex;
+}
+
+.header_logo img {
+    border-radius: 8px;
+    flex-shrink: 0;
+    height: 38px;
+    object-fit: contain;
+    width: 38px;
+}
+
+img {
+    border-style: none;
+}
+
+.header_logoHeading {
+    color: #000;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-left: 16px;
+}
+
+.header_body {
+    flex: 1 1;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+div {
+    display: block;
+}
+
+.Search_wrapper {
+    border: 2px solid #e8e8e8;
+    border-radius: 20px;
+    flex: 1 1;
+    height: 40px;
+    padding: 0 16px 0 8px;
+    width: 420px;
+    transition: border-color .2s ease-in-out;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.Search_searchIcon {
+    background-color: #fff;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 18px;
+    border-radius: 50%;
+    height: 32px;
+    opacity: .7;
+    transition: opacity .2s ease-in-out;
+    width: 30px;
+}
+
+.Search_input {
+    border: none;
+    caret-color: #444;
+    flex: 1 1;
+    height: 100%;
+    outline: none;
+    padding: 0 4px;
+}
+
+input {
+    overflow: visible;
+}
+
+.header_action {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    flex: 1 1;
+}
+
+.header_loginBtn {
+    background-color: #f05123;
+    border-radius: 999px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 9px 20px;
+}
+
+// User khi đăng nhập
+button {
+    border: none;
+    box-shadow: none;
+    display: block;
+    outline: none;
+    padding: 0;
+}
+
+.Navbar_myLearn {
+    background-color: transparent;
+    color: #333;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: 16px;
+    padding: 8px;
+}
+
+.Navbar_actionBtn {
+    padding: 8px;
+    position: relative;
+    user-select: none;
+}
+
+.NavBar_action-icon {
+    color: #707070;
+    font-size: 1.2rem;
+}
+
+.NavBar_avatar-wrapper {
+    margin-left: 12px;
+}
+
+.FallbackAvatar_avatar {
+    --font-size: 3.2px;
+    background: transparent;
+    border-radius: 50%;
+    font-size: var(--font-size);
+}
+
+.Navbar_avatar {
+    cursor: pointer;
+}
+
+.FallbackAvatar_avatar img {
+    border-radius: 50%;
+    height: 9em;
+    object-fit: cover;
+    width: 9em;
+}
+
+.tippy-37 {
+    max-width: calc(100vw - 10px);
+}
+
+.Tippy-module_wrapper {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 -4px 32px rgba(0, 0, 0, .2);
+    color: #1d2129;
+    margin: 0;
+    overflow: hidden;
+    padding-left: 0;
+    transition: all .3s ease-in-out;
+}
+
+.MyCourses_wrapper {
+    min-width: 380px;
+    padding-bottom: 12px;
+}
+
+.MyCourses_header {
+    align-items: center;
+    display: flex;
+    padding: 14px 20px 16px;
+}
+
+.MyCourses_heading {
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+.MyCourses_view-all-btn {
+    border-radius: 4px;
+    color: #f05123;
+    font-size: 1rem;
+    margin-left: auto;
+    padding: 8px;
+}
+
+.MyCourses_content {
+    -ms-scroll-chaining: none;
+    max-height: 68vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.MyCourses_course-item {
+    border-radius: 10px;
+    display: flex;
+    margin: 0 8px;
+    padding: 8px 12px;
+    transition: background-color .3s;
+}
+
+.MyCourses_course-thumb {
+    background-color: #ebebeb;
+    border-radius: 8px;
+    display: block;
+    line-height: 67px;
+    min-height: 67px;
+    text-align: center;
+    width: 120px;
+}
+
+.MyCourses_course-info {
+    flex: 1 1;
+    margin-left: 12px;
+}
+
+.MyCourses_course-info {
+    flex: 1 1;
+    margin-left: 12px;
+}
+
+.MyCourses_course-title {
+    font-size: 1rem;
+    margin: 6px 0 0;
+}
+
+.MyCourses_last-completed {
+    color: #666;
+    font-size: .9rem;
+    margin: 4px 0 0;
+}
+
+.Tippy-module_wrapper {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 -4px 32px rgba(0, 0, 0, .2);
+    color: #1d2129;
+    margin: 0;
+    overflow: hidden;
+    padding-left: 0;
+    transition: all .3s ease-in-out;
+    will-change: opacity, transform;
+}
+
+.Search_result {
+    -ms-scroll-chaining: none;
+    color: #0000008a;
+    font-size: 1.4rem;
+    max-height: calc(90vh - 66px);
+    min-height: 50px;
+    min-width: 230px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 12px 24px;
+    width: 400px;
+}
+
+.Search_header {
+    align-items: center;
+    display: flex;
+    padding: 6px 0 0;
+}
+
+.Search_header .Search_icon {
+    margin-right: 8px;
+}
+
+.svg-inline--fa {
+    display: var(--fa-display, inline-block);
+    height: 0.8em;
+    overflow: visible;
+    vertical-align: -0.125em;
+}
+
+.Search_heading {
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    padding: 24px 0 12px;
+}
+
+.Search_heading h5 {
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.Search_searchItem {
+    align-items: center;
+    display: flex;
+    padding: 6px 0;
+}
+
+.FallbackAvatar_avatar {
+    background: transparent;
+    border-radius: 50%;
+    font-size: 3.6px;
+}
+
+.FallbackAvatar_avatar img:not(.FallbackAvatar_crown) {
+    border-radius: 50%;
+    height: 9em;
+    object-fit: cover;
+    width: 9em;
+}
+
+.Search_searchItem span {
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    color: #292929;
+    display: -webkit-box;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-left: 12px;
+    overflow: hidden;
+}
+
+@media only screen and (max-width: 768px) {
+    .header_logo {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header_logoHeading {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        display: none;
+    }
+    .Navbar_myLearn {
+        display: none;
+    }
+    .Search_wrapper {
+        border: none;
+        width: 50px;
+    }
+    .Search_input {
+        display: none;
+    }
+    .sidebarWrap {
+        display: none;
+    }
+    .header_body {
+        margin: 0;
+    }
+    .Search_wrapper {
+        max-width: none;
+    }
+    .header_action {
+        margin-left: auto;
+    }
+    .NavBar_actionBtn {
+        margin-right: 0;
+    }
+    .NavBar_myLearn {
+        display: none;
+    }
+    .NavBar_avatar-wrapper {
+        display: none;
+    }
+    .Search_input {
+        font-size: 0.9rem;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .header_logo {
+        margin-bottom: 1rem;
+    }
+    .Search_input {
+        font-size: 0.8rem;
+    }
+}
