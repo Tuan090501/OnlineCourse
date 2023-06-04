@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UsersController;
 use App\Http\Controllers\Api\JWTAuthController;
 use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\CategoriesController;
+
 
 use App\Models\User;
 
@@ -44,7 +46,14 @@ Route::post('/logout', [JWTAuthController::class,'logout']
     );
 
 
-
+//Route course
 Route::prefix('course')->group(function (){
     Route::get('/',[CourseController::class,'index']);
 });
+
+
+Route::prefix('categories')->group(function () {
+    Route::get('/',[CategoriesController::class,'index']);
+    Route::post('/',[CategoriesController::class,'insert']);
+});
+
