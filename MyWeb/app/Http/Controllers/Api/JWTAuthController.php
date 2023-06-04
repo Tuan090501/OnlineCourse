@@ -20,7 +20,7 @@ class JWTAuthController extends Controller
     public function login(Request $request)
     {
 
-        $credentials = $request->only('user_name', 'password');
+        $credentials = $request->only('email', 'password');
 
         $token=Auth::attempt($credentials);
 
@@ -40,7 +40,6 @@ class JWTAuthController extends Controller
         return response()->json([
                 'status' => 'success',
                 'user' => $user,
-
                 'authorisation' => [
                     'token' => $token,
                     'type' => 'bearer',
@@ -51,18 +50,15 @@ class JWTAuthController extends Controller
 
     }
 
-    public function register(Request $request){
-        $request->validate([
 
-            'user_name' => 'required|string|max:255|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
+
+    public function register(Request $request){
 
         $user = Users::create([
-
             'user_name' => $request->user_name,
             'password' => bcrypt($request->password),
-            'email' => $request->user_name,
+            'email' => $request->email,
+            'role' => $request->role
 
         ]);
 
@@ -81,7 +77,7 @@ class JWTAuthController extends Controller
     public function logout()
     {
          Auth::logout();
-         JWTAuth::invalidate(JWTAuth::getToken());
+
          return response()->json(['message' => 'Successfully logged out']);
     }
 

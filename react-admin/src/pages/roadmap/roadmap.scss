@@ -1,0 +1,147 @@
+.App_withSidebar {
+    display: flex;
+    min-height: 100vh;
+}
+
+.App_withSidebarContent {
+    max-width: calc(100% - 96px);
+    padding: 0 40px 0 20px;
+    flex: 1 1;
+}
+
+.DefaultLayout_container {
+    margin-bottom: 60px;
+    padding: 25px 44px 0;
+}
+
+.DefaultLayout_container-top {
+    margin-bottom: 80px;
+}
+
+.DefaultLayout_heading {
+    color: #242424;
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+
+.LearningPathsList_content {
+    display: flex;
+    margin-top: 24px
+}
+
+.LearningPathItem_wrapper {
+    border: 2px solid #e8e8e8;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    width: 500px;
+}
+
+.LearningPathItem_wrapper+.LearningPathItem_wrapper {
+    margin-left: 24px;
+}
+
+.LearningPathItem_body {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.LearningPathItem_info {
+    flex: 1 1;
+}
+
+.LearningPathItem_title {
+    margin: 0;
+    font-weight: 800;
+}
+
+.LearningPathItem_title a {
+    color: #242424;
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 900;
+    padding-bottom: 14px;
+}
+
+.LearningPathItem_desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.LearningPathItem_thumb-wrap {
+    align-items: center;
+    display: flex;
+    padding-left: 24px;
+}
+
+.LearningPathItem_thumb {
+    border-radius: 50%;
+    height: 98px;
+    object-fit: cover;
+    width: 98px;
+}
+
+.LearningPathItem_thumb-round {
+    align-items: center;
+    border: 5px solid #f05123;
+    border-radius: 50%;
+    display: flex;
+    height: 122px;
+    justify-content: center;
+    overflow: hidden;
+    width: 122px;
+}
+
+.SuggestionBox_wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    overflow: hidden;
+}
+
+.SuggestionBox_info {
+    width: 400px;
+}
+
+.SuggestionBox_info h2 {
+    font-size: 1.4rem;
+    font-weight: 900;
+    line-height: 1.6;
+}
+
+.SuggestionBox_info p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.SuggestionBox_cta {
+    border: 2px solid #292929;
+    border-radius: 999px;
+    color: #292929;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 8px;
+    padding: 10px 16px;
+    text-align: center;
+    transition: .2s ease;
+}
+
+.SuggestionBox_cta:hover {
+    background-color: #292929;
+    color: #fff;
+}
+
+.SuggestionBox_image img{
+    position: relative;
+    right: -44px;
+    width: 420px;
+}
